@@ -1,0 +1,57 @@
+---
+ec2_name_prefix: TRAINING
+ec2_region: us-east-1
+ec2_wait: true
+# need to circle back and fix this for teardown - sean
+ec2_az: "{{ec2_region}}a"
+ec2_subnet: "172.16.0.0/16"
+ec2_subnet2: "172.17.0.0/16"
+ec2_network_vpc2: "172.18.0.0/16"
+ssh_port: 22
+
+## The default is multivendor, 1 x Cisco, 2 x Arista, 1 x Juniper
+##
+##   VPC1       VPC2
+##  (rtr1)  -   (rtr2)
+##    |           |
+##  (rtr3)  -   (rtr4)
+##
+control_type: "rhel8-tower"
+rhel: "rhel8"
+# additional info needed by AWS ec2 modules
+ec2_info:
+  # Look for owner 309956199498 to find official Red Hat AMIs
+  rhel8-tower:
+    owners: 309956199498
+    size: t2.medium
+    os_type: linux
+    disk_space: 20
+    architecture: x86_64
+    filter: 'RHEL-8*HVM-*Hourly*'
+    username: ec2-user
+  rhel8:
+    owners: 309956199498
+    size: t2.micro
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'RHEL-8*HVM-*Hourly*'
+    username: ec2-user
+  rhel7:
+    owners: 309956199498
+    size: t2.micro
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'RHEL-7.7_HVM_GA-20190723-x86_64-1-Access2-GP2'
+    username: ec2-user
+    python_interpreter: '/usr/bin/python'
+  attendance_host:
+    owners: 309956199498
+    size: t2.micro
+    os_type: linux
+    disk_space: 10
+    architecture: x86_64
+    filter: 'RHEL-8*HVM-*Hourly*'
+    username: ec2-user
+debug_teardown: false

@@ -1,0 +1,9 @@
+---
+workshop_dns_zone: "rhdemo.io"
+workshop_type: "sap"
+dns_type: aws
+valid_dns_type:
+  - aws
+  - none
+valid_workshop_types:
+  - sap
