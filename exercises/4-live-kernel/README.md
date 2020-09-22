@@ -310,12 +310,14 @@ Step 4:
 
 Review the details of each node, are the results as expected? Any vulnerability found?
 
-**Hint**: Vulnerabilities were previously fixed on all HANA servers but not on the S4 host.
+**Hint**: Vulnerabilities were previously fixed on all HANA servers but not on the S4 host (sap2vm01).
 
-Challenge Exercise: Reset the lab and add approval step in the workflow
+Challenge Exercise: Add S4 host to list of hosts and add approval step in the workflow
 ======================
 
-In this challenge exercise, you will incorporate Lab 4 - Reset VM node and an approval node in the workflow and re-run. This time add S4 host to the limit to check and potentiall fix any vulnerabilities.
+In this challenge exercise, you will incorporate S4 host into the limit, add an approval node in the workflow and re-run.
+
+This time add S4 host (sap2vm01) to the limit to check and potentially fix any vulnerabilities.
 
 **Hint**: You can either change the limit for both 'Lab 4 - Check Vulnerabilities' and 'Lab 4 - Live Kernel Patch' job templates (i.e. sap2vm* or sap2vm01*:sap2vm02*:sap2vm03*).
 
