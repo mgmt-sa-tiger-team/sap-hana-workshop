@@ -74,7 +74,10 @@ playbook.
 Step 7:
 -------
 
-When the job has successfully completed, you should see which systems are vulnerable (yes/no).
+When the job has successfully completed, you should see which systems are vulnerable:
+
+0: not vulnerable
+1: vulnerable
 
 Validating Smart Inventory
 ======================
@@ -122,19 +125,9 @@ Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 Step 3:
 -------
 
-When prompted, confirm Limit and click **Next**.
-
-Step 4:
--------
-
-Click **LAUNCH**.
-
-Step 5:
--------
-
 When the job has successfully completed, you should see the systems that are patched in the details view:
 
-![Play and Task Output](images/4-job-summary-output-2.png)
+![Play and Task Output](images/4-job-summary-output.png)
 
 Re-checking Vulnerable Systems
 ======================
@@ -149,7 +142,10 @@ Select **TEMPLATES** and re-run **Lab 4 - Check Vulnerabilities**
 Step 2:
 -------
 
-After answering the survey question and running, validate that systems are not vulnerable anymore.
+After answering the survey question and running, validate that systems are not vulnerable anymore:
+
+0: not vulnerable
+1: vulnerable
 
 Step 3:
 -------
@@ -216,63 +212,54 @@ Click PROMPT ![Prompt](images/at_prompt.png)
 Step 8:
 -------
 
-When prompted, select the default limit:
-
-![Survey Prompt](images/4-survey-prompt-0.png)
-
-Select **NEXT** and preview the inputs.
-
-Step 9:
--------
-
 When prompted, select **cve_2019_11135**
 
 ![Survey Prompt](images/4-survey-prompt.png)
 
 Select **NEXT** and preview the inputs.
 
-Step 10:
+Step 9:
 -------
 
 Select CONFIRM ![SurveyC](images/4-survey-confirm.png)
 
-Step 11:
+Step 10:
 --------
 
 Click SELECT ![Select](images/at_select.png)
 
-Step 12:
+Step 11:
 --------
 
 Hover over the newly added **Lab 4 -Check Vulnerabilities box** and click ![PlusW](images/at_wf_plus.png)
 
 ![Add a new job template to canvas](images/4-wf-add-jt-to-canvas.png)
 
-Step 13:
+Step 12:
 --------
 
 In **ADD A NODE** dialog box on the right side of the window, select **Lab 4 - Live Kernel Patch**
 
 ![Add Lab 4 - Live Kernel Patch Job Template](images/4-wf-add-live-kernel-patch-jt.png)
 
-Step 14:
+Step 13:
 --------
 
 Click SELECT ![Select](images/at_select.png)
 
-Step 15:
+Step 14:
 --------
 
 Repeat steps 6-10 and add **Lab 4 - Check Vulnerabilities** again as the 3rd node.
 
 ![Workflow Template](images/4-wf-template-1.png)
 
-Step 16:
+Step 15:
 -------
 
 Select SAVE ![Save](images/at_save.png)
 
-Step 17:
+Step 16:
 -------
 
 Back on the main Workflow Template page, select SAVE
@@ -310,13 +297,9 @@ Step 4:
 
 Review the details of each node, are the results as expected? Any vulnerability found?
 
-**Hint**: Vulnerabilities were previously fixed on all HANA servers but not on the S4 host.
-
 Challenge Exercise: Reset the lab and add approval step in the workflow
 ======================
 
-In this challenge exercise, you will incorporate Lab 4 - Reset VM node and an approval node in the workflow and re-run. This time add S4 host to the limit to check and potentiall fix any vulnerabilities.
-
-**Hint**: You can either change the limit for both 'Lab 4 - Check Vulnerabilities' and 'Lab 4 - Live Kernel Patch' job templates (i.e. sap2vm* or sap2vm01*:sap2vm02*:sap2vm03*).
+In this challenge exercise, you will incorporate Lab 4 - Reset VM node and an approval node in the workflow and re-run.
 
 ![Challenge - Workflow Template](images/4-wf-challenge.png)
