@@ -321,4 +321,14 @@ This time add S4 host (sap2vm01) to the limit to check and potentially fix any v
 
 **Hint**: You can either change the limit for both 'Lab 4 - Check Vulnerabilities' and 'Lab 4 - Live Kernel Patch' job templates (i.e. sap2vm* or sap2vm01*:sap2vm02*:sap2vm03*).
 
+**Hint**: You can add an approval node to the canvas by selecting 'Approval Node' from the drop down as opposed to 'Template'.
+
+
+### Example solution
+<details><summary>Click</summary>
+<p>
+
 ![Challenge - Workflow Template](images/4-wf-challenge.png)
+
+</p>
+</details>

@@ -154,11 +154,6 @@ button become enabled. Click it now.
 This will pop up the **Execute Command** window. From here is where we
 can run a single task against our hosts.
 
-Let’s start with something really basic - pinging a host. The `win_ping`
-module makes sure our windows hosts are responsive. This is not a
-traditional *ping*, but actually verifying both connectivity and
-authentication to the host.
-
 Fill out this form as follows
 
 | Key                | Value           | Note                                                            |
