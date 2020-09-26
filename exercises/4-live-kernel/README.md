@@ -325,7 +325,7 @@ This time add S4 host (sap2vm01) to the limit to check and potentially fix any v
 
 
 ### Example solution
-<details><summary>Click</summary>
+<details><summary>Click here</summary>
 <p>
 
 ![Challenge - Workflow Template](images/4-wf-challenge.png)
