@@ -42,7 +42,8 @@ For your lab environment, there are multiple job templates created that will hel
 Additionally a Workflow template **Lab 1 - Deploy Environment** is provided for a push button deployment of the entire landscape.
 
 
-First, run **Lab 1 - Deploy Environment** workflow template to identify any vulnerable systems.
+First, run **Lab 1 - Deploy Environment** workflow template to deploy new VMs in your environment. VMs will also be
+configured to receive updates from the Satellite server.
 
 Step 1:
 -------
@@ -53,7 +54,7 @@ Step 2:
 -------
 
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
-**ab 1 - Deploy Environment**
+**Lab 1 - Deploy Environment**
 
 Step 3:
 -------
