@@ -7,11 +7,17 @@ ready to configure the HA Cluster environment.
 Overview
 ========
 
-In this lab exercise, you will identify vulnerable systems and automatically apply live kernel patches on your lab instances.
+In this lab exercise, you will identify vulnerable systems and automatically apply live kernel patches on your lab
+instances.
 
-SAP Host preparation is a complex and long task that traditionaly involves multiple teams and expertise to accomplish. There is not a unique document we can follow in order to get the system configured in the way SAP installers are expecting. SAP uses ‘SAP Notes’ to capture all these prerequisites and specific configurations that need to be done prior HANA and NetWeaver software could be installed.
+SAP Host preparation is a complex and long task that traditionally involves multiple teams and expertise to accomplish.
+There is not a unique document we can follow in order to get the system configured in the way SAP installers are
+expecting. SAP uses ‘SAP Notes’ to capture all these prerequisites and specific configurations that need to be done
+prior HANA and NetWeaver software could be installed.
 
-Red Hat and SAP teams provides a set of Ansible roles that greatly simplifies this workflow in a reliable and repeatable way. ‘Red Hat Enterprise Linux System Roles for SAP’ is a collection of Ansible Roles developed by SAP and Ansible experts and supported by Red Hat.
+Red Hat and SAP teams provides a set of Ansible roles that greatly simplifies this workflow in a reliable and repeatable
+way. ‘Red Hat Enterprise Linux System Roles for SAP’ is a collection of Ansible Roles developed by SAP and Ansible
+experts and supported by Red Hat.
 
 For the purposes of this workshop, we broke the deployment into three stages:
 
@@ -53,58 +59,56 @@ Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 Step 3:
 -------
 
-When prompted, in **Other Prompts** tab, enter sap3vm* (make sure you type '*' at the end as this will match multiple VMs)
+When prompted, in **Other Prompts** tab:
 
-Select **NEXT**.
+**Limit:** sap2vm* (make sure you type '*' at the end as this will match multiple VMs)
+
+**vm_prefix:** sap2vm
+
+Select **NEXT** and preview the inputs.
 
 Step 4:
 -------
 
-When prompted, in **Survey** tab, enter sap3vm this time.
-
-Select **NEXT** and preview the inputs.
+Select **LAUNCH**.
 
 Step 5:
 -------
 
-Select LAUNCH.
-
-Step 6:
--------
-
 When the job has successfully completed, you should have all SAP nodes pre-configured.
 
+![Prepare Job Details](images/2-prepare-job-details.png)
 
-Deploy SAP servers
+
+Deploy Deploy HANA servers in HA configuration
 ======================
 
-In this exercise, you will run a job template that will deploy HANA in HA clustered configuration as well as
- S4/HANA application server. The job template includes the following roles:
+In this exercise, you will run a job template that will deploy HANA in HA clustered configuration. The job template
+includes the following roles:
 
-##### - redhat_sap.sap_rhsm (runs on all nodes):
+##### - redhat_sap.sap_rhsm:
 This Ansible role will ensure that Red Hat Enterprise Linux Server nodes are properly registered with the Satellite server.
 It will also ensure that required repositories for 'RHEL for SAP Solutions' are attached to the RHEL hosts. Additionally,
 it will ensure the hosts are registered with Red Hat Insights.
 
-##### - redhat_sap.sap_hostagent (runs all nodes):
+##### - redhat_sap.sap_hostagent:
 This Ansible role will ensure the SAP Host Agent is installed and running on all hosts.
 
-##### - redhat_sap.sap_hana_deployment (on hana nodes):
+##### - redhat_sap.sap_hana_deployment:
 This Ansible role will ensure that SAP HANA is installed on both HANA nodes which will later be configured with HA.
 This role will utilize ansible variables and performs an unattended installation, variables are defined along with the
 Ansible playbook and stored in a source control repository. You can provide credentials and user provided variables from
 Ansible Tower.
 
-##### - redhat_sap.sap_hana_hsr (on hana nodes):
+##### - redhat_sap.sap_hana_hsr:
 This Ansible role will ensure clustering is configured and enabled on HANA nodes.
 
-##### - redhat_sap.sap_hana_ha_pacemaker (on hana nodes):
+##### - redhat_sap.sap_hana_ha_pacemaker:
 This Ansible role will ensure PCS is installed and configured to support underlying clustering at the OS level between
 the HANA nodes. This role requires a Virtual IP(VIP) as an input parameter. In your lab environment this will provided
 as part of the job template as a survey question.
 
-Run **Lab 2 - SAP Deploy** job template to deploy HANA servers in HA clustered configuration and S4/HANA application
-server.
+Run **Lab 2 - Deploy HANA** job template to deploy HANA servers in HA clustered configuration.
 
 Step 1:
 -------
@@ -115,31 +119,111 @@ Step 2:
 -------
 
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
-**Lab 2 - SAP Deploy**
+**Lab 2 - Lab 2 - Deploy HANA**
 
 Step 3:
 -------
 
-When prompted, in **Other Prompts** tab, enter sap3vm* (make sure you type '*' at the end as this will match multiple VMs)
+When prompted, in **Other Prompts** tab:
+
+**Limit:** sap2vm* (make sure you type '*' at the end as this will match multiple VMs)
+
+**vm_prefix:** sap2vm
+
+**sap_password:** <leave default*>
+
+**Note**: In production environment, you want to create a new secure credential and associate the credential in the job
+template so that it never shows up as clear text. For this workshop environment, we leave as a regular variable. For more information on Ansible Tower credential management:
+https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html
 
 Select **NEXT**.
 
 Step 4:
 -------
 
-When prompted, in **Survey** tab, enter sap3vm this time and select a VIP from the list.
+When prompted, in **Survey** tab, select a VIP from the list.
 
 Select **NEXT** and preview the inputs.
 
 Step 5:
 -------
 
-Select LAUNCH.
+Select **LAUNCH**.
 
 Step 6:
 -------
 
-When the job has successfully completed, you should have SAP deployed in your environment.
+When the job has successfully completes, you should have HANA deployed as HA cluster in your environment.
+
+![HANA Job Details](images/2-hana-job-details.png)
 
 
+Deploy S4/HANA
+======================
 
+In this exercise, you will run a job template that will deploy S4/HANA application server. The job template includes the
+following roles:
+
+##### - redhat_sap.sap_rhsm:
+This Ansible role will ensure that Red Hat Enterprise Linux Server nodes are properly registered with the Satellite server.
+It will also ensure that required repositories for 'RHEL for SAP Solutions' are attached to the RHEL hosts. Additionally,
+it will ensure the hosts are registered with Red Hat Insights.
+
+##### - redhat_sap.sap_hostagent:
+This Ansible role will ensure the SAP Host Agent is installed and running on all hosts.
+
+##### - redhat_sap.sap_s4hana_deployment:
+This Ansible role will ensure that S4/HANA is installed and configured with a backend HANA installation from the
+previous lab. This role will utilize ansible variables and performs an unattended installation, variables are defined
+along with the Ansible playbook and stored in a source control repository. You can provide credentials and user provided
+variables from Ansible Tower. This role requires a Virtual IP(VIP) as an input parameter. In your lab environment this will provided
+as part of the job template as a survey question.
+
+Run **Lab 2 - Deploy S4** job template to deploy S4/HANA application server.
+
+Step 1:
+-------
+
+Select **TEMPLATES**
+
+Step 2:
+-------
+
+Click the rocketship icon ![Add](images/at_launch_icon.png) for the
+**Lab 2 - Lab 2 - Deploy S4**
+
+Step 3:
+-------
+
+When prompted, in **Other Prompts** tab:
+
+**Limit:** sap2vm* (make sure you type '*' at the end as this will match multiple VMs)
+
+**vm_prefix:** sap2vm
+
+**sap_password:** <leave default*>
+
+**Note**: In production environment, you want to create a new secure credential and associate the credential in the job
+template so that it never shows up as clear text. For this workshop environment, we leave as a regular variable. For more information on Ansible Tower credential management:
+https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html
+
+Select **NEXT**.
+
+Step 4:
+-------
+
+When prompted, in **Survey** tab, select a VIP from the list.
+
+Select **NEXT** and preview the inputs.
+
+Step 5:
+-------
+
+Select **LAUNCH**.
+
+Step 6:
+-------
+
+When the job has successfully completes, you should have HANA deployed as HA cluster in your environment.
+
+![HANA Job Details](images/2-hana-job-details.png)
