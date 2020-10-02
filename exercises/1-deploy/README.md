@@ -59,14 +59,20 @@ Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 Step 3:
 -------
 
-When prompted, in **Other Prompts** tab, enter sap3vm* (make sure you type '*' at the end as this will match multiple VMs)
+When prompted, in **Other Prompts** tab:
+
+**Limit:** sap3vm* (make sure you type '*' at the end as this will match multiple VMs)
+
+**vm_prefix:** sap3vm
+
+**domain_name:** <leave default>
 
 Select **NEXT**.
 
 Step 4:
 -------
 
-When prompted, in **Survey** tab, enter sap3vm this time.
+When prompted, in **Survey** tab, select a VIP from the list.
 
 Select **NEXT** and preview the inputs.
 
