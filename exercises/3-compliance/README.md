@@ -101,10 +101,22 @@ Once the execution commences we will be taken to a status page for the execution
 ![cloud.redhat.com Home](images/3-insights-advisor-remediation-7.png)
 
 
-In this case we have a failure, we'll get a succesful run before go live.
+We can view the status of the playbook execution here (will need to catch interim navigation screen shots.)
+
+![cloud.redhat.com Home](images/3-insights-advisor-remediation-8a.png)
+
+
+Play book reports success
 
 
 ![cloud.redhat.com Home](images/3-insights-advisor-remediation-8.png)
+
+
+Now the system viewed through Advisor shows no reccomendations
+
+
+![cloud.redhat.com Home](images/3-insights-advisor-remediation-9.png)
+
 
 
 
