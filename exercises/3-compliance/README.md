@@ -19,6 +19,29 @@ Logging into cloud.redhat.com
 =============================
 
 Open a browser and navigate to https://cloud.redhat.com/ and log in with your credentails
+
 ![cloud.redhat.com Home](images/3-lab-cloud-home.png)
+
+Your initial dashboard will look something like this one
+
+![cloud.redhat.com Home](images/3-insights-dashboard.png)
+
+Insights Advisor 
+================
+
+Insights Advisor Provides reccomendations to improve system performance, reliability and security in a number of formats.
+
+The first is simply known as Reccomendations. This view can be sorted and filtered to help you determine what changes you want to make where they are applicable, the rick and criticality and wheter or not the issues can be automatically remediated.
+
+![cloud.redhat.com Home](images/3-insights-advisor-reccomendations-main.png)
+
+Advisor also has a Systems view which allows a different view for going stright to a specific system or group of systems, filtering on partial host names allows you to leverage naming convenstions such as all system with hostnames begining in "sap".
+
+![cloud.redhat.com Home](images/3-insights-advisor-systems.png)
+
+In this example we will focus on our file server which we can find by the first few characters of its hostname.
+
+![cloud.redhat.com Home](images/3-insights-advisor-systems-single-system.png)
+
 
 
