@@ -110,26 +110,17 @@ Compliance
 ----------
 The **Compliance** application provides a convenenient interface to leverage SCAP (Security Content Automation Protocol) to ensure our systems are compliant with various standard and custom policies. 
 1. **Reports** allows us to view audit results
-![cloud.redhat.com Home](images/3-compliance-reports-1.png)
+![cloud.redhat.com Home](images/3-insights-compliance-reports-1.png)
   1. Drilling into a report tile allows us to see which systems are included in the report. Note that we have set a **Compliance threshold** of 90% which allows us to focus on more critically uncompliant systems and report improvement, potentially tightening up thresholds as we progress. Again we can select one of more systems and remediate issues with an Ansilbe playbook.
-  ![cloud.redhat.com Home](images/3-compliance-reports-1.png)
+  ![cloud.redhat.com Home](images/3-insights-compliance-reports-1.png)
 1. **SCAP Policies** allows us to manage our policies.
-![cloud.redhat.com Home](images/3-compliance-policies-1.png)
+![cloud.redhat.com Home](images/3-insights-compliance-policies-1.png)
 1. **Systems** allows us to review systems that have SCAP policies associated with them.
-![cloud.redhat.com Home](images/3-compliance-systems-1.png)
+![cloud.redhat.com Home](images/3-insights-compliance-systems-1.png)
 
 Patch
 -----
 
-
-
-
-
-
-create and edit SCAP (Security Content Automation Protocol) Policies
--
-- 
-  
   
   
 
