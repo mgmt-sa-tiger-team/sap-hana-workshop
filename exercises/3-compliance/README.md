@@ -40,19 +40,12 @@ Advisor
 =======
 
 1. Advisor provides reccomendations to improve system performance, reliability and security in a number of formats.
-  
-  1. The first is simply known as Reccomendations. This view can be sorted and filtered to help you determine what changes you want to make where they are applicable, the rick and criticality and wheter or not the issues can be automatically remediated.
-  
+    1. The first is simply known as Reccomendations. This view can be sorted and filtered to help you determine what changes you want to make where they are applicable, the rick and criticality and wheter or not the issues can be automatically remediated.
   ![cloud.redhat.com Home](images/3-insights-advisor-reccomendations-main.png)
-  
   1. Advisor also has a Systems view which allows a different view for going stright to a specific system or group of systems, filtering on partial host names allows you to leverage naming convenstions such as all system with hostnames begining in "sap".
-  
   ![cloud.redhat.com Home](images/3-insights-advisor-systems.png)
-  
   1. In this example we will focus on our file server which we can find by the first few characters of its hostname.
-  
   ![cloud.redhat.com Home](images/3-insights-advisor-systems-single-system.png)
-  
   1. By clicking on the hostname we can evaluate the reccomendations and make a decision on whetehr to take action either immediately or during a future time such as Change Control Window. In this case we can see that we have five reccomendation two of which can be addressed automatically by Ansible
   
   ![cloud.redhat.com Home](images/3-insights-advisor-reccomendations.png)
