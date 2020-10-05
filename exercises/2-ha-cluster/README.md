@@ -80,7 +80,7 @@ When the job has successfully completed, you should have all SAP nodes pre-confi
 ![Prepare Job Details](images/2-prepare-job-details.png)
 
 
-Deploy Deploy HANA servers in HA configuration
+Deploy HANA servers in HA configuration
 ======================
 
 In this exercise, you will run a job template that will deploy HANA in HA clustered configuration. The job template
