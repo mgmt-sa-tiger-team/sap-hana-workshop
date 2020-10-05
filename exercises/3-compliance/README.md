@@ -27,7 +27,7 @@ Open a browser and navigate to https://cloud.redhat.com/ and log in with your cr
 Your initial dashboard will look something like this one
 
 
-![cloud.redhat.com Home](images/3-insights-dashboard.png)
+![Insights Dashboard](images/3-insights-dashboard.png)
 
 In this view we can see a number of applications provided by Insights. The major features we will examine today are:
 1. Advisor
@@ -42,7 +42,7 @@ Advisor
 -------
 **Advisor** provides reccomendations to improve system performance, reliability and security in a number of formats.
   1. The first is simply known as Reccomendations. This view can be sorted and filtered to help you determine what changes you want to make where they are applicable, the rick and criticality and wheter or not the issues can be automatically remediated.
-  ![cloud.redhat.com Home](images/3-insights-advisor-reccomendations-main.png)
+  ![Insights Advisor Reccomendations Main](images/3-insights-advisor-reccomendations-main.png)
   1. Advisor also has a Systems view which allows a different view for going stright to a specific system or group of systems, filtering on partial host names allows you to leverage naming convenstions such as all system with hostnames begining in **"sap"**.
   ![cloud.redhat.com Home](images/3-insights-advisor-systems.png)
   1. In this example we will focus on our file server which we can find by the first few characters of its hostname.
@@ -128,6 +128,14 @@ The **Patch** application allows viewing all Red Hat errata whether for Security
   1. Clicking on a system name will allow us to sort applicable patches by name, publish date, type and synopsis. We can also select one or more patches and create an Ansilbe playbook to perform remediation.
   ![cloud.redhat.com Home](images/3-insights-patch-systems-2.png)
   
+Drift
+-----
+The **Drift** application allows us to compare two or more systems to eachother or to an established baseline
+![cloud.redhat.com Home](images/3-insights-drift-comparison-1.png)
+1. Clicking the **Add to comparison** button brings up a dialog to allow us to add systems we want to compare. Once all systems are selected we click **Submit**
+![cloud.redhat.com Home](images/3-insights-drift-comparison-2.png)
+1. In this view we can see a comparion of three SAP servers and the fact that there is a great deal of disparity between them.
+![cloud.redhat.com Home](images/3-insights-drift-comparison-2.png)
   
 
   
