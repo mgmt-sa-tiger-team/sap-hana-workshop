@@ -93,6 +93,7 @@ Vulnerability
 -------------
 The Vulnerability application provides a security focussed view of our subscribed systems as well as remediation capabilities for issues using the same capabilities as in Advisor. For Vulnerability and the remaining applications we will walk through, but not remediate, issues. Feel free to explore.
 1. **CVEs** provides a vew of CVEs that affect any of our subscribed systems.
+
   1. The results can be sorted by a number of factors, in the case we sorted by **Severity**
   ![cloud.redhat.com Home](images/3-insights-vulnerability-cve-1.png)
   1. Clicking into the first vulnerability we recieve basic information on the vunlerability, the exposed systems and are able to remediate the issue with an Ansible playbook.
