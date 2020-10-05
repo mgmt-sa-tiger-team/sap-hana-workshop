@@ -66,6 +66,7 @@ Advisor
   1. We can view the status of the playbook execution here (will need to catch interim navigation screen shots.)
   ![cloud.redhat.com Home](images/3-insights-advisor-remediation-8b.png)
   1. We can view the playbook progress
+  ![cloud.redhat.com Home](images/3-insights-advisor-remediation-8c.png)
   1. When execution completes we will be provided with the status
   ![cloud.redhat.com Home](images/3-insights-advisor-remediation-8.png)
   1. Now the system viewed through Advisor shows no reccomendations
