@@ -119,7 +119,7 @@ Step 2:
 -------
 
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
-**Lab 2 - Lab 2 - Deploy HANA**
+**Lab 2 - Deploy HANA**
 
 Step 3:
 -------
