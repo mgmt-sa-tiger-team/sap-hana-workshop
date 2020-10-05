@@ -190,7 +190,7 @@ Step 2:
 -------
 
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
-**Lab 2 - Lab 2 - Deploy S4**
+**Lab 2 - Deploy S4**
 
 Step 3:
 -------
