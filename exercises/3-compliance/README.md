@@ -122,11 +122,11 @@ Patch
 -----
 The **Patch** application allows viewing all Red Hat errata whether for Security, Bugfix  or Enhancement.
 1. The **Advisories** view allows us to seach and sort based on charateristics of the patch
-![cloud.redhat.com Home](images/3-insights-compliance-advisories-1.png)
+![cloud.redhat.com Home](images/3-insights-patch-advisories-1.png)
 1. The **Systems** view allows viewing all subscribed systems which have patches available and sorting on system name, the number of applicable advisories or the last time the system checked in.
-![cloud.redhat.com Home](images/3-insights-compliance-systems-1.png)
+![cloud.redhat.com Home](images/3-insights-patch-systems-1.png)
   1. Clicking on a system name will allow us to sort applicable patches by name, publish date, type and synopsis. We can also select one or more patches and create an Ansilbe playbook to perform remediation.
-  ![cloud.redhat.com Home](images/3-insights-compliance-systems-2.png)
+  ![cloud.redhat.com Home](images/3-insights-patch-systems-2.png)
   
   
 
