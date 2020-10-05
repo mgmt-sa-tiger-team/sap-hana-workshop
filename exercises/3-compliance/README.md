@@ -40,55 +40,39 @@ Advisor
 =======
 
 1. Advisor provides reccomendations to improve system performance, reliability and security in a number of formats.
-
+  
   1. The first is simply known as Reccomendations. This view can be sorted and filtered to help you determine what changes you want to make where they are applicable, the rick and criticality and wheter or not the issues can be automatically remediated.
-
-
-![cloud.redhat.com Home](images/3-insights-advisor-reccomendations-main.png)
-
-
+  
+  ![cloud.redhat.com Home](images/3-insights-advisor-reccomendations-main.png)
+  
   1. Advisor also has a Systems view which allows a different view for going stright to a specific system or group of systems, filtering on partial host names allows you to leverage naming convenstions such as all system with hostnames begining in "sap".
-
-
-![cloud.redhat.com Home](images/3-insights-advisor-systems.png)
-
-
+  
+  ![cloud.redhat.com Home](images/3-insights-advisor-systems.png)
+  
   1. In this example we will focus on our file server which we can find by the first few characters of its hostname.
-
-
-![cloud.redhat.com Home](images/3-insights-advisor-systems-single-system.png)
-
-
+  
+  ![cloud.redhat.com Home](images/3-insights-advisor-systems-single-system.png)
+  
   1. By clicking on the hostname we can evaluate the reccomendations and make a decision on whetehr to take action either immediately or during a future time such as Change Control Window. In this case we can see that we have five reccomendation two of which can be addressed automatically by Ansible
-
-
-![cloud.redhat.com Home](images/3-insights-advisor-reccomendations.png)
-
-
+  
+  ![cloud.redhat.com Home](images/3-insights-advisor-reccomendations.png)
+  
   1. We can select these two items and then click the "Remediate" button
-
-
-![cloud.redhat.com Home](images/3-insights-advisor-remediation-1.png)
-
-
+  
+  ![cloud.redhat.com Home](images/3-insights-advisor-remediation-1.png)
+  
   1. This will take us a to a dialog where we will be prompted to either append to an exsiting Playbook or create a new one. In this case we will create a new Playbook.
-
-
-![cloud.redhat.com Home](images/3-insights-advisor-remediation-2.png)
-
-
+  
+  ![cloud.redhat.com Home](images/3-insights-advisor-remediation-2.png)
+  
   1. Clicking Next takes us to a dialog where we can choose to delay the reboot required for out TCP to a later time but sitll put the fix in place to away the reboot. In this case we will simply move a head with the reboot and proceed to create the playbook.
-
-
-![cloud.redhat.com Home](images/3-insights-advisor-remediation-3.png)
-
-
+  
+  ![cloud.redhat.com Home](images/3-insights-advisor-remediation-3.png)
+  
   1. We will recieve confirmation fo the creation of the playbook and by clicking on the playbook name can go straight on a dialog which allow us to download the playbook for local use or to execute it directly from the Insights interface.
 
-
-![cloud.redhat.com Home](images/3-insights-advisor-remediation-4.png)
-
-
+  ![cloud.redhat.com Home](images/3-insights-advisor-remediation-4.png)
+  
   1. In the next panel we have the dialog which will allow us to execute the playbook as well as a warining that there will be a reboot and the opptortunity to turn off the reboot functionality, again putting the fix in place but delaying the reboot for a future time.
 
 
