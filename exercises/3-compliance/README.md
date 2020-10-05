@@ -40,7 +40,7 @@ Applications
 ============
 Advisor 
 -------
-1. Advisor provides reccomendations to improve system performance, reliability and security in a number of formats.
+**Advisor** provides reccomendations to improve system performance, reliability and security in a number of formats.
   1. The first is simply known as Reccomendations. This view can be sorted and filtered to help you determine what changes you want to make where they are applicable, the rick and criticality and wheter or not the issues can be automatically remediated.
   ![cloud.redhat.com Home](images/3-insights-advisor-reccomendations-main.png)
   1. Advisor also has a Systems view which allows a different view for going stright to a specific system or group of systems, filtering on partial host names allows you to leverage naming convenstions such as all system with hostnames begining in **"sap"**.
