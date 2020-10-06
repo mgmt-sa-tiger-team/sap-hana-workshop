@@ -48,7 +48,9 @@ configured to receive updates from the Satellite server.
 Step 1:
 -------
 
-Select **TEMPLATES**
+Select **TEMPLATES** from the left navigation.
+
+
 
 Step 2:
 -------
@@ -65,7 +67,7 @@ When prompted, in **Other Prompts** tab:
 
 **vm_prefix:** sap3vm
 
-**domain_name:** <leave default>
+**domain_name:** leave default
 
 Select **NEXT**.
 

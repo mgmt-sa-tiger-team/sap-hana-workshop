@@ -7,17 +7,14 @@ ready to configure the HA Cluster environment.
 Overview
 ========
 
-In this lab exercise, you will identify vulnerable systems and automatically apply live kernel patches on your lab
-instances.
-
 SAP Host preparation is a complex and long task that traditionally involves multiple teams and expertise to accomplish.
 There is not a unique document we can follow in order to get the system configured in the way SAP installers are
 expecting. SAP uses ‘SAP Notes’ to capture all these prerequisites and specific configurations that need to be done
 prior HANA and NetWeaver software could be installed.
 
-Red Hat and SAP teams provides a set of Ansible roles that greatly simplifies this workflow in a reliable and repeatable
-way. ‘Red Hat Enterprise Linux System Roles for SAP’ is a collection of Ansible Roles developed by SAP and Ansible
-experts and supported by Red Hat.
+Red Hat and SAP teams provides a set of Ansible roles (reusable automation content) that greatly simplifies this
+workflow in a reliable and repeatable way. ‘Red Hat Enterprise Linux System Roles for SAP’ is a collection of Ansible
+Roles developed by SAP and Ansible experts and supported by Red Hat.
 
 For the purposes of this workshop, we broke the deployment into three stages:
 
@@ -64,6 +61,12 @@ When prompted, in **Other Prompts** tab:
 **Limit:** sap2vm* (make sure you type '*' at the end as this will match multiple VMs)
 
 **vm_prefix:** sap2vm
+
+**sap_password:** <leave default*>
+
+**Note**: In production environment, you want to create a new secure credential and associate the credential in the job
+template so that it never shows up as clear text. For this workshop environment, we leave as a regular variable. For more information on Ansible Tower credential management:
+https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html
 
 Select **NEXT** and preview the inputs.
 
