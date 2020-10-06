@@ -194,3 +194,8 @@ The results should return for all 3 systems:
 **Overall Status: Current**
 
 This validated the environment, feel free to repeat the steps above and experiment further by running additional commands.
+
+Behind the scenes with Satelite
+==============================
+
+Will add a click through of Satellite to lay the ground work for understanding the concepts in Labs 4 & 5.
