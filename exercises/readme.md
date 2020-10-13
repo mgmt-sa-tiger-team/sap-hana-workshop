@@ -27,7 +27,7 @@ SAP HANA Workshop Agenda
 
 -------------------------
 
-9:00 a.m.   The challanged we face together
+9:00 a.m.   The challanges we face together
 
 9:15 a.m.   Solution Overview
 
