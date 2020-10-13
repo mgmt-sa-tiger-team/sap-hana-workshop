@@ -12,9 +12,14 @@ There is not a unique document we can follow in order to get the system configur
 expecting. SAP uses ‘SAP Notes’ to capture all these prerequisites and specific configurations that need to be done
 prior HANA and NetWeaver software could be installed.
 
-Red Hat and SAP teams provides a set of Ansible roles (reusable automation content) that greatly simplifies this
-workflow in a reliable and repeatable way. ‘Red Hat Enterprise Linux System Roles for SAP’ is a collection of Ansible
-Roles developed by SAP and Ansible experts and supported by Red Hat.
+Red Hat Ansible Automation Platform provides a number of specific roles for SAP automation that greatly simplifies this
+workflow in a reliable and repeatable way. Ansible Roles are the primary mechanism for breaking Ansible Playbooks into
+smaller reusable components. Roles provide a framework for fully independent tasks, or independent collections of
+variables, files, templates, and modules. Each role is limited to a particular set of functionality or desired output,
+with all of the necessary steps to provide that result either defined within the role, or in other roles that are listed
+as dependencies.
+
+![Ansible Roles for SAP environments](images/2-ansible-sap-roles.png)
 
 For the purposes of this workshop, we broke the deployment into three stages:
 
