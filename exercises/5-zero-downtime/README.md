@@ -48,10 +48,23 @@ Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 Step 3:
 -------
 
+******Instructions when running in AWS ********
+
 When prompted, select "aws-hana" in **Inventory** tab
 
 Select **NEXT** and preview the inputs
+************************************************
 
+*****Instructions when NOT running in AWS ******
+
+When prompted, in Other Prompts tab:
+
+Limit: sap2vm* (make sure you type '*' at the end as this will match multiple VMs)
+
+vm_prefix: sap2vm
+
+Select NEXT and preview the inputs.
+************************************************
 
 Step 4:
 -------
