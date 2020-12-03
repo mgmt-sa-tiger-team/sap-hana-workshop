@@ -50,7 +50,7 @@ Step 3:
 
 ******Instructions when running in AWS ********
 
-When prompted, select "aws-hana" in **Inventory** tab
+When prompted, select "aws-hana" in Inventory tab
 
 Select **NEXT** and preview the inputs
 ************************************************
