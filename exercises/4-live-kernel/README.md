@@ -184,7 +184,7 @@ Complete the form using the following values (leaving other fields blank):
 |--------------|----------------------------------------------|------|
 | Name         | Lab 4 - Validate and Patch Vulnerabilities   |      |
 | Description  | Template for fixing vulnerabilities          |      |
-| Organization | Default                                      |      |
+| Organization | Infrastructure                                    |      |
 
 
 ![Create Workflow Template](images/4-create-workflow-template.png)
