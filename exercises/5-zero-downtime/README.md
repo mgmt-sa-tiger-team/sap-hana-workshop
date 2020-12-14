@@ -10,7 +10,7 @@ In a real world environment, you can also incorporate any manual steps that may 
 Overview
 ========
 
-In this lab exercise, you will perform OS upgrade on HANA systems without any downtime. During the upgrade application server will be serving connection through the backup server.
+In this lab exercise, you will perform an OS upgrade on HANA systems without any downtime. During the upgrade application server will be serving connection through the backup server.
 
 In the workshop environment, you will perform the OS update as part of a worfklow (pipeline) on production environment.
 In this example you will also promote content on satellite from Development environment to Production. In a real world scenario you can
