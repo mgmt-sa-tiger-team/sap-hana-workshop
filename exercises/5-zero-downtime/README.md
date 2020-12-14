@@ -21,7 +21,7 @@ You will run Rolling update which will be performed o each HANA instance one-at-
 you have HA configured in your environment, it will automatically switch to the other instance. Likewise when it moves 
 to working on the 2nd system, 1st system will be booted up and operational to receive new connections while the 2nd system is being upgraded.
 
-Further reading on this scenario: [Reducting downtime for SAP HANA](https://www.redhat.com/cms/managed-files/pa-sap-hana-reducing-downtime-overview-f22788pr-202004-en.pdf).
+Further reading on this scenario: [Reducing downtime for SAP HANA](https://www.redhat.com/cms/managed-files/pa-sap-hana-reducing-downtime-overview-f22788pr-202004-en.pdf).
 
 Logging into Tower
 ==================
