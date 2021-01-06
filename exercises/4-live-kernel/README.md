@@ -184,7 +184,7 @@ Complete the form using the following values (leaving other fields blank):
 |--------------|----------------------------------------------|------|
 | Name         | Lab 4 - Validate and Patch Vulnerabilities   |      |
 | Description  | Template for fixing vulnerabilities          |      |
-| Organization | Infrastructure                                    |      |
+| Organization | Default                                      |      |
 
 
 ![Create Workflow Template](images/4-create-workflow-template.png)
@@ -216,63 +216,54 @@ Click PROMPT ![Prompt](images/at_prompt.png)
 Step 8:
 -------
 
-When prompted, select the default limit:
-
-![Survey Prompt](images/4-survey-prompt-0.png)
-
-Select **NEXT** and preview the inputs.
-
-Step 9:
--------
-
 When prompted, select **cve_2019_11135**
 
 ![Survey Prompt](images/4-survey-prompt.png)
 
 Select **NEXT** and preview the inputs.
 
-Step 10:
+Step 9:
 -------
 
 Select CONFIRM ![SurveyC](images/4-survey-confirm.png)
 
-Step 11:
+Step 10:
 --------
 
 Click SELECT ![Select](images/at_select.png)
 
-Step 12:
+Step 11:
 --------
 
 Hover over the newly added **Lab 4 -Check Vulnerabilities box** and click ![PlusW](images/at_wf_plus.png)
 
 ![Add a new job template to canvas](images/4-wf-add-jt-to-canvas.png)
 
-Step 13:
+Step 12:
 --------
 
 In **ADD A NODE** dialog box on the right side of the window, select **Lab 4 - Live Kernel Patch**
 
 ![Add Lab 4 - Live Kernel Patch Job Template](images/4-wf-add-live-kernel-patch-jt.png)
 
-Step 14:
+Step 13:
 --------
 
 Click SELECT ![Select](images/at_select.png)
 
-Step 15:
+Step 14:
 --------
 
 Repeat steps 6-10 and add **Lab 4 - Check Vulnerabilities** again as the 3rd node.
 
 ![Workflow Template](images/4-wf-template-1.png)
 
-Step 16:
+Step 15:
 -------
 
 Select SAVE ![Save](images/at_save.png)
 
-Step 17:
+Step 16:
 -------
 
 Back on the main Workflow Template page, select SAVE
@@ -319,7 +310,7 @@ In this challenge exercise, you will incorporate S4 host into the limit, add an 
 
 This time add S4 host (sap2vm01) to the limit to check and potentially fix any vulnerabilities.
 
-**Hint**: You can either change the limit for both 'Lab 4 - Check Vulnerabilities' and 'Lab 4 - Live Kernel Patch' job templates (i.e. sap2vm* or sap2vm01*:sap2vm02*:sap2vm03*).
+**Hint**: You can either change the limit for both 'Lab 4 - Check Vulnerabilities' and 'Lab 4 - Live Kernel Patch' job templates (i.e. tag_role_s4app).
 
 **Hint**: You can add an approval node to the canvas by selecting 'Approval Node' from the drop down as opposed to 'Template'.
 

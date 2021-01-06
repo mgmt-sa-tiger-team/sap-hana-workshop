@@ -70,7 +70,7 @@ it’s running, what the status is, i.e. pending, running, or complete.
 ![Workflow Summary](images/1-wf-summary-details.png)
 
 
-Step 5:
+Step 4:
 -------
 
 When the workflow job has successfully completed, you should have 4 systems in your inventory and ready for further automation.
@@ -99,8 +99,13 @@ Click **GROUPS** tab and select **tag_app_sap_hana_ha_demo**.
 
 Step 4:
 -------
+Click **Hosts** tab.
 
-Review the newly provisioned systems, you can click on one of them and review the variables discovered from AWS dynamically, these variables will be available for any automation as well as via REST API to any external system.
+Step 5:
+-------
+
+Review the newly provisioned systems, you can click on one of them and review the variables discovered from AWS
+dynamically, these variables will be available for any automation as well as via REST API to any external system.
 
 ![Review Host](images/1-inventory-host-1-review.png)
 
@@ -143,9 +148,9 @@ Fill out this form as follows
 | Key                | Value           | Note                                                            |
 |--------------------|-----------------|-----------------------------------------------------------------|
 | Module             | `command`      |                                                                 |
-| Arguments          |                 | subscription-manager status                                           |
+| Arguments          | `subscription-manager status`                | subscription-manager status                                           |
 | Limit              |                 | This will be pre-filled out for you with the hosts you selected |
-| MACHINE CREDENTIAL | *Default*       | aws-sap-hana-workshop-root-user                                                              |
+| MACHINE CREDENTIAL | `aws-sap-hana-workshop-root-user`         | aws-sap-hana-workshop-root-user                                                              |
 
 ![Run Command](images/1-adhoc-run-command.png)
 
@@ -166,7 +171,7 @@ as this.
 
 ![Command Log Details](images/1-adhoc-run-command-output.png)
 
-The results should return for all 3 systems:
+The results should return for all 2 systems:
 
 **Overall Status: Current**
 

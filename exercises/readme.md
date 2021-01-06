@@ -15,7 +15,9 @@ The time required to do the workshops strongly depends on a couple factors: the 
 
 Having said that, the exercises themselves should take roughly 4-5 hours. The accompanying presentation itself adds another hour.
 
-If your experience is different in schedulung these workshops, please let us know and file an issue.
+If your experience is different in scheduling these workshops, please let us know and file an issue.
+
+Unless otherwise noted, all lab exercises should be performed in the order documented for consistent experience.
 
 ## Exercises
 
@@ -29,7 +31,7 @@ SAP HANA Workshop Agenda
 
 -------------------------
 
-9:00 a.m.   The challanges we face together
+9:00 a.m.   The challenges we face together
 
 9:15 a.m.   Solution Overview
 
