@@ -216,4 +216,4 @@ Step 5:
 
 When the job has successfully completes, you should have HANA deployed as HA cluster in your environment.
 
-![HANA Job Details](images/2-hana-job-details.png)
+![HANA Job Details](images/2-s4-job-details.png)
