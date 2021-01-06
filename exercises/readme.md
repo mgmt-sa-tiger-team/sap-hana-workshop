@@ -7,6 +7,8 @@
 The presenter deck is available here:
 [SAP HANA Workshop](../decks/sap_hana_workshop.pdf)
 
+All playbooks for the labs are found in this repository (provisioner)
+
 ## Time planning
 
 The time required to do the workshops strongly depends on a couple factors: the number of participants and how much discussions are done in between.

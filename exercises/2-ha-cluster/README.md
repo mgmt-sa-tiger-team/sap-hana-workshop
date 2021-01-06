@@ -27,7 +27,15 @@ For the purposes of this workshop, we broke the deployment into three stages:
 2. Deploy HANA servers in HA configuration
 3. Deploy S4HANA application server
 
-In a real world scenario, these job templates can be tested by different users and put in a workflow template to run with one-click. You will see examples of how this is accomplished in subsequent lab exercises.
+In a real world scenario, these job templates can be tested by different users and put in a workflow template to run
+with one-click. In your lab environment, a workflow template (Lab 2 - Deploy SAP) is provided to include all three steps
+to deploy SAP.
+
+![Deploy SAP Workflow](images/2-deploy-sap-wf.png)
+
+**You can run this workflow that includes all the required steps to deploy SAP in HA configuration. In that case you can
+review the below steps as the workflow is running. Alternatively, you can run through the steps individually as outlined
+below.**
 
 Preconfigure SAP HANA servers
 ======================
@@ -62,10 +70,6 @@ Step 3:
 -------
 
 When prompted, in **Other Prompts** tab:
-
-**Limit:** sap2vm* (make sure you type '*' at the end as this will match multiple VMs)
-
-**vm_prefix:** sap2vm
 
 **sap_password:** <leave default*>
 
@@ -134,10 +138,6 @@ Step 3:
 
 When prompted, in **Other Prompts** tab:
 
-**Limit:** sap2vm* (make sure you type '*' at the end as this will match multiple VMs)
-
-**vm_prefix:** sap2vm
-
 **sap_password:** <leave default*>
 
 **Note**: In production environment, you want to create a new secure credential and associate the credential in the job
@@ -149,16 +149,9 @@ Select **NEXT**.
 Step 4:
 -------
 
-When prompted, in **Survey** tab, select a VIP from the list.
-
-Select **NEXT** and preview the inputs.
-
-Step 5:
--------
-
 Select **LAUNCH**.
 
-Step 6:
+Step 5:
 -------
 
 When the job has successfully completes, you should have HANA deployed as HA cluster in your environment.
@@ -205,10 +198,6 @@ Step 3:
 
 When prompted, in **Other Prompts** tab:
 
-**Limit:** sap2vm* (make sure you type '*' at the end as this will match multiple VMs)
-
-**vm_prefix:** sap2vm
-
 **sap_password:** <leave default*>
 
 **Note**: In production environment, you want to create a new secure credential and associate the credential in the job
@@ -220,16 +209,9 @@ Select **NEXT**.
 Step 4:
 -------
 
-When prompted, in **Survey** tab, select a VIP from the list.
-
-Select **NEXT** and preview the inputs.
-
-Step 5:
--------
-
 Select **LAUNCH**.
 
-Step 6:
+Step 5:
 -------
 
 When the job has successfully completes, you should have HANA deployed as HA cluster in your environment.

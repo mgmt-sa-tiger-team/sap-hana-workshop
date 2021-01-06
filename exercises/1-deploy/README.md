@@ -35,8 +35,8 @@ Provision New RHEL SAP Environment
 
 For your lab environment, there are multiple job templates created that will help you automate the deployment of a SAP environment:
 
-- Lab 1 - Deploy VM via SAT (deploy multiple VMs in the landscape)
-- Lab 1 - Wait for IP (ensure VMs are fully up and running)
+- Lab 1 - Deploy Instances on AWS (deploy multiple VMs in the landscape)
+- Lab 1 - RHN Register (ensure VMs are registered with Red Hat Satellite)
 - Lab 1 - Initial Setup (attach SAP subscription and other prereqs)
 
 Additionally a Workflow template **Lab 1 - Deploy Environment** is provided for a push button deployment of the entire landscape.
@@ -51,39 +51,14 @@ Step 1:
 Select **TEMPLATES** from the left navigation.
 
 
-
 Step 2:
 -------
 
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 **Lab 1 - Deploy Environment**
 
+
 Step 3:
--------
-
-When prompted, in **Other Prompts** tab:
-
-**Limit:** sap3vm* (make sure you type '*' at the end as this will match multiple VMs)
-
-**vm_prefix:** sap3vm
-
-**domain_name:** leave default
-
-Select **NEXT**.
-
-Step 4:
--------
-
-When prompted, in **Survey** tab, select a VIP from the list.
-
-Select **NEXT** and preview the inputs.
-
-Step 5:
--------
-
-Select LAUNCH ![SurveyL](images/1-survey-launch.png)
-
-Step 6:
 -------
 
 Sit back, watch the magic happen
@@ -95,10 +70,10 @@ it’s running, what the status is, i.e. pending, running, or complete.
 ![Workflow Summary](images/1-wf-summary-details.png)
 
 
-Step 7:
+Step 5:
 -------
 
-When the workflow job has successfully completed, you should have 3 systems in your inventory and ready for further automation.
+When the workflow job has successfully completed, you should have 4 systems in your inventory and ready for further automation.
 
 Validating Inventory
 ======================
@@ -108,24 +83,24 @@ In this section, you will validate the inventory that contains newly provisioned
 Step 1:
 -------
 
-After running the workflow template, results will be now reflected in the inventory **satellite_inventory**.
+After running the workflow template, results will be now reflected in the inventory **aws-hana**.
 
 Navigate to **INVENTORIES**
 
 Step 2:
 -------
 
-Click **satellite_inventory**.
+Click **aws-hana**.
 
 Step 3:
 -------
 
-Click **GROUPS** tab and select **foreman_content_view_rhelsaphanabase**.
+Click **GROUPS** tab and select **tag_app_sap_hana_ha_demo**.
 
 Step 4:
 -------
 
-Review the newly provisioned systems, you can click on one of them and review the variables discovered from Satellite dynamically, these variables will be available for any automation as well as via REST API to any external system.
+Review the newly provisioned systems, you can click on one of them and review the variables discovered from AWS dynamically, these variables will be available for any automation as well as via REST API to any external system.
 
 ![Review Host](images/1-inventory-host-1-review.png)
 
@@ -137,19 +112,19 @@ In this section, you will execute an ad-hoc command on your environment to valid
 Step 1:
 -------
 
-After running the workflow template, results will be now reflected in the inventory **satellite_inventory**.
+After running the workflow template, results will be now reflected in the inventory **aws-hana**.
 
 Navigate to **INVENTORIES**
 
 Step 2:
 -------
 
-Click **satellite_inventory**.
+Click **aws-hana**.
 
 Step 3:
 -------
 
-Click **GROUPS** tab and select **foreman_content_view_rhelsaphanabase**.
+Click **GROUPS** tab and select **tag_role_hana**.
 
 
 Step 4:
@@ -170,7 +145,7 @@ Fill out this form as follows
 | Module             | `command`      |                                                                 |
 | Arguments          |                 | subscription-manager status                                           |
 | Limit              |                 | This will be pre-filled out for you with the hosts you selected |
-| MACHINE CREDENTIAL | *Default*       | Select default credential provided                                                               |
+| MACHINE CREDENTIAL | *Default*       | aws-sap-hana-workshop-root-user                                                              |
 
 ![Run Command](images/1-adhoc-run-command.png)
 
@@ -197,7 +172,7 @@ The results should return for all 3 systems:
 
 This validated the environment, feel free to repeat the steps above and experiment further by running additional commands.
 
-Behind the scenes with Satelite
+Behind the scenes with Satellite
 ==============================
 
 Will add a click through of Satellite to lay the ground work for understanding the concepts in Labs 4 & 5.

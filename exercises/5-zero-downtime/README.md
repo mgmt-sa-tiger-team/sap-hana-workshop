@@ -45,22 +45,6 @@ Step 2:
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 **Lab 5 - Zero Downtime Upgrade**
 
-Step 3:
--------
-
-When prompted, in **Other Prompts** tab:
-
-**Limit:** sap2vm* (make sure you type '*' at the end as this will match multiple VMs)
-
-**vm_prefix:** sap2vm
-
-Select **NEXT** and preview the inputs.
-
-Step 4:
--------
-
-Select LAUNCH.
-
 Here are the high level steps performed in this playbook:
 
 - determine primary/secondary HANA systems
@@ -72,7 +56,7 @@ Here are the high level steps performed in this playbook:
 - perform OS update on the newly demoted secondary and reboot
 - register the newly demoted secondary to the cluster and ensure active replication
 
-Step 5:
+Step 3:
 -------
 
 After the upgrade is finished, you will see the **Lab 5 - Zero Downtime Upgrade** job complete. You can review the
@@ -101,22 +85,6 @@ Click the rocketship icon ![Add](images/at_launch_icon.png) for the
 Step 3:
 -------
 
-When prompted, in **Other Prompts** tab:
-
-**Limit:** sap2vm* (make sure you type '*' at the end as this will match multiple VMs)
-
-**vm_prefix:** sap2vm
-
-Select **NEXT** and preview the inputs.
-
-Step 4:
--------
-
-Select LAUNCH.
-
-Step 5:
--------
-
 There are two branches in the workflow:
 
 **1:** verify: check user experience during the update (ensure connection to database at all times)
@@ -127,10 +95,10 @@ Right-click in each box as it's running and open in a new window to observe both
 
 ![Workflow Job Details](images/5-wf-job-details.png)
 
-Step 5:
+Step 4:
 -------
 
-After the upgrade is finished, you will see the **Lab 5 - Rolling OS Update** job complete.
+After the upgrade is finished, you will see the **Lab 5 - Test Unplanned Outage** job complete.
 
 ![Update Job Details](images/5-update-job-details.png)
 
@@ -147,7 +115,7 @@ Challenge Exercise: Non-rolling Update
 
 Now that you've done the proper way of upgrading your HANA systems with zero-down time, you may be wondering what would happen if you upgrade both HANA systems at the same time? This is clearly not recommended for production environment but if you're upto the challenge and want to see how the environment behaves you can perform this exercise.
 
-In this exercise you will run through the same job template as in the previous challenge exercise **Lab 5 - Rolling Update**. This time you want to run on both HANA systems in parallel.
+In this exercise you will run through the same job template as in the previous challenge exercise **Lab 5 - Test Unplanned Outag**. This time you want to run on both HANA systems in parallel.
 
 **Hint**: Did you notice that we included a variable **job_percentage: 50**, this controls the 'serial' strategy on the rolling update playbook. What value would you need to change this to so that it runs on both (all) HANA systems at the same time?
 

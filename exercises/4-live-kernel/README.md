@@ -158,7 +158,7 @@ Navigate to **INVENTORIES > Lab 4 - RHEL 8 - Vulnerable** and verify that no hos
 
 ![List of Vulnerable Hosts](images/4-inventory-vulnerable-hosts-2.png)
 
-Putting it all together
+Challenge Exercise: Putting it all together
 ======================
 
 Wouldn't it be nice if you could put this all together in a nice Workflow (potentially with an approval step) so that you wouldn't need to run through individual job templates manually.
