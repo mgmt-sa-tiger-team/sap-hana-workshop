@@ -28,14 +28,14 @@ For the purposes of this workshop, we broke the deployment into three stages:
 3. Deploy S4HANA application server
 
 In a real world scenario, these job templates can be tested by different users and put in a workflow template to run
-with one-click. In your lab environment, a workflow template (Lab 2 - Deploy SAP) is provided to include all three steps
+with one-click. In your lab environment, a workflow template **(Lab 2 - Deploy SAP)** is provided to include all three steps
 to deploy SAP.
 
 ![Deploy SAP Workflow](images/2-deploy-sap-wf.png)
 
-**You can run this workflow that includes all the required steps to deploy SAP in HA configuration. In that case you can
+**Note:** You can run this workflow that includes all the required steps to deploy SAP in HA configuration. In that case you can
 review the below steps as the workflow is running. Alternatively, you can run through the steps individually as outlined
-below.**
+below.
 
 Preconfigure SAP HANA servers
 ======================
