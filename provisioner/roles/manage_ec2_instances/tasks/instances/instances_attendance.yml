@@ -18,11 +18,13 @@
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
       Students: "{{ student_total }}"
       short_name: 'attendance-host'
       long_name: "attendance-host.{{ ec2_name_prefix }}.{{ workshop_dns_zone | default('') }}"
       username: "{{ ec2_info['attendance_host']['username'] }}"
+      app: "{{ ec2_name_prefix }}_{{ workshop_type }}"
+      role: 'attendance_host'
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
   register: attendance_output

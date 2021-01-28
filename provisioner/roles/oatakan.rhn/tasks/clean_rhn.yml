@@ -1,0 +1,13 @@
+---
+
+- block:
+
+    - name: clean rhn registration
+      redhat_subscription:
+        state: absent
+
+  rescue:
+
+    - name: unregister rhn if available
+      command: subscription-manager unregister
+      ignore_errors: true

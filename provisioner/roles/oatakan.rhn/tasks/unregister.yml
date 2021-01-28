@@ -1,0 +1,10 @@
+---
+
+- include_tasks: clean_rhn.yml
+  when: not rhn_offline | bool
+
+- name: include offline repo removal
+  include_tasks: rhn_offline_clean.yml
+  when:
+    - rhn_offline | bool
+    - rhn_repo_base_url is defined

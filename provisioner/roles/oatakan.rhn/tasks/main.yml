@@ -1,0 +1,13 @@
+---
+
+- import_tasks: register.yml
+  when:
+    - role_action == 'register'
+    - ansible_distribution is defined
+    - ansible_distribution == 'RedHat'
+
+- import_tasks: unregister.yml
+  when:
+    - role_action == 'unregister'
+    - ansible_distribution is defined
+    - ansible_distribution == 'RedHat'

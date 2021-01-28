@@ -1,0 +1,9 @@
+---
+# Import config
+- name: Import all tower assets
+  awx.awx.tower_import:
+    tower_host: "{{ username }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+    tower_username: admin
+    tower_password: "{{ admin_password }}"
+    validate_certs: no
+    assets: "{{ lookup('file', 'tower_config_sap.yml') | from_yaml() }}"

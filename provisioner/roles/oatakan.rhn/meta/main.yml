@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  author: Orcun Atakan
+  description: Ansible galaxy role for registering with Red Hat Network.
+  role_name: rhn
+  company: Red Hat
+
+  license: MIT
+
+  min_ansible_version: 2.5
+
+  platforms:
+    - name: EL
+      versions:
+        - all
+
+  cloud_platforms:
+    - vmware
+
+  galaxy_tags:
+    - rhel
+    - vmware
+    - cloud
+    - multicloud
+    - template
+    - rhn
+
+dependencies: []

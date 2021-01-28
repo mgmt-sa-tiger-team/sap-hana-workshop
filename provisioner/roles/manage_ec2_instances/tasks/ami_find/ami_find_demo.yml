@@ -1,0 +1,4 @@
+---
+## all your base are belong to us
+- name: rhel workshop
+  include_tasks: ami_find_rhel.yml

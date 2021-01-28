@@ -1,5 +1,144 @@
 ---
-- name: Create EC2 instances for node1
+
+- set_fact:
+    async_timeout_seconds: "{{ student_total * 60 }}"
+    async_wait_for_retries: "{{ student_total * 10 }}"
+
+- name: Create EC2 instances for hana1
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['hana'].size }}"
+    image: "{{ hana_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_node1: "{{ ec2_name_prefix }}-hana1"
+    instance_tags:
+      Workshop_node1: "{{ ec2_name_prefix }}-hana1"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
+      Students: "{{ student_total }}"
+      short_name: "hana1"
+      username: "{{ ec2_info['hana'].username }}"
+      app: "{{ ec2_name_prefix }}_{{ workshop_type }}"
+      role: 'hana'
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes: "{{ ec2_info['hana'].volumes }}"
+  register: hana1_output
+
+- name: Ensure tags are present for hana1
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-hana1"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ hana1_output.instances }}"
+  when: hana1_output.instance_ids is not none
+
+- name: Create EC2 instances for hana2
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['hana'].size }}"
+    image: "{{ hana_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_node2: "{{ ec2_name_prefix }}-hana2"
+    instance_tags:
+      Workshop_node2: "{{ ec2_name_prefix }}-hana2"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
+      Students: "{{ student_total }}"
+      short_name: "hana2"
+      username: "{{ ec2_info['hana'].username }}"
+      app: "{{ ec2_name_prefix }}_{{ workshop_type }}"
+      role: 'hana'
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes: "{{ ec2_info['hana'].volumes }}"
+  register: hana2_output
+
+- name: Ensure tags are present for hana2
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-hana2"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ hana2_output.instances }}"
+  when: hana2_output.instance_ids is not none
+
+- name: Create EC2 instances for s4app
+  ec2:
+    assign_public_ip: true
+    key_name: "{{ ec2_name_prefix }}-key"
+    group: "{{ ec2_security_group }}"
+    instance_type: "{{ ec2_info['s4app'].size }}"
+    image: "{{ s4app_ami.image_id }}"
+    region: "{{ ec2_region }}"
+    exact_count: "{{ student_total }}"
+    count_tag:
+      Workshop_node3: "{{ ec2_name_prefix }}-s4app"
+    instance_tags:
+      Workshop_node3: "{{ ec2_name_prefix }}-s4app"
+      Workshop: "{{ ec2_name_prefix }}"
+      uuid: "{{ ec2_name_prefix }}"
+      guid: "{{ ec2_name_prefix }}"
+      Workshop_type: "{{ workshop_type }}"
+      AWS_USERNAME: "{{ aws_user }}"
+      Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
+      Students: "{{ student_total }}"
+      short_name: "s4app"
+      username: "{{ ec2_info['s4app'].username }}"
+      app: "{{ ec2_name_prefix }}_{{ workshop_type }}"
+      role: 's4app'
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    volumes: "{{ ec2_info['s4app'].volumes }}"
+  register: s4hana_output
+
+- name: Ensure tags are present for s4app
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ item.1.id }}"
+    state: present
+    tags:
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-s4app"
+      Index: "{{ item[0] }}"
+      Student: "student{{ item.0 + 1 }}"
+      launch_time: "{{ item.1.launch_time }}"
+  with_indexed_items:
+    - "{{ s4hana_output.instances }}"
+  when: s4hana_output.instance_ids is not none
+
+# Create isolated/remote node for Adv Tower lab when cluster install
+
+- name: Create EC2 instances for isonode
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
@@ -9,17 +148,19 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_node1: "{{ ec2_name_prefix }}-node1"
+      Workshop_isonode: "{{ ec2_name_prefix }}-isonode"
     instance_tags:
-      Workshop_node1: "{{ ec2_name_prefix }}-node1"
+      Workshop_isonode: "{{ ec2_name_prefix }}-isonode"
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
       Students: "{{ student_total }}"
-      short_name: "node1"
+      short_name: "isonode"
       username: "{{ ec2_info[rhel].username }}"
+      app: "{{ ec2_name_prefix }}_{{ workshop_type }}"
+      role: 'control_isonode'
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -27,23 +168,24 @@
         volume_type: gp2
         volume_size: "{{ ec2_info[rhel].disk_space }}"
         delete_on_termination: true
-  register: node1_output
+  register: isonode_output
+  when: create_cluster|bool
 
-- name: Ensure tags are present for node1
+- name: Ensure tags are present for isonode
   ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node1"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-isonode"
       Index: "{{ item[0] }}"
       Student: "student{{ item.0 + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
-    - "{{ node1_output.instances }}"
-  when: node1_output.instance_ids is not none
+    - "{{ isonode_output.instances }}"
+  when: isonode_output.instance_ids is not none and create_cluster|bool
 
-- name: Create EC2 instances for node2
+- name: Create EC2 instances for remotenode
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
@@ -53,17 +195,19 @@
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
     count_tag:
-      Workshop_node2: "{{ ec2_name_prefix }}-node2"
+      Workshop_remotenode: "{{ ec2_name_prefix }}-remotenode"
     instance_tags:
-      Workshop_node2: "{{ ec2_name_prefix }}-node2"
+      Workshop_remotenode: "{{ ec2_name_prefix }}-remotenode"
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
       Students: "{{ student_total }}"
-      short_name: "node2"
+      short_name: "remotenode"
       username: "{{ ec2_info[rhel].username }}"
+      app: "{{ ec2_name_prefix }}_{{ workshop_type }}"
+      role: 'control_remotenode'
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
     volumes:
@@ -71,62 +215,122 @@
         volume_type: gp2
         volume_size: "{{ ec2_info[rhel].disk_space }}"
         delete_on_termination: true
-  register: node2_output
+  register: remotenode_output
+  when: create_cluster|bool
 
-- name: Ensure tags are present for node2
+- name: Ensure tags are present for remotenode
   ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node2"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-remotenode"
       Index: "{{ item[0] }}"
       Student: "student{{ item.0 + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
-    - "{{ node2_output.instances }}"
-  when: node2_output.instance_ids is not none
+    - "{{ remotenode_output.instances }}"
+  when: remotenode_output.instance_ids is not none and create_cluster|bool
 
-- name: Create EC2 instances for node3
+- name: Create EC2 instances for Windows Workstation
   ec2:
     assign_public_ip: true
     key_name: "{{ ec2_name_prefix }}-key"
     group: "{{ ec2_security_group }}"
-    instance_type: "{{ ec2_info[rhel].size }}"
-    image: "{{ node_ami.image_id }}"
+    instance_type: "{{ec2_info.windows_ws.size }}"
+    image: "{{ec2_info.windows_ws.ami.image_id}}"
     region: "{{ ec2_region }}"
     exact_count: "{{ student_total }}"
+    user_data: "{{ lookup('template', 'windows_userdata.txt.j2') }}"
     count_tag:
-      Workshop_node3: "{{ ec2_name_prefix }}-node3"
+      Workshop_windows: "{{ ec2_name_prefix }}-windows"
     instance_tags:
-      Workshop_node3: "{{ ec2_name_prefix }}-node3"
+      Workshop_windows: "{{ ec2_name_prefix }}-windows"
       Workshop: "{{ ec2_name_prefix }}"
       Workshop_type: "{{ workshop_type }}"
       AWS_USERNAME: "{{ aws_user }}"
       Info: "AWS_USERNAME that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
       Students: "{{ student_total }}"
-      short_name: "node3"
-      username: "{{ ec2_info[rhel].username }}"
+      short_name: "windows_ws"
+      username: "{{ ec2_info.windows_ws.username }}"
+      app: "{{ ec2_name_prefix }}_{{ workshop_type }}"
+      role: 'windows_ws'
     wait: "{{ ec2_wait }}"
     vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-    volumes:
-      - device_name: /dev/sda1
-        volume_type: gp2
-        volume_size: "{{ ec2_info[rhel].disk_space }}"
-        delete_on_termination: true
-  register: node3_output
+  register: windows_ws_output
 
-- name: Ensure tags are present for node3
+- name: Ensure tags are present for Windows Workstation
   ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ item.1.id }}"
     state: present
     tags:
-      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-node3"
+      Name: "{{ ec2_name_prefix }}-student{{ item.0 + 1 }}-windows"
       Index: "{{ item[0] }}"
       Student: "student{{ item.0 + 1 }}"
       launch_time: "{{ item.1.launch_time }}"
   with_indexed_items:
-    - "{{ node3_output.instances }}"
-  when: node3_output.instance_ids is not none
+    - "{{ windows_ws_output.instances }}"
+
+
+# VIP max number is 154 as we start from .100
+# improve this
+- block:
+    - name: Create Subnet1 ENI async for VIP and attach to hana2
+      ec2_eni:
+        instance_id: "{{ hana2_output.instances[item].id }}"
+        device_index: 1
+        subnet_id: '{{ ec2_vpc_subnet_id }}'
+        security_groups:
+          - '{{ ec2_security_group }}'
+        state: present
+        region: '{{ ec2_region }}'
+        delete_on_termination: true
+        private_ip_address: "{{ ec2_subnet.split('.').0 + '.' + ec2_subnet.split('.').1 + '.' + ec2_subnet.split('.').2 + '.' + (100+item)|string }}"
+      loop: '{{ range(0, student_total) | list }}'
+      async: "{{ async_timeout_seconds }}"
+      poll: 0
+      register: ec2_subnet1_eni_vip_async
+
+    - name: Wait for async 1st net iface creation to complete (vip)
+      async_status:
+        jid: "{{ item['ansible_job_id'] }}"
+      register: wait_eni1_creation_vip
+      when: "'ansible_job_id' in item"
+      until: wait_eni1_creation_vip.finished
+      retries: "{{ async_wait_for_retries }}"
+      loop: "{{ ec2_subnet1_eni_vip_async.results }}"
+
+    - name: Ensure Subnet1 ENI tag async for VIP
+      ec2_tag:
+        region: "{{ ec2_region }}"
+        resource: "{{ item[1]['interface']['id'] }}"
+        state: present
+        tags:
+          Name: "{{ ec2_name_prefix }}-student{{item[0] + 1}}-vip"
+          Username: "{{ aws_user }}"
+          Info: "Username that provisioned this-> {{ aws_user }}"
+          Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
+          Students: "{{student_total}}"
+          Subnet: '{{ ec2_name_prefix }}-subnet1'
+          Workshop: "{{ec2_name_prefix}}"
+          Index: "{{ item[0] }}"
+          Student: "student{{ item.0 + 1 }}"
+      when: "(item|length > 1) and ('interface' in item[1])"
+      with_indexed_items:
+        - "{{ wait_eni1_creation_vip.results }}"
+      async: "{{ async_timeout_seconds }}"
+      poll: 0
+      register: ec2_subnet1_eni_tags_vip_async
+
+    - name: Wait for async tag creation to complete (vip)
+      async_status:
+        jid: "{{ item['ansible_job_id'] }}"
+      register: wait_for_eni_vip_tag_creation
+      when: "'ansible_job_id' in item"
+      until: wait_for_eni_vip_tag_creation.finished
+      retries: "{{ async_wait_for_retries }}"
+      loop: "{{ wait_eni1_creation_vip.results }}"
+
+  when: hana2_output.instance_ids is not none

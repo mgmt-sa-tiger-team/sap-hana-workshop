@@ -1,27 +1,60 @@
 ---
-- name: grab facts for node1 node
+- name: grab facts for hana1 node
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
-  register: node1_node_facts
+      "tag:Workshop_node1": "{{ec2_name_prefix}}-hana1"
+  register: hana1_node_facts
 
-- name: grab facts for node2 node
+- name: grab facts for hana2 node
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
-  register: node2_node_facts
+      "tag:Workshop_node2": "{{ec2_name_prefix}}-hana2"
+  register: hana2_node_facts
 
-- name: grab facts for node3 node
+- name: grab facts for s4app node
   ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
-      "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
-  register: node3_node_facts
+      "tag:Workshop_node3": "{{ec2_name_prefix}}-s4app"
+  register: s4app_node_facts
+
+- name: grab facts for isonode
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_isonode": "{{ec2_name_prefix}}-isonode"
+  register: isonode_node_facts
+  when: create_cluster|bool
+
+- name: grab facts for remotenode node
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_remotenode": "{{ec2_name_prefix}}-remotenode"
+  register: remotenode_node_facts
+  when: create_cluster|bool
+
+- name: grab facts for Windows workstation
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_windows": "{{ec2_name_prefix}}-windows"
+  register: windows_node_facts
+
+- name: grab facts for eni vip
+  ec2_eni_info:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Subnet": '{{ ec2_name_prefix }}-subnet1'
+  register: vip_eni_info
 
 - name: add hosts to groups (ANSIBLE RHEL MODE)
   add_host:
@@ -32,9 +65,47 @@
     ansible_user: "{{ item.tags.username }}"
     ansible_port: "{{ ssh_port }}"
     ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    role: "{{ item.tags.role | default('') }}"
+    groups: lab_hosts,managed_nodes,sap_nodes
+  with_items:
+    - "{{ hana1_node_facts.instances }}"
+    - "{{ hana2_node_facts.instances }}"
+    - "{{ s4app_node_facts.instances }}"
+  changed_when: false
+
+- name: add nodes for cluster lab to groups (ANSIBLE RHEL MODE)
+  add_host:
+    name: "{{ item.tags.Name }}"
+    username: "{{ item.tags.Student }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: "{{ item.tags.username }}"
+    ansible_port: "{{ ssh_port }}"
+    ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+    private_ip: "{{item.private_ip_address}}"
+    role: "{{ item.tags.role | default('') }}"
     groups: lab_hosts,managed_nodes
   with_items:
-    - "{{ node1_node_facts.instances }}"
-    - "{{ node2_node_facts.instances }}"
-    - "{{ node3_node_facts.instances }}"
-  changed_when: false
+    - "{{ isonode_node_facts.instances }}"
+    - "{{ remotenode_node_facts.instances }}"
+  # changed_when: false
+  when: create_cluster|bool
+
+- name: add WINDOWS WORKSTATION TO inventory
+  add_host:
+    name: "{{ item.tags.Name }}"
+    short_name: "{{ item.tags.short_name }}"
+    ansible_host: "{{ item.public_ip_address }}"
+    ansible_user: Administrator
+    ansible_password: "{{ windows_password | default(admin_password) }}"
+    ansible_port: 5986
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+    username: "{{ item.tags.Student }}"
+    private_ip: "{{item.private_ip_address}}"
+    role: "{{ item.tags.role | default('') }}"
+    groups:
+      - windows
+      - workstation
+  loop: "{{ windows_node_facts.instances|flatten(levels=1) }}"

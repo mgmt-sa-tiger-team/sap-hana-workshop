@@ -32,16 +32,29 @@
           - "You must have a valid route53 zone configured for workshop_dns_zone"
           - "Right now the workshop_dns_zone is {{workshop_dns_zone}}"
   when:
-    - create_login_page is defined
-    - create_login_page|bool
+    - dns_type == "aws"
 
 - name: FIND AZ ZONE FOR REGION {{ec2_region}}
   aws_az_info:
     region: "{{ec2_region}}"
   register: az_names
 
+- name: Remove any AZs in the aws_az_deny_list when defined
+  set_fact:
+    availability_zones: >-
+      {{ az_names.availability_zones | json_query(__filter_query) }}
+  vars:
+    __filter_query: >-
+      [?!contains(`{{ (aws_az_deny_list | default([])) | to_json }}`, zone_name)]
+
+- name: Output AWS Availability Zones (AZs)
+  debug:
+    var: availability_zones
+    verbosity: 2
+
 - name: SET AZ ZONE TO FIRST AVAILABLE
-  set_fact: ec2_az={{ az_names.availability_zones[0].zone_name }}
+  set_fact:
+    ec2_az: "{{ availability_zones[0].zone_name }}"
 
 - name: grab information about AWS user
   aws_caller_info:

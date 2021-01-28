@@ -1,0 +1,18 @@
+---
+
+role_action: register
+
+rhn_force_register: yes
+
+rhn_offline: no
+
+rhel_7_repo_channels:
+  - rhel-7-server-rpms
+  - rhel-7-server-rh-common-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-aus-optional-rpms
+
+rhel_8_repo_channels:
+  - rhel-8-for-x86_64-baseos-rpms
+  - rhel-8-for-x86_64-supplementary-rpms
+  - rhel-8-for-x86_64-appstream-rpms

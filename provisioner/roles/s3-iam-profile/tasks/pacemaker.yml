@@ -1,0 +1,27 @@
+---
+
+- name: create a role
+  iam_role:
+    name: pacemaker_role_{{ aws_storage_bucket_name | replace('-', '_') }}
+    assume_role_policy_document: "{{ lookup('file','role.json') }}"
+    description: role for pacemaker
+
+- name: create policies and attach to role
+  iam_policy:
+    iam_type: role
+    iam_name: pacemaker_role_{{ item }}
+    policy_name: "pacemaker_{{ item }}"
+    policy_json: "{{ lookup('template',(item + '-policy.json')) }}"
+    state: present
+  loop:
+    - dataprovider
+    - overlayipagent
+    - stonith
+
+- name: set IAM ROLE for pacemaker
+  ec2_instance:
+    region: "{{ ec2_region }}"
+    instance_ids:
+      - "{{ item }}"
+    instance_role: "pacemaker_role_{{ item }}"
+  loop: "{{ ec2_instances.instances | map(attribute='instance_id') | list }}"

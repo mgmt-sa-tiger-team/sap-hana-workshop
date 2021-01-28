@@ -1,0 +1,30 @@
+{
+    "Version": "2012-10-17",
+     "Statement": [
+        {
+            "Sid": "Stmt1424870324000",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceAttribute",
+                "ec2:DescribeTags"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Stmt1424870324001",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:ModifyInstanceAttribute",
+                "ec2:RebootInstances",
+                "ec2:StartInstances",
+                "ec2:StopInstances"
+            ],
+            "Resource": [
+{% for instance_id in (ec2_instances.instances | map(attribute='instance_id') | list) %}
+                "arn:aws:ec2:{{ ec2_region }}:{{ current_account }}:instance/{{ instance_id }}"{{ "," if not loop.last else "" }}
+{% endfor %}
+            ]
+        }
+    ]
+}

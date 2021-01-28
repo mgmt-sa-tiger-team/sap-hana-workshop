@@ -1,0 +1,27 @@
+{
+    "Version": "2012-10-17",
+     "Statement": [
+        {
+            "Sid": "Stmt1424870324000",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceAttribute",
+                "ec2:DescribeTags",
+                "ec2:DescribeRouteTables"
+
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Stmt1424860166260",
+            "Action": [
+                "ec2:CreateRoute",
+                "ec2:DeleteRoute",
+                "ec2:ReplaceRoute"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:ec2:{{ ec2_region }}:{{ current_account }}:route-table/{{ route_table_id }}"
+        }
+    ]
+}

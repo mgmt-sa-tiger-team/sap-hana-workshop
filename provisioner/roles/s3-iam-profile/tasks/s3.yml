@@ -1,0 +1,23 @@
+---
+
+- name: create a role
+  iam_role:
+    name: s3_role_{{ aws_storage_bucket_name | replace('-', '_') }}
+    assume_role_policy_document: "{{ lookup('file','role.json') }}"
+    description: role for s3 bucket {{ aws_storage_bucket_name }}
+
+- name: create an s3 policy and attach to role
+  iam_policy:
+    iam_type: role
+    iam_name: s3_role_{{ aws_storage_bucket_name | replace('-', '_') }}
+    policy_name: "s3_limited_access_{{ aws_storage_bucket_name | replace('-', '_') }}"
+    policy_json: "{{ lookup('template','s3-policy.json') }}"
+    state: present
+
+- name: set IAM ROLE for s3
+  ec2_instance:
+    region: "{{ ec2_region }}"
+    instance_ids:
+      - "{{ item }}"
+    instance_role: "s3_role_{{ aws_storage_bucket_name | replace('-', '_') }}"
+  loop: "{{ ec2_instances.instances | map(attribute='instance_id') | list }}"

@@ -1,0 +1,15 @@
+---
+
+- name: include rhn subscription tasks
+  include_tasks: rhn.yml
+  when: not rhn_offline | bool
+
+- name: include offline repos
+  include_tasks: rhn_offline.yml
+  when:
+    - rhn_offline | bool
+    - rhn_repo_base_url is defined
+
+- name: include ntp tasks
+  include_tasks: ntp.yml
+  when: ansible_distribution_major_version|int < 8

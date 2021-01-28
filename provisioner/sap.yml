@@ -1,0 +1,103 @@
+---
+- name: configure sap workshop
+  hosts: sap_nodes
+  become: true
+  gather_facts: false
+  tasks:
+    - name: enable root login
+      replace:
+        path: /root/.ssh/authorized_keys
+        regexp: '(.*)(ssh-rsa .*)$'
+        replace: '\2'
+      changed_when: no
+
+- name: RHN register
+  hosts: sap_nodes
+  become: true
+  vars:
+    activation_keys:
+      s4app: SAP S4 Server
+      hana: SAP HANA Server
+
+  pre_tasks:
+
+    - name: set repos
+      set_fact:
+        repo_channels:
+          - rhel-8-for-x86_64-baseos-rpms
+          - rhel-8-for-x86_64-appstream-rpms
+          - rhel-8-for-x86_64-sap-solutions-rpms
+          - rhel-8-for-x86_64-sap-netweaver-rpms
+          - ansible-2-for-rhel-8-x86_64-rpms
+      when: ansible_os_family == 'RedHat' and ansible_distribution_major_version|int == 8
+
+  tasks:
+    - block:
+        - include_role:
+            name: oatakan.rhn
+
+      rescue:
+        - include_role:
+            name: oatakan.rhn
+          vars:
+            role_action: unregister
+      when: satellite_host is undefined
+
+    - block:
+        - name: install satellite ca cert
+          yum:
+            name: http://{{ satellite_host }}/pub/katello-ca-consumer-latest.noarch.rpm
+            disable_gpg_check: yes
+            state: present
+
+        - name: set role to hana
+          set_fact:
+            role: hana
+          when:
+            - ('hana' in inventory_hostname)
+            - role is undefined or role == ''
+
+        - name: set role to s4app
+          set_fact:
+            role: s4app
+          when:
+            - ('s4app' in inventory_hostname)
+            - role is undefined or role == ''
+
+        - debug:
+            msg: "role: {{ role }}"
+
+        - name: subscribe to satellite using activation key
+          redhat_subscription:
+            state: present
+            server_hostname: "{{ satellite_host }}"
+            server_insecure: yes
+            activationkey: "{{ activation_keys[role] | default('SAP HANA Server') }}"
+            org_id: "{{ satellite_org_id | default('Red_Hat') }}"
+            auto_attach: true
+
+        - name: remove RHUI redhat-rhui-client-config repos
+          yum_repository:
+            name: "{{ item }}"
+            file: redhat-rhui-client-config
+            state: absent
+          loop:
+            - rhui-client-config-server-8
+
+        - name: remove RHUI redhat-rhui repos
+          yum_repository:
+            name: "{{ item }}"
+            file: redhat-rhui
+            state: absent
+          loop:
+            - rhui-rhel-8-appstream-rhui-debug-rpms
+            - rhui-rhel-8-appstream-rhui-rpms
+            - rhui-rhel-8-appstream-rhui-source-rpms
+            - rhui-rhel-8-baseos-rhui-debug-rpms
+            - rhui-rhel-8-baseos-rhui-rpms
+            - rhui-rhel-8-baseos-rhui-source-rpms
+            - rhui-codeready-builder-for-rhel-8-rhui-debug-rpms
+            - rhui-codeready-builder-for-rhel-8-rhui-rpms
+            - rhui-codeready-builder-for-rhel-8-rhui-source-rpms
+
+      when: satellite_host is defined

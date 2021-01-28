@@ -4,27 +4,47 @@ ansible_ssh_pass={{ admin_password }}
 {% if ssh_port is defined %}
 ansible_port={{ ssh_port }}
 {% endif %}
-
-[web]
-{% for vm in node1_node_facts.instances %}
-{% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }}
-{% endif %}
-{% endfor %}
-{% for vm in node2_node_facts.instances %}
-{% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }}
-{% endif %}
-{% endfor %}
-{% for vm in node3_node_facts.instances %}
-{% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }}
+{% for vip in vip_eni_info.network_interfaces %}
+{% if 'student' + item == vip.tag_set.student %}
+sap_hana_ha_pacemaker_vip="{{ vip.private_ip_address }}"
+sap_hana_vip="{{ vip.private_ip_address }}"
+sap_hana_vip_cidr="{{ ec2_subnet }}"
 {% endif %}
 {% endfor %}
 
 [control]
 {% for vm in ansible_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-{{ vm.tags.short_name }} ansible_host={{ vm.public_ip_address }}
+ansible ansible_host={{ vm.public_ip_address }} private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
 {% endif %}
 {% endfor %}
+
+[tag_role_hana]
+{% for vm in hana1_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+hana1 ansible_host={{ vm.public_ip_address }} ansible_user=root private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
+{% endif %}
+{% endfor %}
+{% for vm in hana2_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+hana2 ansible_host={{ vm.public_ip_address }} ansible_user=root private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
+{% endif %}
+{% endfor %}
+
+[tag_role_s4app]
+{% for vm in s4app_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+s4app ansible_host={{ vm.public_ip_address }} ansible_user=root private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
+{% endif %}
+{% endfor %}
+
+[tag_role_sapgui]
+{% for vm in windows_node_facts.instances %}
+{% if 'student' + item == vm.tags.Student %}
+windows-ws ansible_host={{ vm.public_ip_address }} ansible_user={{ vm.tags.username }} ansible_pass={{ windows_password | default(admin_password) }} ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
+{% endif %}
+{% endfor %}
+
+[tag_app_sap_hana_ha_demo:children]
+tag_role_hana
+tag_role_s4app

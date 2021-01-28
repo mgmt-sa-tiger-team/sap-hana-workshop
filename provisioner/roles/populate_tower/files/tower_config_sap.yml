@@ -1,0 +1,877 @@
+inventory:
+- description: ''
+  host_filter: ansible_facts__ansible_distribution="RedHat" and ansible_facts__ansible_distribution_release="Ootpa"
+  insights_credential: null
+  kind: smart
+  name: Lab 4 - RHEL 8
+  natural_key:
+    name: Lab 4 - RHEL 8
+    organization: {name: Default, type: organization}
+    type: inventory
+  organization: {name: Default, type: organization}
+  variables: ''
+- description: ''
+  host_filter: ansible_facts__ansible_distribution="RedHat" and ansible_facts__ansible_distribution_release="Ootpa"
+    and ansible_facts__security_system_vulnerable=true
+  insights_credential: null
+  kind: smart
+  name: Lab 4 - RHEL 8 - Vulnerable
+  natural_key:
+    name: Lab 4 - RHEL 8 - Vulnerable
+    organization: {name: Default, type: organization}
+    type: inventory
+  organization: {name: Default, type: organization}
+  variables: ''
+- description: ''
+  host_filter: null
+  insights_credential: null
+  kind: ''
+  name: Localhost
+  natural_key:
+    name: Localhost
+    organization: {name: Default, type: organization}
+    type: inventory
+  organization: {name: Default, type: organization}
+  variables: '---'
+
+job_templates:
+- allow_simultaneous: false
+  ask_credential_on_launch: false
+  ask_diff_mode_on_launch: false
+  ask_inventory_on_launch: false
+  ask_job_type_on_launch: false
+  ask_limit_on_launch: true
+  ask_scm_branch_on_launch: false
+  ask_skip_tags_on_launch: false
+  ask_tags_on_launch: false
+  ask_variables_on_launch: false
+  ask_verbosity_on_launch: false
+  become_enabled: false
+  custom_virtualenv: null
+  description: ''
+  diff_mode: false
+  extra_vars: '---
+
+    aws_storage_bucket_name: rhsap-demo'
+  force_handlers: false
+  forks: 0
+  host_config_key: ''
+  inventory:
+    name: Workshop Inventory
+    organization: {name: Default, type: organization}
+    type: inventory
+  job_slice_count: 1
+  job_tags: ''
+  job_type: run
+  limit: tag_app_sap_hana_ha_demo
+  name: Lab 1 - Initial Setup
+  natural_key:
+    name: Lab 1 - Initial Setup
+    organization: {name: Default, type: organization}
+    type: job_template
+  playbook: 1-initial_setup.yml
+  project:
+    name: ansible-sap-deployment-example
+    organization: {name: Default, type: organization}
+    type: project
+  related:
+    credentials:
+    - credential_type: {kind: ssh, name: Machine, type: credential_type}
+      name: Workshop Credential
+      organization: {name: Default, type: organization}
+      type: credential
+    labels: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec: {}
+  scm_branch: ''
+  skip_tags: ''
+  start_at_task: ''
+  survey_enabled: false
+  timeout: 0
+  use_fact_cache: true
+  verbosity: 0
+  webhook_credential: null
+  webhook_service: ''
+- allow_simultaneous: false
+  ask_credential_on_launch: false
+  ask_diff_mode_on_launch: false
+  ask_inventory_on_launch: false
+  ask_job_type_on_launch: false
+  ask_limit_on_launch: true
+  ask_scm_branch_on_launch: false
+  ask_skip_tags_on_launch: false
+  ask_tags_on_launch: false
+  ask_variables_on_launch: false
+  ask_verbosity_on_launch: false
+  become_enabled: false
+  custom_virtualenv: null
+  description: ''
+  diff_mode: false
+  extra_vars: '---
+
+    aws_storage_bucket_name: rhsap-demo'
+  force_handlers: false
+  forks: 0
+  host_config_key: ''
+  inventory:
+    name: Workshop Inventory
+    organization: {name: Default, type: organization}
+    type: inventory
+  job_slice_count: 1
+  job_tags: ''
+  job_type: run
+  limit: tag_role_sapgui
+  name: Lab 1 - Initial Setup Windows
+  natural_key:
+    name: Lab 1 - Initial Setup Windows
+    organization: {name: Default, type: organization}
+    type: job_template
+  playbook: 1-initial_setup-win.yml
+  project:
+    name: ansible-sap-deployment-example
+    organization: {name: Default, type: organization}
+    type: project
+  related:
+    credentials:
+    - credential_type: {kind: ssh, name: Machine, type: credential_type}
+      name: Workshop Credential
+      organization: {name: Default, type: organization}
+      type: credential
+    labels: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec: {}
+  scm_branch: ''
+  skip_tags: ''
+  start_at_task: ''
+  survey_enabled: false
+  timeout: 0
+  use_fact_cache: true
+  verbosity: 0
+  webhook_credential: null
+  webhook_service: ''
+- allow_simultaneous: false
+  ask_credential_on_launch: false
+  ask_diff_mode_on_launch: false
+  ask_inventory_on_launch: false
+  ask_job_type_on_launch: false
+  ask_limit_on_launch: false
+  ask_scm_branch_on_launch: false
+  ask_skip_tags_on_launch: false
+  ask_tags_on_launch: false
+  ask_variables_on_launch: true
+  ask_verbosity_on_launch: false
+  become_enabled: true
+  custom_virtualenv: null
+  description: ''
+  diff_mode: false
+  extra_vars: '---
+
+    sap_password: "R3dh4t123#"'
+  force_handlers: false
+  forks: 0
+  host_config_key: ''
+  inventory:
+    name: Workshop Inventory
+    organization: {name: Default, type: organization}
+    type: inventory
+  job_slice_count: 1
+  job_tags: ''
+  job_type: run
+  limit: tag_app_sap_hana_ha_demo
+  name: Lab 2 - Deploy HANA
+  natural_key:
+    name: Lab 2 - Deploy HANA
+    organization: {name: Default, type: organization}
+    type: job_template
+  playbook: 3-sap_deploy_hana.yml
+  project:
+    name: ansible-sap-deployment-example
+    organization: {name: Default, type: organization}
+    type: project
+  related:
+    credentials:
+    - credential_type: {kind: ssh, name: Machine, type: credential_type}
+      name: Workshop Credential
+      organization: {name: Default, type: organization}
+      type: credential
+    labels: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec: {}
+  scm_branch: ''
+  skip_tags: ''
+  start_at_task: ''
+  survey_enabled: false
+  timeout: 0
+  use_fact_cache: false
+  verbosity: 0
+  webhook_credential: null
+  webhook_service: ''
+- allow_simultaneous: false
+  ask_credential_on_launch: false
+  ask_diff_mode_on_launch: false
+  ask_inventory_on_launch: false
+  ask_job_type_on_launch: false
+  ask_limit_on_launch: false
+  ask_scm_branch_on_launch: false
+  ask_skip_tags_on_launch: false
+  ask_tags_on_launch: false
+  ask_variables_on_launch: true
+  ask_verbosity_on_launch: false
+  become_enabled: true
+  custom_virtualenv: null
+  description: ''
+  diff_mode: false
+  extra_vars: '---
+
+    sap_password: "R3dh4t123#"'
+  force_handlers: false
+  forks: 0
+  host_config_key: ''
+  inventory:
+    name: Workshop Inventory
+    organization: {name: Default, type: organization}
+    type: inventory
+  job_slice_count: 1
+  job_tags: ''
+  job_type: run
+  limit: tag_app_sap_hana_ha_demo
+  name: Lab 2 - Deploy S4
+  natural_key:
+    name: Lab 2 - Deploy S4
+    organization: {name: Default, type: organization}
+    type: job_template
+  playbook: 4-sap_deploy_s4.yml
+  project:
+    name: ansible-sap-deployment-example
+    organization: {name: Default, type: organization}
+    type: project
+  related:
+    credentials:
+    - credential_type: {kind: ssh, name: Machine, type: credential_type}
+      name: Workshop Credential
+      organization: {name: Default, type: organization}
+      type: credential
+    labels: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec: {}
+  scm_branch: ''
+  skip_tags: ''
+  start_at_task: ''
+  survey_enabled: false
+  timeout: 0
+  use_fact_cache: false
+  verbosity: 0
+  webhook_credential: null
+  webhook_service: ''
+- allow_simultaneous: false
+  ask_credential_on_launch: false
+  ask_diff_mode_on_launch: false
+  ask_inventory_on_launch: false
+  ask_job_type_on_launch: false
+  ask_limit_on_launch: false
+  ask_scm_branch_on_launch: false
+  ask_skip_tags_on_launch: false
+  ask_tags_on_launch: false
+  ask_variables_on_launch: true
+  ask_verbosity_on_launch: false
+  become_enabled: true
+  custom_virtualenv: null
+  description: ''
+  diff_mode: false
+  extra_vars: '---
+
+    sap_password: "R3dh4t123#"'
+  force_handlers: false
+  forks: 0
+  host_config_key: ''
+  inventory:
+    name: Workshop Inventory
+    organization: {name: Default, type: organization}
+    type: inventory
+  job_slice_count: 1
+  job_tags: ''
+  job_type: run
+  limit: tag_app_sap_hana_ha_demo
+  name: Lab 2 - SAP Prepare
+  natural_key:
+    name: Lab 2 - SAP Prepare
+    organization: {name: Default, type: organization}
+    type: job_template
+  playbook: 2-sap_prepare.yml
+  project:
+    name: ansible-sap-deployment-example
+    organization: {name: Default, type: organization}
+    type: project
+  related:
+    credentials:
+    - credential_type: {kind: ssh, name: Machine, type: credential_type}
+      name: Workshop Credential
+      organization: {name: Default, type: organization}
+      type: credential
+    labels: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec: {}
+  scm_branch: ''
+  skip_tags: ''
+  start_at_task: ''
+  survey_enabled: false
+  timeout: 0
+  use_fact_cache: false
+  verbosity: 0
+  webhook_credential: null
+  webhook_service: ''
+- allow_simultaneous: false
+  ask_credential_on_launch: false
+  ask_diff_mode_on_launch: false
+  ask_inventory_on_launch: false
+  ask_job_type_on_launch: false
+  ask_limit_on_launch: false
+  ask_scm_branch_on_launch: false
+  ask_skip_tags_on_launch: false
+  ask_tags_on_launch: false
+  ask_variables_on_launch: true
+  ask_verbosity_on_launch: false
+  become_enabled: false
+  custom_virtualenv: null
+  description: ''
+  diff_mode: false
+  extra_vars: ''
+  force_handlers: false
+  forks: 0
+  host_config_key: ''
+  inventory:
+    name: Lab 4 - RHEL 8
+    organization: {name: Default, type: organization}
+    type: inventory
+  job_slice_count: 1
+  job_tags: ''
+  job_type: run
+  limit: ''
+  name: Lab 4 - Check Vulnerabilities
+  natural_key:
+    name: Lab 4 - Check Vulnerabilities
+    organization: {name: Default, type: organization}
+    type: job_template
+  playbook: check_vulner.yml
+  project:
+    name: ansible-rhel-update-example
+    organization: {name: Default, type: organization}
+    type: project
+  related:
+    credentials:
+    - credential_type: {kind: ssh, name: Machine, type: credential_type}
+      name: Workshop Credential
+      organization: {name: Default, type: organization}
+      type: credential
+    labels: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec:
+      description: ''
+      name: ''
+      spec:
+      - choices: cve_2019_11135
+        default: cve_2019_11135
+        max: null
+        min: null
+        new_question: true
+        question_description: ''
+        question_name: 'Select vulnerability to check for?'
+        required: true
+        type: multiplechoice
+        variable: vulner
+  scm_branch: ''
+  skip_tags: ''
+  start_at_task: ''
+  survey_enabled: true
+  timeout: 0
+  use_fact_cache: true
+  verbosity: 0
+  webhook_credential: null
+  webhook_service: ''
+- allow_simultaneous: false
+  ask_credential_on_launch: false
+  ask_diff_mode_on_launch: false
+  ask_inventory_on_launch: false
+  ask_job_type_on_launch: false
+  ask_limit_on_launch: false
+  ask_scm_branch_on_launch: false
+  ask_skip_tags_on_launch: false
+  ask_tags_on_launch: false
+  ask_variables_on_launch: true
+  ask_verbosity_on_launch: false
+  become_enabled: false
+  custom_virtualenv: null
+  description: ''
+  diff_mode: false
+  extra_vars: ''
+  force_handlers: false
+  forks: 0
+  host_config_key: ''
+  inventory:
+    name: Lab 4 - RHEL 8 - Vulnerable
+    organization: {name: Default, type: organization}
+    type: inventory
+  job_slice_count: 1
+  job_tags: ''
+  job_type: run
+  limit: ''
+  name: Lab 4 - Live Kernel Patch
+  natural_key:
+    name: Lab 4 - Live Kernel Patch
+    organization: {name: Default, type: organization}
+    type: job_template
+  playbook: kpatch_rhel.yml
+  project:
+    name: ansible-rhel-update-example
+    organization: {name: Default, type: organization}
+    type: project
+  related:
+    credentials:
+    - credential_type: {kind: ssh, name: Machine, type: credential_type}
+      name: Workshop Credential
+      organization: {name: Default, type: organization}
+      type: credential
+    labels: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec:
+      description: ''
+      name: ''
+      spec:
+      - {choices: cve_2019_11135, default: cve_2019_11135, max: null, min: null, new_question: true,
+        question_description: '', question_name: 'Select vulnerability to check for?',
+        required: true, type: multiplechoice, variable: vulner}
+  scm_branch: ''
+  skip_tags: ''
+  start_at_task: ''
+  survey_enabled: true
+  timeout: 0
+  use_fact_cache: true
+  verbosity: 0
+  webhook_credential: null
+  webhook_service: ''
+- allow_simultaneous: false
+  ask_credential_on_launch: false
+  ask_diff_mode_on_launch: false
+  ask_inventory_on_launch: true
+  ask_job_type_on_launch: false
+  ask_limit_on_launch: false
+  ask_scm_branch_on_launch: false
+  ask_skip_tags_on_launch: false
+  ask_tags_on_launch: false
+  ask_variables_on_launch: false
+  ask_verbosity_on_launch: false
+  become_enabled: true
+  custom_virtualenv: null
+  description: ''
+  diff_mode: false
+  extra_vars: ''
+  force_handlers: false
+  forks: 0
+  host_config_key: ''
+  inventory:
+    name: Workshop Inventory
+    organization: {name: Default, type: organization}
+    type: inventory
+  job_slice_count: 1
+  job_tags: ''
+  job_type: run
+  limit: tag_app_sap_hana_ha_demo
+  name: Lab 5 - Zero Downtime Upgrade
+  natural_key:
+    name: Lab 5 - Zero Downtime Upgrade
+    organization: {name: Default, type: organization}
+    type: job_template
+  playbook: sap_failover_maint.yml
+  project:
+    name: ansible-sap-deployment-example
+    organization: {name: Default, type: organization}
+    type: project
+  related:
+    credentials:
+    - credential_type: {kind: ssh, name: Machine, type: credential_type}
+      name: Workshop Credential
+      organization: {name: Default, type: organization}
+      type: credential
+    labels: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec: {}
+  scm_branch: ''
+  skip_tags: ''
+  start_at_task: ''
+  survey_enabled: false
+  timeout: 0
+  use_fact_cache: true
+  verbosity: 0
+  webhook_credential: null
+  webhook_service: ''
+
+projects:
+- allow_override: false
+  credential: null
+  custom_virtualenv: null
+  description: ''
+  local_path: _8__ansible_sap_deployment_example
+  name: ansible-sap-deployment-example
+  natural_key:
+    name: ansible-sap-deployment-example
+    organization: {name: Default, type: organization}
+    type: project
+  organization: {name: Default, type: organization}
+  related:
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+  scm_branch: ''
+  scm_clean: true
+  scm_delete_on_update: false
+  scm_refspec: ''
+  scm_type: git
+  scm_update_cache_timeout: 0
+  scm_update_on_launch: true
+  scm_url: https://github.com/oatakan/ansible-sap-deployment-example.git
+  timeout: 0
+- allow_override: false
+  credential: null
+  custom_virtualenv: null
+  description: ''
+  local_path: _9__sap_workshop_playbooks
+  name: sap-workshop-playbooks
+  natural_key:
+    name: sap-workshop-playbooks
+    organization: {name: Default, type: organization}
+    type: project
+  organization: {name: Default, type: organization}
+  related:
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+  scm_branch: ''
+  scm_clean: true
+  scm_delete_on_update: false
+  scm_refspec: ''
+  scm_type: git
+  scm_update_cache_timeout: 0
+  scm_update_on_launch: true
+  scm_url: https://github.com/oatakan/sap-hana-playbooks.git
+  timeout: 0
+- allow_override: false
+  credential: null
+  custom_virtualenv: null
+  description: ''
+  local_path: _10__ansible_rhel_update_example
+  name: ansible-rhel-update-example
+  natural_key:
+    name: ansible-rhel-update-example
+    organization: {name: Default, type: organization}
+    type: project
+  organization: {name: Default, type: organization}
+  related:
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+  scm_branch: ''
+  scm_clean: true
+  scm_delete_on_update: false
+  scm_refspec: ''
+  scm_type: git
+  scm_update_cache_timeout: 0
+  scm_update_on_launch: true
+  scm_url: https://github.com/oatakan/ansible-rhel-update-example.git
+  timeout: 0
+
+workflow_job_templates:
+- allow_simultaneous: false
+  ask_inventory_on_launch: false
+  ask_limit_on_launch: false
+  ask_scm_branch_on_launch: false
+  ask_variables_on_launch: true
+  description: ''
+  extra_vars: '---
+
+    sap_password: "R3dh4t123#"'
+  inventory: null
+  limit: null
+  name: Lab 2 - Deploy SAP
+  natural_key:
+    name: Lab 2 - Deploy SAP
+    organization: {name: Default, type: organization}
+    type: workflow_job_template
+  organization: {name: Default, type: organization}
+  related:
+    labels: []
+    notification_templates_approvals: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec: {}
+    workflow_nodes:
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {}
+      identifier: fb396db3-bf8d-4fae-8edf-9c6a24b900d8
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: fb396db3-bf8d-4fae-8edf-9c6a24b900d8
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Lab 2 - Deploy SAP
+          organization: {name: Default, type: organization}
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes:
+        - identifier: 71f98d75-4060-4125-bda3-2fd4fb1ddba9
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Lab 2 - Deploy SAP
+            organization: {name: Default, type: organization}
+            type: workflow_job_template
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Lab 2 - SAP Prepare
+        organization: {name: Default, type: organization}
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Lab 2 - Deploy SAP
+        organization: {name: Default, type: organization}
+        type: workflow_job_template
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {}
+      identifier: 71f98d75-4060-4125-bda3-2fd4fb1ddba9
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: 71f98d75-4060-4125-bda3-2fd4fb1ddba9
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Lab 2 - Deploy SAP
+          organization: {name: Default, type: organization}
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes:
+        - identifier: cc926fc0-240c-4826-88d9-c56cac1ddd69
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Lab 2 - Deploy SAP
+            organization: {name: Default, type: organization}
+            type: workflow_job_template
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Lab 2 - Deploy HANA
+        organization: {name: Default, type: organization}
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Lab 2 - Deploy SAP
+        organization: {name: Default, type: organization}
+        type: workflow_job_template
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {}
+      identifier: cc926fc0-240c-4826-88d9-c56cac1ddd69
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: cc926fc0-240c-4826-88d9-c56cac1ddd69
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Lab 2 - Deploy SAP
+          organization: {name: Default, type: organization}
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes: []
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Lab 2 - Deploy S4
+        organization: {name: Default, type: organization}
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Lab 2 - Deploy SAP
+        organization: {name: Default, type: organization}
+        type: workflow_job_template
+  scm_branch: null
+  survey_enabled: false
+  webhook_credential: null
+  webhook_service: ''
+- allow_simultaneous: false
+  ask_inventory_on_launch: false
+  ask_limit_on_launch: false
+  ask_scm_branch_on_launch: false
+  ask_variables_on_launch: false
+  description: Template for fixing vulnerabilities
+  extra_vars: ''
+  inventory: null
+  limit: null
+  name: Lab 4 - Validate and Patch Vulnerabilities (Solution)
+  natural_key:
+    name: Lab 4 - Validate and Patch Vulnerabilities (Solution)
+    organization: {name: Default, type: organization}
+    type: workflow_job_template
+  organization: {name: Default, type: organization}
+  related:
+    labels: []
+    notification_templates_approvals: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec: {}
+    workflow_nodes:
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {vulner: cve_2019_11135}
+      identifier: 12cfabfc-f1b0-4f9a-b80a-aa21ad8f6c35
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: 12cfabfc-f1b0-4f9a-b80a-aa21ad8f6c35
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Lab 4 - Validate and Patch Vulnerabilities (Solution)
+          organization: {name: Default, type: organization}
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes:
+        - identifier: 83d65235-bf71-4d20-8134-5b8da78edd84
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Lab 4 - Validate and Patch Vulnerabilities (Solution)
+            organization: {name: Default, type: organization}
+            type: workflow_job_template
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Lab 4 - Check Vulnerabilities
+        organization: {name: Default, type: organization}
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Lab 4 - Validate and Patch Vulnerabilities (Solution)
+        organization: {name: Default, type: organization}
+        type: workflow_job_template
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {vulner: cve_2019_11135}
+      identifier: 83d65235-bf71-4d20-8134-5b8da78edd84
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: 83d65235-bf71-4d20-8134-5b8da78edd84
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Lab 4 - Validate and Patch Vulnerabilities (Solution)
+          organization: {name: Default, type: organization}
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes:
+        - identifier: 6e73c7d2-8b9f-454a-b0f4-180e6525e88d
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Lab 4 - Validate and Patch Vulnerabilities (Solution)
+            organization: {name: Default, type: organization}
+            type: workflow_job_template
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Lab 4 - Live Kernel Patch
+        organization: {name: Default, type: organization}
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Lab 4 - Validate and Patch Vulnerabilities (Solution)
+        organization: {name: Default, type: organization}
+        type: workflow_job_template
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {vulner: cve_2019_11135}
+      identifier: 6e73c7d2-8b9f-454a-b0f4-180e6525e88d
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: 6e73c7d2-8b9f-454a-b0f4-180e6525e88d
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Lab 4 - Validate and Patch Vulnerabilities (Solution)
+          organization: {name: Default, type: organization}
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes: []
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Lab 4 - Check Vulnerabilities
+        organization: {name: Default, type: organization}
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Lab 4 - Validate and Patch Vulnerabilities (Solution)
+        organization: {name: Default, type: organization}
+        type: workflow_job_template
+  scm_branch: null
+  survey_enabled: false
+  webhook_credential: null
+  webhook_service: ''

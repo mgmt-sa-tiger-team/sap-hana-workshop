@@ -1,0 +1,14 @@
+---
+- name: install prereq packages
+  pip:
+    name:
+      - pyOpenSSL
+      - awxkit
+    state: latest
+
+- name: Install pywinrm for connecting to windows hosts
+  pip:
+    name:
+      - pywinrm>=0.2.2
+      - pywinrm[kerberos]
+      - pywinrm[credssp]

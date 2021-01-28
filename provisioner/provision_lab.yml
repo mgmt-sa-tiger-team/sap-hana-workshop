@@ -18,8 +18,20 @@
   connection: local
   become: false
   gather_facts: false
-  roles:
-    - manage_ec2_instances
+  pre_tasks:
+    - name: Cluster nodes
+      set_fact:
+        control_nodes: 4
+      when: create_cluster is defined and create_cluster|bool
+  tasks:
+    - name: provision instances
+      include_role:
+        name: manage_ec2_instances
+
+    - name: add s3 iam profile
+      include_role:
+        name: s3-iam-profile
+      when: workshop_type == 'sap'
 
 - name: wait for all nodes to have SSH reachability
   hosts: "managed_nodes:control_nodes:attendance"
@@ -39,3 +51,95 @@
         - include_role:
             name: workshop_attendance
       when: attendance|bool
+
+- name: Configure common options on managed nodes and control nodes
+  hosts: "managed_nodes:control_nodes"
+  gather_facts: false
+  become: true
+  roles:
+    - user_accounts
+    - common
+
+- name: Configure cluster nodes with /etc/hosts
+  hosts: '*ansible-2,*ansible-3,*ansible-4'
+  gather_facts: true
+  become: true
+  tasks:
+    - name: setup /etc/hosts file per student
+      copy:
+        src: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ username }}-etchosts.txt"
+        dest: "/etc/hosts"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+      when: create_cluster|bool
+
+- name: configure ansible control node
+  hosts: '*ansible-1'
+  gather_facts: true
+  become: true
+  vars:
+    tower_license: "{{ hostvars['localhost']['tower_license'] }}"
+    use_manifest: "{{ hostvars['localhost']['use_manifest'] }}"
+    default_tower_url: "{{ hostvars['localhost']['default_tower_url'] }}"
+  pre_tasks:
+    - debug:
+        var: tower_license
+  roles:
+    - role: control_node
+
+- name: add dns entires for all student control nodes
+  hosts: '*ansible-1'
+  become: true
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: aws_dns
+      when:
+        - dns_type is defined
+        - dns_type == "aws"
+        - towerinstall is defined
+        - towerinstall
+  tags: control_node
+
+- name: populate ansible tower
+  hosts: '*ansible-1'
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: run populate_tower role
+      include_role:
+        name: populate_tower
+      when:
+        - towerinstall is defined
+        - towerinstall|bool
+        - populatetower
+
+- name: include workshop_type unique setup roles
+  import_playbook: "{{workshop_type}}.yml"
+
+- name: print out information for instructor
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: set facts for output
+      set_fact:
+        summary_information: |
+          PROVISIONER SUMMARY
+          *******************
+          - Workshop name is {{ec2_name_prefix}}
+          - Instructor inventory is located at  {{playbook_dir}}/{{ec2_name_prefix}}/instructor_inventory.txt
+          - Private key is located at {{playbook_dir}}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem
+          {% if attendance %}
+          - {{hostvars['attendance-host'].login_website_information | default("attendance feature is off") }}
+          {% endif %}
+
+          FAILURES
+          *******************
+          {{dns_information}}
+          {{callback_information}}
+
+    - name: Print Summary Information
+      debug:
+        msg: "{{summary_information}}"

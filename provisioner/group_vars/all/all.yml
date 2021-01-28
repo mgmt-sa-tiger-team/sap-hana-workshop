@@ -1,9 +1,27 @@
 ---
-workshop_dns_zone: "rhdemo.io"
-workshop_type: "sap"
+admin_password: ansible
+code_server: true
+workshop_dns_zone: "regional.aws.redhat-demo.com"
+s3_state: "present"
+teardown: false
+towerinstall: true
+populatetower: true
+website_information: ""
+login_website_information: ""
+dns_information: "No errors with DNS"
+callback_information: "No issue with Ansible Tower callback"
+workshop_type: ""
 dns_type: aws
 valid_dns_type:
   - aws
   - none
 valid_workshop_types:
   - sap
+  - demo
+network_type: multivendor
+doubleup: false
+attendance: true
+create_cluster: false
+default_tower38_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.8.0-1.tar.gz
+default_tower37_url: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.7.3-1.tar.gz
+use_manifest: false

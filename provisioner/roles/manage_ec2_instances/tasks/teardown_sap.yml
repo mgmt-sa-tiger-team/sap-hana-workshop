@@ -1,0 +1,26 @@
+---
+
+- name: add hosts to inventory
+  include_tasks: 'inventory/addhost_{{ workshop_type }}.yml'
+
+- block:
+    - name: unregister redhat-insights
+      command: redhat-access-insights --unregister
+      failed_when: false
+      ignore_unreachable: yes
+      become: yes
+      delegate_to: "{{ hostvars[item].ansible_host }}"
+      loop: "{{ groups.sap_nodes }}"
+      changed_when: no
+
+    - include_role:
+        name: oatakan.rhn
+      vars:
+        role_action: unregister
+        apply:
+          become: yes
+          delegate_to: "{{ hostvars[include_item].ansible_host }}"
+      loop_control:
+        loop_var: include_item
+      loop: "{{ groups.sap_nodes }}"
+  when: groups.sap_nodes is defined

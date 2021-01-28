@@ -1,0 +1,75 @@
+---
+
+- block:
+    - name: register with rhn
+      redhat_subscription:
+        state: present
+        username: "{{ rhn_username }}"
+        password: "{{ rhn_password }}"
+        pool: "{{ rhn_subscription }}"
+        force_register: "{{ rhn_force_register }}"
+      register: register_rhn
+      until: register_rhn is success
+      delay: 3
+      retries: 5
+      when:
+        - rhn_username is defined
+        - rhn_password is defined
+        - rhn_subscription is defined
+
+  rescue:
+    - name: clean rhn registration if available
+      command: subscription-manager clean
+      ignore_errors: true
+
+    - name: register with rhn
+      command: subscription-manager register --username {{ rhn_username }} --password {{ rhn_password }}
+      ignore_errors: true
+      no_log: True
+      when:
+        - rhn_username is defined
+        - rhn_password is defined
+
+    - name: get pool id
+      shell: subscription-manager list --all --available --matches "{{ rhn_subscription }}" --pool-only | head -1
+      register: pool_id
+      until: pool_id is success
+      retries: 5
+      delay: 10
+      ignore_errors: yes
+      when: rhn_subscription is defined
+
+    - debug: msg="{{ pool_id.stdout }}"
+      when: rhn_subscription is defined
+
+    - name: add pool
+      command: subscription-manager attach --pool={{ pool_id.stdout }}
+      register: add_pool
+      until: add_pool is success
+      retries: 5
+      delay: 10
+      ignore_errors: yes
+      when:
+        - rhn_subscription is defined
+        - pool_id is succeeded
+        - pool_id.stdout | length > 0
+
+- block:
+    - name: enable repositories
+      rhsm_repository:
+        name: "{{ repo_channels }}"
+        purge: yes
+
+  rescue:
+    - name: enable repositories
+      command: subscription-manager repos --disable "*" --enable={{ repo_channels|join(' --enable=') }}
+      when: rhn_subscription is defined
+      register: task_result
+      until: task_result is succeeded
+      retries: 10
+      delay: 5
+
+- name: ensure yum-utils package present
+  yum:
+    name: yum-utils
+    state: present

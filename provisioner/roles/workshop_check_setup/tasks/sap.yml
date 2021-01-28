@@ -1,0 +1,33 @@
+---
+# windows has a dependancy on sshpass which is nogo on macos: brew install it
+- name: make sure (windows) packages required are installed on this control node
+  pip:
+    name:
+      - pywinrm
+      - boto
+      - requests
+      - requests-credssp
+      # - sshpass
+  check_mode: true
+  register: package_state
+
+- name: fail if previous check has changed
+  assert:
+    that:
+      - package_state.changed != True
+
+- name: required roles
+  shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"
+  async: 600
+  poll: 0
+  loop:
+    - 'oatakan.rhn'
+  register: required_role_loop_out
+
+- name: check async role install
+  async_status:
+    jid: "{{ item['ansible_job_id'] }}"
+  loop: "{{ required_role_loop_out['results'] }}"
+  register: job_result
+  until: job_result.finished
+  retries: 30

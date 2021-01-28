@@ -1,0 +1,34 @@
+---
+
+- name: grab information about AWS user
+  aws_caller_info:
+    region: "{{ ec2_region }}"
+  register: whoami
+
+- name: save account of AWS user
+  set_fact:
+    current_account: '{{ whoami.account }}'
+
+- name: gather information about the route tables
+  ec2_vpc_route_table_info:
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ ec2_vpc_id }}"
+  register: route_tables
+
+- name: save route table id
+  set_fact:
+    route_table_id: '{{ route_tables.route_tables[0].id }}'
+
+- name: get ec2 instance information
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ ec2_vpc_id }}"
+      "tag:Workshop": "{{ ec2_name_prefix }}"
+  register: ec2_instances
+
+- include_tasks: s3.yml
+
+#- include_tasks: pacemaker.yml
+

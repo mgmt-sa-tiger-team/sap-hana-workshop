@@ -1,5 +1,4 @@
 ---
-# Security workshop needs a second subnet inside the VPC
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc
   ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc"
@@ -10,7 +9,7 @@
     tags:
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
@@ -37,7 +36,7 @@
     tags:
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
@@ -50,6 +49,55 @@
   until: create_sg is not failed
   retries: 5
 
+  ### Windows Security groups
+- name: Windows | Create security group
+  ec2_group:
+    name: "{{ ec2_name_prefix }}-windows"
+    description: "Windows Workshop SG"
+    vpc_id: "{{ create_vpc.vpc.id }}"
+    region: "{{ ec2_region }}"
+    tags:
+      Username: "{{ aws_user }}"
+      Info: "Username that provisioned this-> {{ aws_user }}"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
+      Students: "{{ student_total }}"
+      Workshop_type: "{{ workshop_type }}"
+      Workshop: "{{ ec2_name_prefix }}"
+    rules:
+#      - proto: tcp
+#        from_port: 22
+#        to_port: 22
+#        cidr_ip: 0.0.0.0/0
+#      - proto: tcp
+#        from_port: 80
+#        to_port: 80
+#        cidr_ip: 0.0.0.0/0
+#      - proto: tcp
+#        from_port: 443
+#        to_port: 443
+#        cidr_ip: 0.0.0.0/0
+#      - proto: tcp
+#        from_port: 5986
+#        to_port: 5986
+#        cidr_ip: "0.0.0.0/0"
+#      - proto: tcp
+#        from_port: 3389
+#        to_port: 3389
+#        cidr_ip: "0.0.0.0/0"
+#      - proto: tcp
+#        from_port: 8080
+#        to_port: 8081
+#        cidr_ip: "0.0.0.0/0"
+#      - proto: tcp
+#        from_port: 40002
+#        to_port: 40002
+#        cidr_ip: "0.0.0.0/0"
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+      - proto: all
+        cidr_ip: "{{ ec2_subnet }}"
+  when: workshop_type == 'demo'
+
 - name: Create subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:
     region: "{{ ec2_region }}"
@@ -61,32 +109,13 @@
       Name: "{{ ec2_name_prefix }}-subnet"
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
   register: create_subnet
   when: ec2_vpc_id is undefined
   until: create_subnet is not failed
-  retries: 15
-
-- name: Create subnet2 for {{ ec2_name_prefix }}-vpc (SECURITY MODE)
-  ec2_vpc_subnet:
-    region: "{{ ec2_region }}"
-    az: "{{ ec2_az }}"
-    vpc_id: "{{ create_vpc.vpc.id }}"
-    cidr: "{{ ec2_subnet2 }}"
-    wait_timeout: 600
-    resource_tags:
-      Name: "{{ ec2_name_prefix }}-subnet2"
-      Username: "{{ aws_user }}"
-      Info: "Username that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
-      Students: "{{ student_total }}"
-      Workshop_type: "{{ workshop_type }}"
-      Workshop: "{{ ec2_name_prefix }}"
-  register: create_subnet2
-  until: create_subnet2 is not failed
   retries: 15
 
 - name: vpc internet gateway is present for {{ create_vpc.vpc.id }}
@@ -96,7 +125,7 @@
     tags:
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
       Students: "Total {{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
@@ -117,7 +146,7 @@
     tags:
       Username: "{{ aws_user }}"
       Info: "Username that provisioned this-> {{ aws_user }}"
-      Linklight: "This was provisioned through the linklight provisioner"
+      Sap_HANA: "This was provisioned through the sap hana workshop provisioner"
       Students: "{{ student_total }}"
       Workshop_type: "{{ workshop_type }}"
       Workshop: "{{ ec2_name_prefix }}"
@@ -131,7 +160,17 @@
     ec2_vpc_id: "{{ create_vpc.vpc.id }}"
     ec2_security_group: "{{ ec2_name_prefix }}-insecure_all"
     ec2_vpc_subnet_id: "{{ create_subnet.subnet.id }}"
-    ec2_vpc_subnet2_id: "{{ create_subnet2.subnet.id }}"
+
+- name: s3 bucket for persistent storage of ec2 key exists
+  s3_bucket:
+    name: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone|lower }}.private"
+    state: present
+    region: "{{ ec2_region }}"
+  retries: 4
+  delay: 15
+  register: s3_result
+  until:
+    - s3_result.failed == false
 
 - name: Create ssh key pair for workshop {{ ec2_name_prefix }}
   ec2_key:
@@ -146,6 +185,31 @@
     mode: '0400'
   when: create_key.changed
 
+- name: Store SSH Key Pair
+  aws_s3:
+    bucket: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private"
+    mode: put
+    object: "{{ec2_name_prefix}}-private.pem"
+    src: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+    encrypt: true
+    region: "{{ ec2_region }}"
+  when: create_key.changed
+
+- name: Save Private key from S3 Bucket when not generating it
+  aws_s3:
+    bucket: "{{ ec2_name_prefix|lower }}.{{ workshop_dns_zone }}.private"
+    mode: get
+    object: "{{ ec2_name_prefix }}-private.pem"
+    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+    encrypt: true
+    region: "{{ ec2_region }}"
+  when: not create_key.changed
+
+- name: Ensure key file has proper permissions
+  file:
+    dest: "{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_name_prefix }}-private.pem"
+    mode: 0600
+
 - name: debugging all variables for ec2 instance creation VPC-1
   debug:
     msg:
@@ -154,4 +218,3 @@
       - "{{ ec2_name_prefix }}-key: {{ ec2_name_prefix }}-key"
       - "ec2_security_group: {{ ec2_security_group }}"
       - "ec2_vpc_subnet_id: {{ ec2_vpc_subnet_id }}"
-      - "ec2_vpc_subnet2_id: {{ ec2_vpc_subnet2_id }}"

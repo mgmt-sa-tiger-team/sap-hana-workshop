@@ -1,0 +1,4 @@
+---
+## all your base are belong to us
+- name: inventory for rhel workshop
+  include_tasks: addhost_rhel.yml
