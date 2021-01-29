@@ -167,7 +167,7 @@ as this.
 
 ![Command Log Details](images/1-adhoc-run-command-output.png)
 
-The results should return for all 2 systems:
+The results should return for all 3 systems:
 
 **Overall Status: Current**
 

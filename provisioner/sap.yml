@@ -76,6 +76,9 @@
         - debug:
             msg: "role: {{ role }}"
 
+#        - name: subscribe to satellite using activation key
+#          command: subscription-manager register --insecure --serverurl {{ satellite_host }} --name {{ inventory_hostname }} --org {{ satellite_org_id | default('Red_Hat') }} --activationkey "{{ activation_keys[role] | default('SAP HANA Server') }}"
+
         - name: subscribe to satellite using activation key
           redhat_subscription:
             state: present
@@ -83,6 +86,7 @@
             server_insecure: yes
             activationkey: "{{ activation_keys[role] | default('SAP HANA Server') }}"
             org_id: "{{ satellite_org_id | default('Red_Hat') }}"
+#            consumer_name: "{{ inventory_hostname }}"
             auto_attach: true
 
         - name: remove RHUI redhat-rhui-client-config repos

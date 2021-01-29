@@ -9,8 +9,8 @@ Overview
 
 SAP Host preparation is a complex and long task that traditionally involves multiple teams and expertise to accomplish.
 There is not a unique document we can follow in order to get the system configured in the way SAP installers are
-expecting. SAP uses ‘SAP Notes’ to capture all these prerequisites and specific configurations that need to be done
-prior HANA and NetWeaver software could be installed.
+expecting. SAP uses ‘OSS Notes’ to capture all these prerequisites and specific configurations that need to be done
+prior to deploying the SAP HANA and / or SAP NetWeaver software.
 
 Red Hat Ansible Automation Platform provides a number of specific roles for SAP automation that greatly simplifies this
 workflow in a reliable and repeatable way. Ansible Roles are the primary mechanism for breaking Ansible Playbooks into
@@ -56,7 +56,7 @@ Step 2:
 -------
 
 Click the rocketship icon ![Add](images/at_launch_icon.png) for the
-**Lab 2 - SAP Deploy**
+**Lab 2 - Deploy SAP**
 
 Step 3:
 -------
@@ -167,7 +167,8 @@ Ansible playbook and stored in a source control repository. You can provide cred
 Ansible Tower.
 
 ##### - redhat_sap.sap_hana_hsr:
-This Ansible role will ensure clustering is configured and enabled on HANA nodes.
+This Ansible role will ensure that HANA System Replication (HSR) is configured and functioning on both of the SAP HANA
+servers.
 
 ##### - redhat_sap.sap_hana_ha_pacemaker:
 This Ansible role will ensure PCS is installed and configured to support underlying clustering at the OS level between
