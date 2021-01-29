@@ -69,7 +69,7 @@ it’s running, what the status is, i.e. pending, running, or complete.
 Step 4:
 -------
 
-When the workflow job has successfully completed, you should have 4 systems in your inventory and ready for further automation.
+When the workflow job has successfully completed, you should have 3 systems in your inventory and ready for further automation.
 
 Validating Inventory
 ======================
