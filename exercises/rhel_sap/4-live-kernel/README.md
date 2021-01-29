@@ -329,12 +329,5 @@ In this challenge exercise, you will add an approval node in the workflow and re
 
 **Hint**: You can add an approval node to the canvas by selecting 'Approval Node' from the drop down as opposed to 'Template'.
 
-
 ### Example solution
-<details><summary>Click here</summary>
-<p>
-
 ![Challenge - Workflow Template](images/4-wf-challenge.png)
-
-</p>
-</details>
