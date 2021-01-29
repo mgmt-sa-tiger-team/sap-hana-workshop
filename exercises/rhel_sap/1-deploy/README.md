@@ -33,16 +33,12 @@ Your Ansible Tower instance url and credentials were supplied to you on the page
 Provision New RHEL SAP Environment
 ======================
 
-For your lab environment, there are multiple job templates created that will help you automate the deployment of a SAP environment:
+For your lab environment, there is a job template provided that will help you perform the initial configuration of your
+SAP environment:
 
-- Lab 1 - Deploy Instances on AWS (deploy multiple VMs in the landscape)
-- Lab 1 - RHN Register (ensure VMs are registered with Red Hat Satellite)
 - Lab 1 - Initial Setup (attach SAP subscription and other prereqs)
 
-Additionally a Workflow template **Lab 1 - Deploy Environment** is provided for a push button deployment of the entire landscape.
-
-
-First, run **Lab 1 - Deploy Environment** workflow template to deploy new VMs in your environment. VMs will also be
+First, run **Lab 1 - Initial Setup** workflow template to deploy new VMs in your environment. VMs will also be
 configured to receive updates from the Satellite server.
 
 Step 1:
@@ -83,7 +79,7 @@ In this section, you will validate the inventory that contains newly provisioned
 Step 1:
 -------
 
-After running the workflow template, results will be now reflected in the inventory **aws-hana**.
+After running the workflow template, results will be now reflected in the inventory **Workshop Inventory**.
 
 Navigate to **INVENTORIES**
 
@@ -104,8 +100,8 @@ Click **Hosts** tab.
 Step 5:
 -------
 
-Review the newly provisioned systems, **click on one of the hosts** and review the variables discovered from AWS
-dynamically, these variables will be available for any automation as well as via REST API to any external system.
+Review the newly provisioned systems, **click on one of the hosts** and review the variables, these variables will be
+available for any automation as well as via REST API to any external system.
 
 ![Review Host](images/1-inventory-host-1-review.png)
 
@@ -117,25 +113,25 @@ In this section, you will execute an ad-hoc command on your environment to valid
 Step 1:
 -------
 
-After running the workflow template, results will be now reflected in the inventory **aws-hana**.
+After running the workflow template, results will be now reflected in the inventory **Workshop Inventory**.
 
 Navigate to **INVENTORIES**
 
 Step 2:
 -------
 
-Click **aws-hana**.
+Click **Workshop Inventory**.
 
 Step 3:
 -------
 
-Click **GROUPS** tab and select **tag_role_hana**.
+Click **GROUPS** tab and select **tag_app_sap_hana_ha_demo**.
 
 
 Step 4:
 -------
 
-Select each of the VMS by clicking the checkbox next to it. You will then see the **RUN COMMANDS**
+Click the **HOSTS** tab and select each of the VMS by clicking the checkbox next to it. You will then see the **RUN COMMANDS**
 button become enabled. Click it now.
 
 ![Review Host](images/1-ad-hoc-select-hosts.png)

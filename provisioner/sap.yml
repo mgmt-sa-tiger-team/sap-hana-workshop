@@ -36,6 +36,15 @@
         - include_role:
             name: oatakan.rhn
 
+        # we need to lock kernel updates to stay on 8.1 for testing kpatch
+        # this step is only needed on non-satellite environments as you can lock the content view in satellite otherwise
+        - name: exclude kernel* redhat-release* kmod-kvdo*
+          lineinfile:
+            path: /etc/yum.conf
+            create: yes
+            line: 'exclude=kernel* redhat-release* kmod-kvdo*'
+            state: present
+
       rescue:
         - include_role:
             name: oatakan.rhn
@@ -99,5 +108,22 @@
             - rhui-codeready-builder-for-rhel-8-rhui-debug-rpms
             - rhui-codeready-builder-for-rhel-8-rhui-rpms
             - rhui-codeready-builder-for-rhel-8-rhui-source-rpms
+
+        # this is a temporary fix and only needed when satellite is configured on a public vs private interface
+        # and not accessible otherwise
+        - block:
+            - name: get sat hostname
+              shell: cat /etc/rhsm/rhsm.conf | grep 'baseurl'
+              register: sat_hostname
+
+            - debug:
+                msg: "{{ (sat_hostname.stdout).split('/')[2] }}"
+
+            - name: build hosts file for satellite host
+              lineinfile:
+                dest: /etc/hosts
+                regexp: '^{{ satellite_host }}.*$'
+                line: "{{ satellite_host }} {{ (sat_hostname.stdout).split('/')[2] }}"
+                state: present
 
       when: satellite_host is defined
