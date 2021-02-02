@@ -37,13 +37,14 @@
             name: oatakan.rhn
 
         # we need to lock kernel updates to stay on 8.1 for testing kpatch
-        # this step is only needed on non-satellite environments as you can lock the content view in satellite otherwise
-        - name: exclude kernel* redhat-release* kmod-kvdo*
-          lineinfile:
-            path: /etc/yum.conf
-            create: yes
-            line: 'exclude=kernel* redhat-release* kmod-kvdo*'
-            state: present
+        # next two steps are only needed on non-satellite environments as you can lock the content view in satellite otherwise
+        - name: install yum version lock
+          yum:
+            name: yum-plugin-versionlock
+
+        - name: yum version lock kernel* redhat-release*
+          command: yum versionlock add kernel redhat-release
+          changed_when: false
 
       rescue:
         - include_role:
@@ -73,8 +74,10 @@
             - ('s4app' in inventory_hostname)
             - role is undefined or role == ''
 
-        - debug:
-            msg: "role: {{ role }}"
+        # satellite requires unique hostname, we need to ensure uniqueness by using subdomain
+        - name: set hostname
+          hostname:
+            name: "{{ short_name }}.{{ subdomain }}"
 
 #        - name: subscribe to satellite using activation key
 #          command: subscription-manager register --insecure --serverurl {{ satellite_host }} --name {{ inventory_hostname }} --org {{ satellite_org_id | default('Red_Hat') }} --activationkey "{{ activation_keys[role] | default('SAP HANA Server') }}"

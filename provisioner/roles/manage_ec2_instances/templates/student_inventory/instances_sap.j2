@@ -22,19 +22,19 @@ ansible ansible_host={{ vm.public_ip_address }} private_ip={{ hostvars[vm.tags.N
 [tag_role_hana]
 {% for vm in hana1_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-hana1 ansible_host={{ vm.public_ip_address }} ansible_user=root private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
+hana1 ansible_host={{ vm.public_ip_address }} ansible_user=root private_ip={{ hostvars[vm.tags.Name]['private_ip'] }} subdomain={{ hostvars[vm.tags.Name]['subdomain'] }}
 {% endif %}
 {% endfor %}
 {% for vm in hana2_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-hana2 ansible_host={{ vm.public_ip_address }} ansible_user=root private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
+hana2 ansible_host={{ vm.public_ip_address }} ansible_user=root private_ip={{ hostvars[vm.tags.Name]['private_ip'] }} subdomain={{ hostvars[vm.tags.Name]['subdomain'] }}
 {% endif %}
 {% endfor %}
 
 [tag_role_s4app]
 {% for vm in s4app_node_facts.instances %}
 {% if 'student' + item == vm.tags.Student %}
-s4app ansible_host={{ vm.public_ip_address }} ansible_user=root private_ip={{ hostvars[vm.tags.Name]['private_ip'] }}
+s4app ansible_host={{ vm.public_ip_address }} ansible_user=root private_ip={{ hostvars[vm.tags.Name]['private_ip'] }} subdomain={{ hostvars[vm.tags.Name]['subdomain'] }}
 {% endif %}
 {% endfor %}
 
