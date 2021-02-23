@@ -67,6 +67,17 @@ workshop_dns_zone: rhdemo.io
 # automatically installs Tower to control node
 towerinstall: true
 
+# Sets the Route53 DNS zone to use for Amazon Web Services
+workshop_dns_zone: rhdemo.io
+
+## if you want to use satellite specify here, make sure it's accessible by student nodes
+# satellite_host: X.X.X.X
+
+## alternatively specify rhn credentials to register with RHN
+rhn_username: abc
+rhn_password: somepassword
+rhn_subscription: subscription name
+
 ```
 
 If you want to license Ansible Tower you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
