@@ -34,7 +34,7 @@ aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 
 If you haven't done so already make sure you have the repo cloned to the machine executing the playbook
 
-        git clone https://github.com/ansible/workshops.git
+        git clone https://github.com/mgmt-sa-tiger-team/sap-hana-workshop.git
         cd workshops/provisioner
 
 # Tower Instructions

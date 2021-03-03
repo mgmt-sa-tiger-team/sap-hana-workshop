@@ -142,16 +142,6 @@ ansible-playbook teardown_lab.yml -e @extra_vars.yml
 ansible-playbook teardown_lab.yml -e @extra_vars.yml -e debug_teardown=true
 ```
 
-## Demos
-
-There is a variable you can pass in within your extra_vars named `demo`.  When this keyword is defined it will install the specified demo from the Github repository [https://github.com/ansible/product-demos](https://github.com/ansible/product-demos).h
-
-For example you can put:
-
-```yaml
-demo: all
-```
-
 Which will install all demos onto the Ansible Tower instance.  Not all demos will work on any `workshop_type`.  Please refer to the [Demo repository list](https://github.com/ansible/product-demos#demo-repository).
 
 ## FAQ
