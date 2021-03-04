@@ -9,9 +9,14 @@ Here are the setup directions you have to perform one time for the [../provision
 
 # Setup
 
-1. Create an Amazon AWS account.
+1. Install Ansible if you have not done so already. We recommend using virtual environments.
+   https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#virtual-environments
+   
+   * **NOTE:** You can skip this step if you plan to use Ansible Tower. See the [Tower Instructions](#tower-instructions).
 
-2. Create an Access Key ID and Secret Access Key.  Save the ID and key for later.
+2. Create an Amazon AWS account.
+
+3. Create an Access Key ID and Secret Access Key.  Save the ID and key for later.
 
   - New to AWS and not sure what this step means?  [Click here](aws-directions/AWSHELP.md)
 
@@ -21,7 +26,7 @@ Here are the setup directions you have to perform one time for the [../provision
 
   **Are you using Tower?**  [Tower Instructions](#tower-instructions)
 
-4. Set your Access Key ID and Secret Access Key from Step 2 under ~/.aws/credentials
+5. Set your Access Key ID and Secret Access Key from Step 2 under ~/.aws/credentials
 
 ```
 [root@centos ~]# cat ~/.aws/credentials
@@ -30,7 +35,7 @@ aws_access_key_id = ABCDEFGHIJKLMNOP
 aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 ```
 
-5. Clone the workshops repo:
+6. Clone the workshops repo:
 
 If you haven't done so already make sure you have the repo cloned to the machine executing the playbook
 

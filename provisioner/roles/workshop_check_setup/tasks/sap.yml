@@ -14,7 +14,7 @@
 - name: fail if previous check has changed
   assert:
     that:
-      - package_state.changed != True
+      - package_state.changed
 
 - name: required roles
   shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"

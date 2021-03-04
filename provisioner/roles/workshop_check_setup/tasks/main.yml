@@ -124,7 +124,9 @@
       loop: "{{ collections }}"
 
 - name: check workshop specific information
-  include_tasks: "{{item}}"
+  include_tasks: "{{ workshop_item }}"
+  loop_control:
+    loop_var: workshop_item
   with_first_found:
-    - "{{role_path}}/tasks/{{workshop_type}}.yml"
-    - "{{role_path}}/tasks/unsupported_workshop.yml"
+    - "{{ role_path }}/tasks/{{ workshop_type }}.yml"
+    - "{{ role_path }}/tasks/unsupported_workshop.yml"

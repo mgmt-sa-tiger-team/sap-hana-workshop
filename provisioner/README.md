@@ -62,13 +62,10 @@ dns_type: aws
 admin_password: your_password123
 
 # Sets the Route53 DNS zone to use for Amazon Web Services
-workshop_dns_zone: rhdemo.io
+workshop_dns_zone: example.com
 
 # automatically installs Tower to control node
 towerinstall: true
-
-# Sets the Route53 DNS zone to use for Amazon Web Services
-workshop_dns_zone: rhdemo.io
 
 ## if you want to use satellite specify here, make sure it's accessible by student nodes
 # satellite_host: X.X.X.X

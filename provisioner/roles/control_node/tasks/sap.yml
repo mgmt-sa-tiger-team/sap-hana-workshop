@@ -1,4 +1,10 @@
 ---
+- name: upgrade pip first
+  pip:
+    name:
+      - pip
+    state: latest
+
 - name: install prereq packages
   pip:
     name:
