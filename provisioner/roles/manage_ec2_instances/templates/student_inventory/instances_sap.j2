@@ -5,7 +5,7 @@ ansible_ssh_pass={{ admin_password }}
 ansible_port={{ ssh_port }}
 {% endif %}
 {% for vip in vip_eni_info.network_interfaces %}
-{% if 'student' + item == vip.tag_set.student %}
+{% if 'student' + item == (vip.tag_set.Student | default(vip.tag_set.student)) %}
 sap_hana_ha_pacemaker_vip="{{ vip.private_ip_address }}"
 sap_hana_vip="{{ vip.private_ip_address }}"
 sap_hana_vip_cidr="{{ ec2_subnet }}"
