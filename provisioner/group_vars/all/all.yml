@@ -5,6 +5,7 @@ workshop_dns_zone: "regional.aws.redhat-demo.com"
 s3_state: "present"
 teardown: false
 towerinstall: true
+sapinstall: false
 populatetower: true
 website_information: ""
 login_website_information: ""

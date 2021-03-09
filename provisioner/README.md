@@ -67,6 +67,9 @@ workshop_dns_zone: example.com
 # automatically installs Tower to control node
 towerinstall: true
 
+# if set to true, this will install sap for each student in advance
+sapinstall: false
+
 ## if you want to use satellite specify here, make sure it's accessible by student nodes
 # satellite_host: X.X.X.X
 

@@ -134,3 +134,16 @@
                 state: present
 
       when: satellite_host is defined
+
+- name: deploy sap
+  hosts: '*ansible-1'
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: install sap via tower
+      include_role:
+        name: sap_install
+      when:
+        - sapinstall is defined
+        - sapinstall|bool

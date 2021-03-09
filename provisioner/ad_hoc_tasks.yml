@@ -1,0 +1,51 @@
+---
+
+# add hosts to inventory
+- name: Create lab instances in AWS
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  vars_files:
+    - roles/manage_ec2_instances/defaults/main/main.yml
+  pre_tasks:
+    - name: Cluster nodes
+      set_fact:
+        control_nodes: 4
+      when: create_cluster is defined and create_cluster|bool
+  tasks:
+    - name: grab facts for control_nodes
+      ec2_instance_info:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_ansible": "{{ec2_name_prefix}}-ansible*"
+      register: ansible_node_facts
+
+    - name: add ansible node to control_nodes and managed_nodes group
+      add_host:
+        name: "{{ item.tags.Name }}"
+        username: "{{ item.tags.Student }}"
+        student: "{{ item.tags.Student }}"
+        short_name: "{{ item.tags.short_name }}"
+        ansible_host: "{{ item.public_ip_address }}"
+        ansible_user: "{{ item.tags.username }}"
+        ansible_port: "{{ ssh_port }}"
+        ansible_ssh_private_key_file: "{{ playbook_dir }}/{{ec2_name_prefix}}/{{ec2_name_prefix}}-private.pem"
+        private_ip: "{{item.private_ip_address}}"
+        groups:
+          - control_nodes
+      with_items: "{{ ansible_node_facts.instances }}"
+
+    - name: add hosts
+      include_tasks: roles/manage_ec2_instances/tasks/inventory/addhost_{{ workshop_type }}.yml
+
+# add any add hoc plays/tasks starting here
+# example below running on all ansible control nodes
+- name: run tasks on ansible nodes
+  hosts: '*ansible-1'
+  become: true
+  gather_facts: false
+
+  tasks:
+    - ping:

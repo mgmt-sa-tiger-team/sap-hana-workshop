@@ -1,0 +1,46 @@
+---
+
+# deploy sap
+- name: get existing workflow job
+  uri:
+    url: https://{{ ansible_host }}/api/v2/workflow_jobs/?name={{ tower_sap_deploy_wft_name|urlencode }}
+    method: GET
+    user: admin
+    password: "{{ admin_password }}"
+    validate_certs: False
+    force_basic_auth: yes
+  register: tower_job_2
+
+- block:
+    - name: run sap deploy workflow template via tower
+      awx.awx.tower_workflow_launch:
+        tower_username: admin
+        tower_password: "{{ admin_password }}"
+        tower_host: "{{ ansible_host }}"
+        tower_verify_ssl: false
+        name: "{{ tower_sap_deploy_wft_name }}"
+        wait: no
+      register: tower_job_deploy_sap
+      when: (tower_job_2.json.results[-1].status | default('')) != "running"
+
+    - name: wait for tower job to finish
+      uri:
+        url: https://{{ ansible_host }}/api/v2/workflow_jobs/{{ tower_job_deploy_sap.id | default(tower_job_2.json.results[-1].id) }}/
+        method: GET
+        user: admin
+        password: "{{ admin_password }}"
+        validate_certs: False
+        force_basic_auth: yes
+      register: job_2
+      until:
+        - job_2.json is defined
+        - job_2.json.status == 'successful' or job_2.json.status == 'failed' or job_2.json.finished != None
+      retries: 300
+      delay: 60
+
+    - name: fail if result is not success
+      fail:
+        msg: Job failed!
+      when: job_2.json.status != 'successful'
+
+  when: tower_job_2.json.results | length == 0 or tower_job_2.json.results[-1].status != "successful"

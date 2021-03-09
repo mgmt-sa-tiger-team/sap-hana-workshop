@@ -1,0 +1,6 @@
+---
+- name: 1 - initial setup
+  include_tasks: 1_initial_setup.yml
+
+- name: 2 - deploy sap
+  include_tasks: 2_deploy_sap.yml
