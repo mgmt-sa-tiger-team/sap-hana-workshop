@@ -67,6 +67,21 @@ workshop_dns_zone: rhdemo.io
 # automatically installs Tower to control node
 towerinstall: true
 
+## if you want to use satellite specify it by FQDN here, make sure it's accessible by
+## student nodes, has the appropriate content, content views, subscriptions and activation
+## keys. Leaving this undefined will cause the playbook to register the RHEL VMs to RHSM
+# satellite_host:
+
+## alternatively specify rhn credentials to register with RHSM, Satellite will not use these
+## values, it relies on activation keys
+# rhn_username: 
+# rhn_password: 
+# rhn_subscription: subscription name
+
+## setting saptinstall to true will cause the paly book to run Labs 1 & 2 automatically
+## to reduce the duration of the workshop and allow for more "cooking show" experience
+sapinstall: false
+
 ```
 
 If you want to license Ansible Tower you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
