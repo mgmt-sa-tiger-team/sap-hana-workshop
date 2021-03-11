@@ -9,16 +9,8 @@
       failed_when: false
       ignore_unreachable: yes
       become: yes
-      delegate_to: "{{ hostvars[item].ansible_host }}"
-      loop: "{{ groups.sap_nodes }}"
-      changed_when: no
-
-    - name: unregister rhn if available
-      command: subscription-manager unregister
-      failed_when: false
-      ignore_unreachable: yes
-      become: yes
-      delegate_to: "{{ hostvars[item].ansible_host }}"
+      connection: ssh
+      delegate_to: "{{ item }}"
       loop: "{{ groups.sap_nodes }}"
       changed_when: no
 
@@ -28,6 +20,7 @@
       failed_when: false
       ignore_unreachable: yes
       become: yes
-      delegate_to: "{{ hostvars[item].ansible_host }}"
+      connection: ssh
+      delegate_to: "{{ item }}"
       loop: "{{ groups.sap_nodes }}"
   when: groups.sap_nodes is defined
