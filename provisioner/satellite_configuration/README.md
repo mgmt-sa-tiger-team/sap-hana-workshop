@@ -31,7 +31,6 @@ Red Hat Satellite Tools 6.8 for RHEL 8 x86_64 - Update Services SAP Solutions RP
 Red Hat Enterprise Linux 8 for x86_64 - High Availability RPMs 8.1 | rhel-8-for-x86_64-highavailability-rpms
 Red Hat Enterprise Linux 8 for x86_64 - High Availability - Update Services for SAP Solutions RPMs 8.1 | rhel-8-for-x86_64-highavailability-e4s-rpms
 Red Hat Ansible Engine 2.9 for RHEL 8 x86_64 RPMs | ansible-2.9-for-rhel-8-x86_64-rpms
-Red Hat Ansible Engine 2.9 RPMs for Red Hat Enterprise Linux 7 Server x86_64 | rhel-7-server-ansible-2.9-rpms
 ### Content Host Specifics
 #### Host Group
 HANA_Image
