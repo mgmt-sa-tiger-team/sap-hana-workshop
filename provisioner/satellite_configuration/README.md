@@ -6,6 +6,7 @@ This workshop requires access to RHEL content which can come from either the Red
 
 
 ## Satellite Configuration
+### Version
 Tested on version >=6.8 but probably fine on anything >6.7
 ### Host Group
 HANA_Image
@@ -32,8 +33,7 @@ Red Hat Ansible Engine 2.9 RPMs for Red Hat Enterprise Linux 7 Server x86_64 | r
 * SAP HANA Server
   * Release Version: 8.1
   * Environment: Production
-  * Content View: 
-  * RHEL SAP HANA Base 
+  * Content View: RHEL SAP HANA Base 
   * Subscriptions: Employee SKU (obviously this will vary for non-Employees)
   * Repository Sets
     * Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)
@@ -61,4 +61,33 @@ Red Hat Ansible Engine 2.9 RPMs for Red Hat Enterprise Linux 7 Server x86_64 | r
     * Red Hat Satellite Tools 6.8 for RHEL 8 x86_64 - Update Services SAP Solutions (RPMs)
     * Red Hat Enterprise Linux 8 for x86_64 - SAP NetWeaver (RPMs)    
     * Red Hat Enterprise Linux 8 for x86_64 - SAP NetWeaver - Update Services for SAP Solutions (RPMs)
-
+### Content Views
+#### RHEL 8.1 SOE
+##### Repos
+* Red Hat Enterprise Linux 8 for x86_64 - BaseOS RPMs 8.1 
+* Red Hat Enterprise Linux 8 for x86_64 - AppStream RPMs 8.1 
+* Red Hat Satellite Tools 6.8 for RHEL 8 x86_64 RPMs 
+#### SAP Application Server Overlay RHEL 8 
+##### Repos
+* Red Hat Enterprise Linux 8 for x86_64 - SAP NetWeaver RPMs 8.1 
+* Red Hat Enterprise Linux 8 for x86_64 - SAP NetWeaver - Update Services for SAP Solutions RPMs 8.1 
+* Red Hat Enterprise Linux 8 for x86_64 - SAP Solutions RPMs 8.1 
+* Red Hat Enterprise Linux 8 for x86_64 - SAP Solutions - Update Services for SAP Solutions RPMs 8.1
+* Red Hat Satellite Tools 6.8 for RHEL 8 x86_64 - Update Services SAP Solutions RPMs 8.1 
+#### SAP HANA Overlay RHEL 8 
+##### Repos
+* Red Hat Enterprise Linux 8 for x86_64 - High Availability RPMs 8.1 
+* Red Hat Enterprise Linux 8 for x86_64 - High Availability - Update Services for SAP Solutions RPMs 8.1 
+* Red Hat Enterprise Linux 8 for x86_64 - SAP NetWeaver RPMs 8.1 
+* Red Hat Enterprise Linux 8 for x86_64 - SAP NetWeaver - Update Services for SAP Solutions RPMs 8.1 	
+* Red Hat Enterprise Linux 8 for x86_64 - SAP Solutions RPMs 8.1 
+* Red Hat Enterprise Linux 8 for x86_64 - SAP Solutions - Update Services for SAP Solutions RPMs 8.1 
+* Red Hat Satellite Tools 6.8 for RHEL 8 x86_64 - Update Services SAP Solutions RPMs 8.1 
+#### SAP Application Server RHEL 8
+##### Content Views
+* RHEL8 SOE
+* SAP Application Server Overlay RHEL 8
+#### SAP HANA Server RHEL 8 
+##### Content Views
+*	RHEL8 SOE
+*	SAP HANA Overlay RHEL 8
