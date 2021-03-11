@@ -15,7 +15,8 @@
   hosts: sap_nodes
   become: true
   vars:
-    activation_keys:
+    satellite_org_id: Red Hat
+    satellite_sap_activation_keys:
       s4app: SAP S4 Server
       hana: SAP HANA Server
 
@@ -32,6 +33,11 @@
       when: ansible_os_family == 'RedHat' and ansible_distribution_major_version|int == 8
 
   tasks:
+    # satellite requires unique hostname, we need to ensure uniqueness by using domain_name
+    - name: set hostname
+      hostname:
+        name: "{{ short_name }}.{{ domain_name }}"
+
     - block:
         - include_role:
             name: oatakan.rhn
@@ -74,20 +80,15 @@
             - ('s4app' in inventory_hostname)
             - role is undefined or role == ''
 
-        # satellite requires unique hostname, we need to ensure uniqueness by using subdomain
-        - name: set hostname
-          hostname:
-            name: "{{ short_name }}.{{ subdomain }}"
-
 #        - name: subscribe to satellite using activation key
-#          command: subscription-manager register --insecure --serverurl {{ satellite_host }} --name {{ inventory_hostname }} --org {{ satellite_org_id | default('Red_Hat') }} --activationkey "{{ activation_keys[role] | default('SAP HANA Server') }}"
+#          command: subscription-manager register --insecure --serverurl {{ satellite_host }} --name {{ inventory_hostname }} --org {{ satellite_org_id | default('Red_Hat') }} --activationkey "{{ satellite_sap_activation_keys[role] | default('SAP HANA Server') }}"
 
         - name: subscribe to satellite using activation key
           redhat_subscription:
             state: present
             server_hostname: "{{ satellite_host }}"
             server_insecure: yes
-            activationkey: "{{ activation_keys[role] | default('SAP HANA Server') }}"
+            activationkey: "{{ satellite_sap_activation_keys[role] | default('SAP HANA Server') }}"
             org_id: "{{ satellite_org_id | default('Red_Hat') }}"
 #            consumer_name: "{{ inventory_hostname }}"
             auto_attach: true

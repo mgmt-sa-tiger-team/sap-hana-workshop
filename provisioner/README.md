@@ -67,17 +67,30 @@ workshop_dns_zone: example.com
 # automatically installs Tower to control node
 towerinstall: true
 
-# if set to true, this will install sap for each student in advance
+## option 1 - Red Hat Satellite
+## if you want to use satellite specify it by FQDN here, make sure it's accessible by
+## student nodes, has the appropriate content, content views, subscriptions and activation
+## keys. Leaving this undefined will cause the playbook to register the RHEL VMs to RHSM
+# satellite_host:
+
+## organization name in satellite
+# satellite_org_id:
+
+## activation keys for SAP systems for your satellite environment
+# satellite_sap_activation_keys:
+#   s4app: SAP S4 Server
+#   hana: SAP HANA Server
+
+## option 2 - RHN
+## alternatively specify rhn credentials to register with RHSM, Satellite will not use these
+## values, it relies on activation keys
+# rhn_username: 
+# rhn_password: 
+# rhn_subscription: subscription name
+
+## setting sapinstall to true will cause the playbook to run Labs 1 & 2 automatically
+## to reduce the duration of the workshop and allow for more "cooking show" experience
 sapinstall: false
-
-## if you want to use satellite specify here, make sure it's accessible by student nodes
-# satellite_host: X.X.X.X
-
-## alternatively specify rhn credentials to register with RHN
-rhn_username: abc
-rhn_password: somepassword
-rhn_subscription: subscription name
-
 ```
 
 If you want to license Ansible Tower you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).

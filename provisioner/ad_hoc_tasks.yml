@@ -1,7 +1,6 @@
 ---
 
-# add hosts to inventory
-- name: Create lab instances in AWS
+- name: add hosts to inventory
   hosts: localhost
   connection: local
   become: false

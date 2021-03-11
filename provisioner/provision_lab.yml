@@ -116,7 +116,7 @@
         - populatetower
 
 - name: include workshop_type unique setup roles
-  import_playbook: "{{workshop_type}}.yml"
+  import_playbook: "{{ workshop_type }}.yml"
 
 - name: print out information for instructor
   hosts: localhost
