@@ -15,7 +15,7 @@
   hosts: sap_nodes
   become: true
   vars:
-    satellite_org_id: Red Hat
+    satellite_org_id: Red_Hat
     satellite_sap_activation_keys:
       s4app: SAP S4 Server
       hana: SAP HANA Server
