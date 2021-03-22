@@ -39,6 +39,7 @@ The `github.com/mgmt-sa-tiger-team/sap-hana-workshop` contains an Ansible Playbo
 
 ### Satellite Configuration (optional)
 
+For the pursposes of this workshop a Satellite is optional. It brings with it the ability remediate Insights findings automatically through https://cloud.redhat.com. To enable this functionality you must have configured Cloud Connector for your Satellite, please see the documentation for your version of Satellite for details.
 [For One Satellite Configuration - click here](satellite_configuration/readme.md) 
 
 ### Setup (per workshop)
