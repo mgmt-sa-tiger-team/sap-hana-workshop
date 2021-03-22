@@ -39,7 +39,7 @@ The `github.com/mgmt-sa-tiger-team/sap-hana-workshop` contains an Ansible Playbo
 
 ### Satellite Configuration (optional)
 
-[For One Satellite Configuration - click here](satellite_configuration/setup.md) 
+[For One Satellite Configuration - click here](satellite_configuration/readme.md) 
 
 ### Setup (per workshop)
 
