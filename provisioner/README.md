@@ -13,6 +13,7 @@ The `github.com/mgmt-sa-tiger-team/sap-hana-workshop` contains an Ansible Playbo
 * [Requirements](#requirements)
 * [Lab Setup](#lab-setup)
   * [One Time Setup](#one-time-setup)
+  * [Satellite Configuration (optional)](#satellite-configuration-optional)
   * [Setup (per workshop)](#setup-per-workshop)
   * [IBM Community Grid](#ibm-community-grid)
   * [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
@@ -28,12 +29,17 @@ The `github.com/mgmt-sa-tiger-team/sap-hana-workshop` contains an Ansible Playbo
 
 * This provisioner must be run with Ansible Engine v2.8.0 or higher.
 * AWS Account (follow directions on one time setup below)
+* Access to RHEL 8.1 content either through the Red Hat CDN or a Satellite
 
 ## Lab Setup
 
 ### One Time Setup
 
 [For One Time Setup - click here](../docs/setup.md)
+
+### Satellite Configuration (optional)
+
+[For One Satellite Configuration - click here](satellite_configuration/setup.md) 
 
 ### Setup (per workshop)
 
