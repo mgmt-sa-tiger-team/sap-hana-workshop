@@ -1,6 +1,6 @@
 # SAP HANA Workshop
 
-< Put description here >
+This workshop is intended to demostrate the power of the Red Hat Platform protfolio (RHEL, Smart Management and Ansible Tower) for deploying and maintaining an SAP HANA solution as well as providing the ability for operations or developer teams to deploy consistent sandbox image without taking time away from, or having to wait for, members of multiple infrastucture teams. 
 
 ## Presentations
 
