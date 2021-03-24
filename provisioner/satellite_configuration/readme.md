@@ -1,6 +1,6 @@
 # Satellite configuration for SAP AWS training provisioner
 
-This workshop requires access to RHEL content which can come from either the Red Hat CDN or a Satellite. This document describes the configuration of the Satellite used in our development process.
+This workshop requires access to RHEL content which can come from either the Red Hat CDN or a Satellite. This document describes the configuration of the Satellite used in our development process. Satellite will provide an easy interface to view and remediate Insights findings by creating temproary student accounts on your Satellite. Demonstrating Insight throught the cloud.redhat.com portal today requires driect login to the subscrition holders account and, while technically possible, is strondlgy discouraged. If you plan to demostrate Insights remediation via cloud.redhat.com be sure to read the documentation on Cloud connector carefully to avoid being struck down by the demo gods.
 
 ## Table of Contents
 * [Satellite Configuration](#satellite-configuration)
