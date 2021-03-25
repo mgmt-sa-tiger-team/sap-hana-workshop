@@ -15,7 +15,6 @@ The `github.com/mgmt-sa-tiger-team/sap-hana-workshop` contains an Ansible Playbo
   * [One Time Setup](#one-time-setup)
   * [Satellite Configuration (optional)](#satellite-configuration-optional)
   * [Setup (per workshop)](#setup-per-workshop)
-  * [IBM Community Grid](#ibm-community-grid)
   * [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
   * [Accessing instructor inventory](#accessing-instructor-inventory)
   * [DNS](#dns)
