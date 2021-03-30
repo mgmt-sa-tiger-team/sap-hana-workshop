@@ -35,7 +35,9 @@ aws_access_key_id = ABCDEFGHIJKLMNOP
 aws_secret_access_key = ABCDEFGHIJKLMNOP/ABCDEFGHIJKLMNOP
 ```
 
-6. Clone the workshops repo:
+6. Download and copy the SAP binaries into an AWS s3 storage [Click here](sap-directions/SAP.md)
+
+7. Clone the workshops repo:
 
 If you haven't done so already make sure you have the repo cloned to the machine executing the playbook
 
