@@ -1,0 +1,25 @@
+---
+
+- name: set permissions on venv dir
+  ansible.builtin.file:
+    path: "{{ path }}"
+    owner: awx
+    group: awx
+    mode: '0755'
+  loop_control:
+    loop_var: path
+  loop:
+    - "{{ venv_path }}"
+    - "{{ venv_path }}/{{ venv_name }}"
+
+- name: install gcc for psutil
+  ansible.builtin.yum:
+    name: gcc
+    state: present
+
+- name: add psutil to the virtualenv
+  ansible.builtin.pip:
+    name: psutil
+    virtualenv: "{{ venv_path }}/{{ venv_name }}"
+    virtualenv_python: python3
+

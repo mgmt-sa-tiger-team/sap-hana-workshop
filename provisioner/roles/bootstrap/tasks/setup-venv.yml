@@ -1,0 +1,33 @@
+---
+
+- name: ensure pip3 is available
+  ansible.builtin.yum:
+    name: python3-pip
+    state: present
+
+- name: install virtualenv
+  ansible.builtin.pip:
+    name: virtualenv
+    executable: pip3
+  tags:
+    - system
+    - virtualenv
+    - venv
+
+- name: ensure parent venv dir exists
+  ansible.builtin.file:
+    path: "{{ venv_path }}"
+    state: directory
+  tags:
+    - virtualenv
+    - venv
+
+- name: create venv and install dependencies
+  ansible.builtin.pip:
+    name: "{{ pip_packages }}"
+    virtualenv: "{{ venv_path }}/{{ venv_name }}"
+    virtualenv_python: python3
+
+- name: print out info
+  ansible.builtin.debug:
+    msg: "Run 'source {{ venv_path }}/{{ venv_name}}/bin/activate' before running ansible-playook to use this venv"

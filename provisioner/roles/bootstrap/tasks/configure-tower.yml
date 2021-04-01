@@ -1,0 +1,68 @@
+---
+
+- name: get existing venv paths from tower
+  ansible.builtin.uri:
+    url: "https://{{ tower.host }}/api/v2/settings/system/"
+    user: "{{ tower.username }}"
+    password: "{{ tower.password }}"
+    force_basic_auth: yes
+    validate_certs: no
+  register: tower_settings
+
+- name: add "{{ venv_path }}" to tower custom venv paths
+  awx.awx.tower_settings:
+    tower_host: "{{ tower.host }}"
+    tower_username: "{{ tower.username }}"
+    tower_password: "{{ tower.password }}"
+    validate_certs: "{{ tower.validate_certs | default('no') }}"
+    name: CUSTOM_VENV_PATHS
+    value: "{{ tower_settings.json.CUSTOM_VENV_PATHS + [ venv_path ] }}"
+  when:
+    - venv_path not in tower_settings.json.CUSTOM_VENV_PATHS
+
+- name: add tower project
+  awx.awx.tower_project:
+    tower_host: "{{ tower.host }}"
+    tower_username: "{{ tower.username }}"
+    tower_password: "{{ tower.password }}"
+    validate_certs: "{{ tower.validate_certs | default('no') }}"
+    name: SAP HANA Workshop
+    scm_type: git
+    scm_url: https://github.com/mgmt-sa-tiger-team/sap-hana-workshop.git
+    organization: "{{ tower.organization | default('Default') }}"
+    wait: yes
+
+- name: add localhost inventory
+  awx.awx.tower_inventory:
+    tower_host: "{{ tower.host }}"
+    tower_username: "{{ tower.username }}"
+    tower_password: "{{ tower.password }}"
+    validate_certs: "{{ tower.validate_certs | default('no') }}"
+    name: Localhost
+    organization: "{{ tower.organization | default('Default') }}"
+
+- name: add localhost host to Localhost inventory
+  awx.awx.tower_host:
+    tower_host: "{{ tower.host }}"
+    tower_username: "{{ tower.username }}"
+    tower_password: "{{ tower.password }}"
+    validate_certs: "{{ tower.validate_certs | default('no') }}"
+    name: localhost
+    inventory: Localhost
+    variables:
+      ansible_connection: local
+
+- name: add tower job templates
+  awx.awx.tower_job_template:
+    tower_host: "{{ tower.host }}"
+    tower_username: "{{ tower.username }}"
+    tower_password: "{{ tower.password }}"
+    validate_certs: "{{ tower.validate_certs | default('no') }}"
+    name: "{{ job_template.name }}"
+    custom_virtualenv: "{{ job_template.custom_virtualenv }}"
+    project: "{{ job_template.project }}"
+    playbook: "{{ job_template.playbook }}"
+    inventory: "{{ job_template.inventory }}"
+  loop_control:
+    loop_var: job_template
+  loop: "{{ tower_job_templates }}"

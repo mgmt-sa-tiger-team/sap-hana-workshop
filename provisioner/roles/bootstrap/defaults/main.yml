@@ -1,0 +1,26 @@
+---
+
+pip_packages:
+  - ansible==2.9
+  - boto
+  - boto3
+  - netaddr
+  - passlib
+  - selinux
+  - pywinrm
+
+venv_path: /tmp/venvs
+venv_name: sap-hana-workshop
+
+tower_job_templates:
+  - name: Provosion SAP HANA Workshop
+    custom_virtualenv: "{{ venv_path }}/{{ venv_name }}"
+    project: SAP HANA Workshop
+    playbook: provisioner/provision_lab.yml
+    inventory: Localhost
+  - name: Teardown SAP HANA Workshop
+    custom_virtualenv: "{{ venv_path }}/{{ venv_name }}"
+    project: SAP HANA Workshop
+    playbook: provisioner/teardown_lab.yml
+    inventory: Localhost
+
