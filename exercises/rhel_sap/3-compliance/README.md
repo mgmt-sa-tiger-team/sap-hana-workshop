@@ -1,6 +1,8 @@
 Evaluate SAP Environment with Red Hat Insights
 ==============================================
 
+**NOTES:** This lab is currently based on RHEL 8.1 which is the most recent minor release certified by SAP as of 4/20/2021. RHEL 8.4 incldues the ability to remediate Insights findings from https://cloud.redhat.com/ however this is not the case for 8.1. If you are not using a Satellite in this lab you will not be able to automate remediation though you will still be able to review findings and download playbooks to effect remediation manually.
+
 Your HANA environment is up and running. What can you do to improve it?
 
 Red Hat Insights is a component of RHEL that will help you detect and address 
@@ -13,12 +15,45 @@ and do all of the above consistently, mostly automatically, using version contro
 Overview
 ========
 
-In this lab exercise we will walk through the process of evaluating your SAP environment, due to the requirement for live subscriptions this lab will be conducted as a demonstration rather than an interactive lab. Your servers were automatically registered to Insights during the deployment process. 
+In this lab exercise we will walk through the process of evaluating your SAP environment, due to the requirement for live subscriptions this lab will be conducted as a demonstration rather than an interactive lab. Your servers were automatically registered to Insights during the deployment process. We'll cover the approach using Satelite first
+
+Logging into Satellite
+======================
+
+Open a brower window or tab, navigate to the Satellite instance provided in your Workbench Information and enter your credentials. 
+
+![Satellite Dashboard](images/3-lab-satellite-dashboard.png)
+
+Hover your mouse of **Insghts** on the right hand navigation menu and then up to **Actions**
+
+![Navigate to Insights Actions](images/3-lab-navigate-to-insights-actions.png)
+
+From this view
+
+![Insights Actions 1](images/3-lab-insights-actions-1.png)
+
+scroll down until you see the **SAP** topic and click on **View More**
+
+![Insights Actions 2](images/3-lab-insights-actions-2.png)
+
+In this view we can see issues that Insights has identified which as specicfic to SAP. In particualar we'll take a look at hte issue in reosource limits. Click on the text highlighted in this example.
+
+![Resource limits 1](images/3-lab-insights-resource-limits-1.png)
+
+From the next view we can see which systems are affected by this issue. Select the VMs that you own in your view then click on **Actions** and **Create a new Plan/Playbook**
+
+![Resource limits 2](images/3-lab-insights-resource-limits-2.png)
+
+Enter a name for your plan and click **Save**
+
+![Resource limits 3](images/3-lab-insights-resource-limits-3.png)
+
+
 
 Logging into cloud.redhat.com
 =============================
 
-Open a browser and navigate to https://cloud.redhat.com/ and log in with your credentials
+Open a browser window or tab and navigate to https://cloud.redhat.com/ and log in with your credentials
 
 
 ![cloud.redhat.com Home](images/3-lab-cloud-home.png)
@@ -37,7 +72,7 @@ In this view we can see a number of applications provided by Insights. The major
 1. Drift
 
 Applications 
-============
+===========
 Advisor 
 -------
 **Advisor** provides recommendations to improve system performance, reliability and security in a number of formats.
