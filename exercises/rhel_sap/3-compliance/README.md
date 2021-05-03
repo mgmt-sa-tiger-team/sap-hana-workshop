@@ -1,13 +1,13 @@
 Evaluate SAP Environment with Red Hat Insights
 ==============================================
 
-**NOTES:** This lab is currently based on RHEL 8.1 which is the most recent minor release certified by SAP as of 4/20/2021. RHEL 8.4 incldues the ability to remediate Insights findings from https://cloud.redhat.com/ however this is not the case for 8.1. If you are not using a Satellite in this lab you will not be able to automate remediation though you will still be able to review findings and download playbooks to effect remediation manually.
+**NOTES:** This lab is currently based on RHEL 8.1 which is the most recent minor release certified by SAP as of 4/20/2021. RHEL 8.4 includes the ability to remediate Insights findings from https://cloud.redhat.com/ however this is not the case for 8.1. If you are not using a Satellite in this lab you will not be able to automate remediation though you will still be able to review findings and download playbooks to effect remediation manually.
 
 Your HANA environment is up and running. What can you do to improve it?
 
-Red Hat Insights is a component of RHEL that will help you detect and address 
-- security issues (not just patching) and help to avoid breaches that cost money and erode your brand value 
-- compliance issues and help to avoid violations that cost money and erode your brand value 
+Red Hat Insights is a component of RHEL that will help you detect and address
+- security issues (not just patching) and help to avoid breaches that cost money and erode your brand value
+- compliance issues and help to avoid violations that cost money and erode your brand value
 - performance and availability issues that cost money and erode internal and external confidence
 - consistency issues that reduce efficiency and cost money
 and do all of the above consistently, mostly automatically, using version controlled artifacts with very little effort which saves money and builds internal and external confidence
@@ -15,16 +15,16 @@ and do all of the above consistently, mostly automatically, using version contro
 Overview
 ========
 
-In this lab exercise we will walk through the process of evaluating your SAP environment, due to the requirement for live subscriptions this lab will be conducted as a demonstration rather than an interactive lab. Your servers were automatically registered to Insights during the deployment process. We'll cover the approach using Satelite first
+In this lab exercise we will walk through the process of evaluating your SAP environment, due to the requirement for live subscriptions this lab will be conducted as a demonstration rather than an interactive lab. Your servers were automatically registered to Insights during the deployment process. We'll cover the approach using Satellite first
 
 Logging into Satellite
 ======================
 
-Open a brower window or tab, navigate to the Satellite instance provided in your Workbench Information and enter your credentials. 
+Open a browser window or tab, navigate to the Satellite instance provided in your Workbench Information and enter your credentials.
 
 ![Satellite Dashboard](images/3-lab-satellite-dashboard.png)
 
-Hover your mouse of **Insghts** on the right hand navigation menu and then up to **Actions**
+Hover your mouse of **Insights** on the right hand navigation menu and then up to **Actions**
 
 ![Navigate to Insights Actions](images/3-lab-navigate-to-insights-actions.png)
 
@@ -36,9 +36,13 @@ scroll down until you see the **SAP** topic and click on **View More**
 
 ![Insights Actions 2](images/3-lab-insights-actions-2.png)
 
-In this view we can see issues that Insights has identified which as specicfic to SAP. In particualar we'll take a look at hte issue in reosource limits. Click on the text highlighted in this example.
+In this view we can see issues that Insights has identified issues which are specific to SAP. In particular we'll take a look at the issue in resource limits. Click on the text highlighted in this example.
 
 ![Resource limits 1](images/3-lab-insights-resource-limits-1.png)
+
+Details of the issue can be found by clicking through the link for one of the affected hosts. In the view below we can see that Insights has detected that we have not set our limits for the number of open files as high as is required.
+
+![Resource limits 1](images/3-lab-insights-resource-limits-1a.png)
 
 From the next view we can see which systems are affected by this issue. Select the VMs that you own in your view then click on **Actions** and **Create a new Plan/Playbook**
 
@@ -48,6 +52,45 @@ Enter a name for your plan and click **Save**
 
 ![Resource limits 3](images/3-lab-insights-resource-limits-3.png)
 
+We have two options here, one that involves a reboot and one that does not. Given that this is an SAP HANA clustered environment where a reboot must be carefully coordinated we're going to go with the non-reboot approach and click **Save**.
+
+![Resource limits 3](images/3-lab-insights-resource-limits-4.png)
+
+This will take us to the screen below where we can simply click on the **Run Playbook** button.
+
+![Resource limits 3](images/3-lab-insights-resource-limits-5.png)
+
+This takes us to a status screen where we can keep and eye on progres.
+
+![Resource limits 3](images/3-lab-insights-resource-limits-6.png)
+
+When the playbook completes we have a status indicating the percentages of successes as well as any failures which we need to follow up on. We can also drill down to individual hosts for more details.
+
+![Resource limits 3](images/3-lab-insights-resource-limits-7.png)
+
+Clicking on one of the hosts we've been working with (yours will be named differently) we can see the output of the playbook.
+
+![Resource limits 3](images/3-lab-insights-resource-limits-8.png)
+
+While not necessary we could also verify the status manually by running a remote job on one or all of the hosts. To do that here we'll hover over **Hosts** in the left navigation bar and then click on **All Hosts**
+
+![Resource limits 3](images/3-lab-insights-resource-limits-9.png)
+
+In the next panel we select one of more of the hosts that we've updated (depending on the number of students in your class you may want to use the search bar as we've done here) then click on **Select Action** and from the pull down menu select ** Schedule Remote Job**.
+
+![Resource limits 3](images/3-lab-insights-resource-limits-10.png)
+
+In the next screen we can see that the host name has already been filled in. We will enter the command "cat /etc/security/limits.d/99-sap.conf" to verify that the modifications have been made and then click **Submit**
+
+![Resource limits 3](images/3-lab-insights-resource-limits-11.png)
+
+This will take you to a window where we can follow the progress of this ad hoc job.
+
+![Resource limits 3](images/3-lab-insights-resource-limits-12.png)
+
+Once completed we can again click on the host name to see the output of the job.
+
+![Resource limits 3](images/3-lab-insights-resource-limits-13.png)
 
 
 Logging into cloud.redhat.com
