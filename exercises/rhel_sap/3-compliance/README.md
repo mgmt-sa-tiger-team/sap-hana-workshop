@@ -68,7 +68,7 @@ When the playbook completes we have a status indicating the percentages of succe
 
 ![Resource limits 7](images/3-lab-insights-resource-limits-7.png)
 
-Clicking on one of the hosts we've been working with (yours will be named differently) we can see the output of the playbook.
+Clicking on one of the hosts we've been working with (yours will be named differently) we can see the output of the playbook. Note the changes made hightlighted in red.
 
 ![Resource limits 8](images/3-lab-insights-resource-limits-8.png)
 
