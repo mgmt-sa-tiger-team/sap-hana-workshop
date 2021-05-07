@@ -1,7 +1,7 @@
 Evaluate SAP Environment with Red Hat Insights
 ==============================================
 
-**NOTES:** This lab is currently based on RHEL 8.1 which is the most recent minor release certified by SAP as of 4/20/2021. RHEL 8.4 includes the ability to remediate Insights findings from https://cloud.redhat.com/ however this is not the case for 8.1. If you are not using a Satellite in this lab you will not be able to automate remediation though you will still be able to review findings and download playbooks to effect remediation manually.
+**NOTES:** This lab is currently based on RHEL 8.1 which is the most recent minor release certified by SAP as of 4/20/2021. RHEL 8.4 includes the ability to remediate Insights findings from https://cloud.redhat.com/ however this is not the case for 8.1. If your workshop environment includes a Satellite lab you will be able to automate remediation of your HANA Servers through it. If not your instructor will walk the class through a demostration of Insights using the https://cloud.redhat.com/ portal, although cusotmers will still be able to review findings and download playbooks to effect remediation manually.
 
 Your HANA environment is up and running. What can you do to improve it?
 
