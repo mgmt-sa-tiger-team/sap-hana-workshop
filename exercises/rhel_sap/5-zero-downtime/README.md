@@ -145,43 +145,43 @@ To understand how this is managed click on **Yum Content** and then on **Filters
 
 In the next view click on **Monthy Release Filter** 
 
-[Satellite exploration 10](images/5-lab-satellite-soe-cv5.png)
+![Satellite exploration 10](images/5-lab-satellite-soe-cv5.png)
 
 In this view we can see that the administrator has created a filter which affects all three types of errata based on the date they were most recnetly updated and filters **out** any updated **after** a certain date. Filters are customer defined and very flexible, for the purposes of this workshop we have simply focused on creating a monthly release cadence. If you would like to explore the possibilities futhre please discuss this with the instructor of one of the other facilitators.
 
-[Satellite exploration 11](images/5-lab-satellite-soe-cv6.png)
+![Satellite exploration 11](images/5-lab-satellite-soe-cv6.png)
 
 The next step in our exploration will be to see the way in which we can create another Content View which can overlay and augment the SOE to meet the needs of the servers we are managing in this workshop. Click on **Content Views**
 
-[Satellite exploration 12](images/5-lab-satellite-nav-to-hana-overlay1.png)
+![Satellite exploration 12](images/5-lab-satellite-nav-to-hana-overlay1.png)
 
 Then click on **SAP HANA Overlay RHEL 8**
 
-[Satellite exploration 13](images/5-lab-satellite-nav-to-hana-overlay2.png)
+![Satellite exploration 13](images/5-lab-satellite-nav-to-hana-overlay2.png)
 
 In this view we can see that we use the same concepts as in the SOE. Multipe versions with one assigned to the Production Lifecycle.
 
-[Satellite exploration 13](images/5-lab-satellite-hana-overlay1.png)
+![Satellite exploration 13](images/5-lab-satellite-hana-overlay1.png)
 
 Click on **Yum Content** and then on **Repostories**
 
-[Satellite exploration 14](images/5-lab-satellite-hana-overlay2.png)
+![Satellite exploration 14](images/5-lab-satellite-hana-overlay2.png)
 
 In this view we can see the additional repositories the administrator has selelctec to augnet the SOE so that it can support an SAP HANA workload.
 
-[Satellite exploration 15](images/5-lab-satellite-hana-overlay3.png)
+![Satellite exploration 15](images/5-lab-satellite-hana-overlay3.png)
 
 Click on **Content Views**
 
-[Satellite exploration 16](images/5-lab-satellite-nav-to-hana-server1.png)
+![Satellite exploration 16](images/5-lab-satellite-nav-to-hana-server1.png)
 
 Click on **SAP HANA Server RHEL 8**
 
-[Satellite exploration 17](images/5-lab-satellite-nav-to-hana-server2.png)
+![Satellite exploration 17](images/5-lab-satellite-nav-to-hana-server2.png)
 
 In this view we can see essntially the same Content View concept with one easily noticeable difference, and **Content Views** tab. Click on the **Content Views** tab.
 
-[Satellite exploration 17](images/5-lab-satellite-hana-server1.png)
+![Satellite exploration 17](images/5-lab-satellite-hana-server1.png)
 
 This screen shows the two standard Content Views which make up this **Composite Content View** you may note that the **Environments** show Library and Development, this is only the most recent state. Composite Content Views also use versions
 
