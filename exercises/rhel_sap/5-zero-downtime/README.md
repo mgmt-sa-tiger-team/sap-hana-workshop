@@ -103,7 +103,7 @@ Right-click in each box as it's running and open in a new window to observe both
 If the workshop envirnoment includes a Red Hat Satellite we will explore some of the capabilities that make this process easier to manage.
 
 Logging into Satellite
-======================
+----------------------
 
 The class shares a single instance of Satellite. The URL and credentials were supplied to you at the begining of the worksho, please ask your instructor for assistance if you don not have them at hand.
 
