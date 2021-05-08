@@ -1,5 +1,5 @@
-Zero downtime patching
-=========================
+Zero Downtime Upgrade
+=====================
 
 Our scenario: Your company is now out of the critical phase experienced in the previous lab and it’s time for monthly patching.
 
@@ -25,12 +25,12 @@ to working on the 2nd system, 1st system will be booted up and operational to re
 Further reading on this scenario: [Reducing downtime for SAP HANA](https://www.redhat.com/cms/managed-files/pa-sap-hana-reducing-downtime-overview-f22788pr-202004-en.pdf).
 
 Logging into Tower
-==================
+-----------------
 
 Your Ansible Tower instance url and credentials were supplied to you on the page created for this workshop.
 
 Zero Downtime Upgrade
-======================
+---------------------
 
 In this exercise, you will perform rolling OS update with zero downtime on HANA HA cluster which will require kernel
 update and a reboot.
@@ -69,7 +69,7 @@ steps and note the validation steps.
 
 
 Challenge Exercise: Test Unplanned Outage (Review Only)
-======================
+------------------------------------------------------
 
 In this exercise, you will test an unplanned outage on pre-prod environment to observe fail-over and any interruption to
 user experience.
@@ -98,20 +98,21 @@ Right-click in each box as it's running and open in a new window to observe both
 
 ![Workflow Job Details](images/5-wf-job-details.png)
 
-**Understanding the role of Satellite [Optional]**
+Understanding the role of Satellite [Optional]
+----------------------------------------------
 
 If the workshop envirnoment includes a Red Hat Satellite we will explore some of the capabilities that make this process easier to manage.
 
 Logging into Satellite
 ----------------------
 
-The class shares a single instance of Satellite. The URL and credentials were supplied to you at the begining of the worksho, please ask your instructor for assistance if you don not have them at hand.
+The class shares a single instance of Satellite. The URL and credentials were supplied to you at the begining of the workshop, please ask your instructor for assistance if you don not have them at hand.
 
 After authenticating you will land on the Satellite Dashboard
 
 ![Satellite exploration 1](images/5-lab-satellite-dashboard.png)
 
-Hover over **Content** then clikc on **Red Hat Repositories**
+**a.** Hover over **Content** then click on **Red Hat Repositories**
 
 ![Satellite exploration 2](images/5-lab-satellite-nav-to-repos.png)
 
@@ -119,7 +120,7 @@ Note the some of the pertinent repositiories highlighted in this screen. The rep
 
 ![Satellite exploration 3](images/5-lab-satellite-repos.png)
 
-Hover over **Content** and click on **Content Views**
+**b.** Hover over **Content** and click on **Content Views**
 
 ![Satellite exploration 4](images/5-lab-satellite-nav-to-cvs.png)
 
@@ -127,11 +128,13 @@ In this view we can see all of the Content Views whihc have been created on this
 
 ![Satellite exploration 5](images/5-lab-satellite-cvs.png)
 
-Click on the link **RHEL8 SOE**
+**c.** Click on the link **RHEL8 SOE**
 
 ![Satellite exploration 6](images/5-lab-satellite-soe-cv1.png)
 
-In this view note that we have a version assigned to the **Production Environment**. Note that the number of errata included in earlier versions is lower and in later versions is higher and that this version is related to a certain point in time. This version represents a point in time view of the **SOE**. To see how we manage this point in time view click on **Yum Content** and then on **Repositories**.
+In this view note that we have a version assigned to the **Production Environment**. Note that the number of errata included in earlier versions is lower and in later versions is higher and that this version is related to a certain point in time. This version represents a point in time view of the **SOE**. 
+
+**d.** To see how we manage this point in time view click on **Yum Content** and then on **Repositories**.
 
 ![Satellite exploration 7](images/5-lab-satellite-soe-cv2.png)
 
@@ -139,11 +142,11 @@ In this view we can see the three repositories which define the SOE. Note that t
 
 ![Satellite exploration 8](images/5-lab-satellite-soe-cv3.png)
 
-To understand how this is managed click on **Yum Content** and then on **Filters**
+**e.** To understand how this is managed click on **Yum Content** and then on **Filters**
 
 ![Satellite exploration 9](images/5-lab-satellite-soe-cv4.png)
 
-In the next view click on **Monthy Release Filter** 
+**f.** In the next view click on **Monthy Release Filter** 
 
 ![Satellite exploration 10](images/5-lab-satellite-soe-cv5.png)
 
@@ -151,11 +154,13 @@ In this view we can see that the administrator has created a filter which affect
 
 ![Satellite exploration 11](images/5-lab-satellite-soe-cv6.png)
 
-The next step in our exploration will be to see the way in which we can create another Content View which can overlay and augment the SOE to meet the needs of the servers we are managing in this workshop. Click on **Content Views**
+The next step in our exploration will be to see the way in which we can create another Content View which can overlay and augment the SOE to meet the needs of the servers we are managing in this workshop. 
+
+**g.** Click on **Content Views**
 
 ![Satellite exploration 12](images/5-lab-satellite-nav-to-hana-overlay1.png)
 
-Then click on **SAP HANA Overlay RHEL 8**
+**h.** Then click on **SAP HANA Overlay RHEL 8**
 
 ![Satellite exploration 13](images/5-lab-satellite-nav-to-hana-overlay2.png)
 
@@ -163,7 +168,7 @@ In this view we can see that we use the same concepts as in the SOE. Multipe ver
 
 ![Satellite exploration 13](images/5-lab-satellite-hana-overlay1.png)
 
-Click on **Yum Content** and then on **Repostories**
+**i.** Click on **Yum Content** and then on **Repostories**
 
 ![Satellite exploration 14](images/5-lab-satellite-hana-overlay2.png)
 
@@ -171,19 +176,33 @@ In this view we can see the additional repositories the administrator has selelc
 
 ![Satellite exploration 15](images/5-lab-satellite-hana-overlay3.png)
 
-Click on **Content Views**
+**j.** Click on **Content Views**
 
 ![Satellite exploration 16](images/5-lab-satellite-nav-to-hana-server1.png)
 
-Click on **SAP HANA Server RHEL 8**
+**k.** Click on **SAP HANA Server RHEL 8**
 
 ![Satellite exploration 17](images/5-lab-satellite-nav-to-hana-server2.png)
 
-In this view we can see essntially the same Content View concept with one easily noticeable difference, and **Content Views** tab. Click on the **Content Views** tab.
+In this view we can see essntially the same Content View concept with an easily noticeable difference. 
 
-![Satellite exploration 17](images/5-lab-satellite-hana-server1.png)
+![Satellite exploration 18](images/5-lab-satellite-hana-server1.png)
 
-This screen shows the two standard Content Views which make up this **Composite Content View** you may note that the **Environments** show Library and Development, this is only the most recent state. Composite Content Views also use versions
+Instead of the option tabs we had in a Simple Content View
+
+![Satellite exploration 19](images/5-lab-satellite-hana-server3.png)
+
+we have these
+
+![Satellite exploration 20](images/5-lab-satellite-hana-server4.png)
+
+**l.** Click on the **Content Views** tab.
+
+![Satellite exploration 21](images/5-lab-satellite-hana-server2.png)
+
+This screen shows the two Simple Content Views which make up this **Composite Content View** you may note that the **Environments** show Library and Development, this is only the most recent state. Composite Content Views also use versions. Each version is made up of a specific version two or more Simple Content Views. 
+
+**m.** Click on 
 
 
 
