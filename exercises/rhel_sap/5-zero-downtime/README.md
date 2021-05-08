@@ -13,12 +13,12 @@ Overview
 
 In this lab exercise, you will perform an OS upgrade on HANA systems without any downtime. During the upgrade application server will be serving connection through the backup server.
 
-In the workshop environment, you will perform the OS update as part of a worfklow (pipeline) on production environment.
+In the workshop environment, you will perform the OS update as part of a worfklow (pipeline) in the production environment.
 In this example you will also promote content on satellite from Development environment to Production. In a real world scenario you can
 have another workflow template test the new content (updates etc) on pre-production environment and promote at end of
 successful update.
 
-You will run Rolling update which will be performed o each HANA instance one-at-a-time (50%) and it will be rebooted at any given time, because 
+You will run Rolling update which will be performed on each HANA instance one-at-a-time (50%) and it will be rebooted at any given time, because 
 you have HA configured in your environment, it will automatically switch to the other instance. Likewise when it moves 
 to working on the 2nd system, 1st system will be booted up and operational to receive new connections while the 2nd system is being upgraded.
 
@@ -101,12 +101,12 @@ Right-click in each box as it's running and open in a new window to observe both
 Understanding the role of Satellite [Optional]
 ----------------------------------------------
 
-If the workshop envirnoment includes a Red Hat Satellite we will explore some of the capabilities that make this process easier to manage.
+If the workshop environment includes a Red Hat Satellite we will explore some of the capabilities that make this process easier to manage.
 
 Logging into Satellite
 ----------------------
 
-The class shares a single instance of Satellite. The URL and credentials were supplied to you at the begining of the workshop, please ask your instructor for assistance if you don not have them at hand.
+The class shares a single instance of Satellite. The URL and credentials were supplied to you at the beginning of the workshop, please ask your instructor for assistance if you don't have them at hand.
 
 After authenticating you will land on the Satellite Dashboard
 
@@ -116,7 +116,7 @@ After authenticating you will land on the Satellite Dashboard
 
 ![Satellite exploration 2](images/5-lab-satellite-nav-to-repos.png)
 
-Note the some of the pertinent repositiories highlighted in this screen. The repositiores on the right hand are those that the administorator has slected for use in his or her environement. Only content that is actually needed is selected and replicated locally.
+Note the some of the pertinent repositories highlighted in this screen. The repositories on the right hand are those that the administrator has selected for use in his or her environment. Only content that is actually needed is selected and replicated locally.
 
 ![Satellite exploration 3](images/5-lab-satellite-repos.png)
 
@@ -124,7 +124,7 @@ Note the some of the pertinent repositiories highlighted in this screen. The rep
 
 ![Satellite exploration 4](images/5-lab-satellite-nav-to-cvs.png)
 
-In this view we can see all of the Content Views whihc have been created on this Satellite. A content view can be thought of as a database select against tables (repositories) which results in a group of packages applicable for a certain usages, such as a Standard Operating Environment (SOE) which could be used ubiquitously as a standard base across all servers using a major version of RHEL. Note that we have highlighted three particular Content Views here which we will explore in the next steps. Also not that one is a **Composite Content View**, this is a special use case which allows administrators to enhance efficicnecy and consistency by using and SOE a consistent base for specialized servers. 
+In this view we can see all of the Content Views which have been created on this Satellite. A content view can be thought of as a database select against tables (repositories) which results in a group of packages applicable for a certain usages, such as a Standard Operating Environment (SOE) which could be used ubiquitously as a standard base across all servers using a major version of RHEL. Note that we have highlighted three particular Content Views here which we will explore in the next steps. Also not that one is a **Composite Content View**, this is a special use case which allows administrators to enhance efficiency and consistency by using and SOE a consistent base for specialized servers. 
 
 ![Satellite exploration 5](images/5-lab-satellite-cvs.png)
 
@@ -138,7 +138,7 @@ In this view note that we have a version assigned to the **Production Environmen
 
 ![Satellite exploration 7](images/5-lab-satellite-soe-cv2.png)
 
-In this view we can see the three repositories which define the SOE. Note that they have been recently syncchronized with the latest packages from the Red Hat Content Delivery Network, much more recently than the date of our Production version of the RHEL8 SOE. By creating point in time versions of a Content View Red Hat provides customers the ability to easily manage operating systems as they do applications using a lifecycle management concept.
+In this view we can see the three repositories which define the SOE. Note that they have been recently synchronized with the latest packages from the Red Hat Content Delivery Network, much more recently than the date of our Production version of the RHEL8 SOE. By creating point in time versions of a Content View Red Hat provides customers the ability to easily manage operating systems as they do applications using a lifecycle management concept.
 
 ![Satellite exploration 8](images/5-lab-satellite-soe-cv3.png)
 
@@ -146,11 +146,11 @@ In this view we can see the three repositories which define the SOE. Note that t
 
 ![Satellite exploration 9](images/5-lab-satellite-soe-cv4.png)
 
-**f.** In the next view click on **Monthy Release Filter** 
+**f.** In the next view click on **Monthly Release Filter** 
 
 ![Satellite exploration 10](images/5-lab-satellite-soe-cv5.png)
 
-In this view we can see that the administrator has created a filter which affects all three types of errata based on the date they were most recnetly updated and filters **out** any updated **after** a certain date. Filters are customer defined and very flexible, for the purposes of this workshop we have simply focused on creating a monthly release cadence. If you would like to explore the possibilities futhre please discuss this with the instructor of one of the other facilitators.
+In this view we can see that the administrator has created a filter which affects all three types of errata based on the date they were most recently updated and filters **out** any updated **after** a certain date. Filters are customer defined and very flexible, for the purposes of this workshop we have simply focused on creating a monthly release cadence. If you would like to explore the possibilities further please discuss this with the instructor of one of the other facilitators.
 
 ![Satellite exploration 11](images/5-lab-satellite-soe-cv6.png)
 
@@ -164,7 +164,7 @@ The next step in our exploration will be to see the way in which we can create a
 
 ![Satellite exploration 13](images/5-lab-satellite-nav-to-hana-overlay2.png)
 
-In this view we can see that we use the same concepts as in the SOE. Multipe versions with one assigned to the Production Lifecycle.
+In this view we can see that we use the same concepts as in the SOE. Multiple versions with one assigned to the Production Lifecycle.
 
 ![Satellite exploration 13](images/5-lab-satellite-hana-overlay1.png)
 
@@ -172,7 +172,7 @@ In this view we can see that we use the same concepts as in the SOE. Multipe ver
 
 ![Satellite exploration 14](images/5-lab-satellite-hana-overlay2.png)
 
-In this view we can see the additional repositories the administrator has selelctec to augnet the SOE so that it can support an SAP HANA workload.
+In this view we can see the additional repositories the administrator has selected to augment the SOE so that it can support an SAP HANA workload.
 
 ![Satellite exploration 15](images/5-lab-satellite-hana-overlay3.png)
 
@@ -184,7 +184,7 @@ In this view we can see the additional repositories the administrator has selelc
 
 ![Satellite exploration 17](images/5-lab-satellite-nav-to-hana-server2.png)
 
-In this view we can see essntially the same Content View concept with an easily noticeable difference. 
+In this view we can see essentially the same Content View concept with an easily noticeable difference. 
 
 ![Satellite exploration 18](images/5-lab-satellite-hana-server1.png)
 
@@ -200,14 +200,7 @@ we have these
 
 ![Satellite exploration 21](images/5-lab-satellite-hana-server2.png)
 
-This screen shows the two Simple Content Views which make up this **Composite Content View** you may note that the **Environments** show Library and Development, this is only the most recent state. Composite Content Views also use versions. Each version is made up of a specific version two or more Simple Content Views. 
-
-**m.** Click on 
-
-
-
-
-
+This screen shows the two **Simple Content Views** which make up this **Composite Content View** Composite Content Views also use versions. Each version is made up of specific versions of two or more Simple Content Views. In this view we can see that the most recently created version is being used in both the Library and Development Environments. The systems being upgraded as we've walked through this part of Satellite are using the Production Environment which, in our example organization, is served by a version which  would have been in use in lower lifecycles for several months now allowing system Administrators, Basis Administrators, Application Developers, Quality Assurance Analysts and others to ensure that the full stack works in Production as it had in lower lifecycles.
 
 
 Step 4:
@@ -223,16 +216,16 @@ observe.
 ![Verify Job Details](images/5-verify-job-details.png)
 
 The fact that it didn't exit early with a failure means the DB connection has not been interrupted from the user
-perspective during the upgrade. You should see a status report at the end of the observe period.
+perspective during the upgrade. You should see a status report at the end of the observation period.
 
 
 
 Challenge Exercise: Non-rolling Update
 ======================
 
-Now that you've done the proper way of upgrading your HANA systems with zero-down time, you may be wondering what would happen if you upgrade both HANA systems at the same time? This is clearly not recommended for production environment but if you're upto the challenge and want to see how the environment behaves you can perform this exercise.
+Now that you've done the proper way of upgrading your HANA systems with zero-down time, you may be wondering what would happen if you upgrade both HANA systems at the same time? This is clearly not recommended for production environment but if you're up to the challenge and want to see how the environment behaves you can perform this exercise.
 
-In this exercise you will run through the same job template as in the previous challenge exercise **Lab 5 - Test Unplanned Outag**. This time you want to run on both HANA systems in parallel.
+In this exercise you will run through the same job template as in the previous challenge exercise **Lab 5 - Test Unplanned Outage**. This time you want to run on both HANA systems in parallel.
 
 **Hint**: Did you notice that we included a variable **job_percentage: 50**, this controls the 'serial' strategy on the rolling update playbook. What value would you need to change this to so that it runs on both (all) HANA systems at the same time?
 
