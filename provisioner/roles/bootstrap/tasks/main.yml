@@ -1,0 +1,42 @@
+---
+
+- name: include common tasks
+  ansible.builtin.include_tasks:
+    file: "{{ file }}"
+  loop_control:
+    loop_var: file
+  loop:
+    - pre-flight-checklist.yml
+    - setup-venv.yml
+  tags:
+    - always
+
+- name: install awx.awx for configuring tower
+  ansible.builtin.shell:
+    cmd: /usr/bin/ansible-galaxy collection install awx.awx:17.1.0 --force
+  delegate_to: localhost
+  when:
+    - configure_tower is defined
+    - configure_tower | bool
+  tags:
+    - always
+
+- name: include tasks for configuring tower hosts
+  ansible.builtin.include_tasks:
+    file: setup-tower-hosts.yml
+  when:
+    - configure_tower is defined
+    - configure_tower | bool
+  tags:
+    - always
+
+- name: include tasks for configuring tower
+  ansible.builtin.include_tasks:
+    file: configure-tower.yml
+    apply:
+      delegate_to: localhost
+  when:
+    - configure_tower is defined
+    - configure_tower | bool
+  tags:
+    - always

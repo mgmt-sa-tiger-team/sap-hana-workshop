@@ -1,5 +1,5 @@
 ---
 use_manifest: false
 collections:
-  - awx.awx
+  - awx.awx:17.1.0
   - ansible.product_demos

@@ -1,0 +1,14 @@
+all:
+  hosts:
+    tower.example.com:
+      ansible_user: root
+      ansible_password: changeme
+      configure_tower: yes
+      tower:
+        host: "{{ inventory_hostname }}"
+        username: admin
+        password: changeme
+    fedora33.example.com:
+      ansible_host: 1.2.3.4
+      ansible_user: root
+      ansible_password: changeme

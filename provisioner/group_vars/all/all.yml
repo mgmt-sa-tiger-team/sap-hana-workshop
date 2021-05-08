@@ -1,6 +1,6 @@
 ---
 admin_password: ansible
-code_server: true
+code_server: false
 workshop_dns_zone: "regional.aws.redhat-demo.com"
 s3_state: "present"
 teardown: false

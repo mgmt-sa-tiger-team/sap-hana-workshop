@@ -52,7 +52,7 @@ job_templates:
   diff_mode: false
   extra_vars: '---
 
-    aws_storage_bucket_name: rhsap-demo'
+    aws_storage_bucket_name: {{ aws_storage_bucket_name | default("rhsap-demo") }}'
   force_handlers: false
   forks: 0
   host_config_key: ''
@@ -112,7 +112,7 @@ job_templates:
   diff_mode: false
   extra_vars: '---
 
-    aws_storage_bucket_name: rhsap-demo'
+    aws_storage_bucket_name: {{ aws_storage_bucket_name | default("rhsap-demo") }}'
   force_handlers: false
   forks: 0
   host_config_key: ''

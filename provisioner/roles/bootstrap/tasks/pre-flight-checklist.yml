@@ -1,0 +1,23 @@
+---
+
+- name: assert supported OS distro
+  ansible.builtin.assert:
+    that:
+      - hostvars[inventory_hostname]['ansible_distribution'] == 'RedHat' or hostvars[inventory_hostname]['ansible_distribution'] == 'Fedora'
+    fail_msg: "This is intended for RHEL or Fedora hosts"
+
+- name: assert proper RHEL version
+  ansible.builtin.assert:
+    that:
+      - hostvars[inventory_hostname]['ansible_distribution_major_version'] | int == 8
+    fail_msg: "This is intended for RHEL8 hosts"
+  when:
+    - hostvars[inventory_hostname]['ansible_distribution'] == 'RedHat'
+
+- name: assert proper Fedora version
+  ansible.builtin.assert:
+    that:
+      - hostvars[inventory_hostname]['ansible_distribution_major_version'] | int == 33
+    fail_msg: "This is intended for Fedora33 hosts"
+  when:
+    - hostvars[inventory_hostname]['ansible_distribution'] == 'Fedora'

@@ -93,8 +93,8 @@
 - name: Ensure tower license is not expired
   assert:
     that: ansible_date_time.epoch|int < tower_license.license_date|int
-    fail_msg: "WARNING: Ansible Tower License expired."
-  ignore_errors: true
+    fail_msg: "ERROR: Ansible Tower License expired. You need a valid Tower License to proceed."
+#  ignore_errors: true
   when:
     - towerinstall
     - not use_manifest

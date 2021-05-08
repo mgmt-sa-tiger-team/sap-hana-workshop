@@ -1,0 +1,16 @@
+---
+
+- name: setup venv for provisioning workshop
+  hosts:
+    - all
+  gather_facts: no
+  pre_tasks:
+    - name: set ansible connection to local for localhost
+      ansible.builtin.set_fact:
+        ansible_connection: local
+      when:
+        - inventory_hostname == 'localhost'
+    - name: gather facts with appropriate connection
+      ansible.builtin.setup:
+  roles:
+    - bootstrap
