@@ -41,7 +41,7 @@ All servers assigned to **Production**
   * Release Version: 8.1
   * Environment: Production
   * Content View: RHEL SAP HANA Base
-  * Subscriptions: Employee SKU (obviously this will vary for non-Employees)
+  * Subscriptions: Employee SKU (obviously this will vary for those who are not Red Hat Employees)
   * Repository Sets
     * Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)
     * Red Hat Enterprise Linux 8 for x86_64 - BaseOS - Update Services for SAP Solutions (RPMs)
@@ -100,3 +100,32 @@ All servers assigned to **Production**
 ###### Content Views
 *    RHEL8 SOE
 *    SAP HANA Overlay RHEL 8
+### Manual configurations
+In future releases of the provisioner we plan to eliminate the need for these steps
+#### Networking
+If the Satellite cannot resolve the hostnames of the Content Hosts, which is very likely the case in AWS and other cloud providers, we must create an addedum to the Satellites /etc/hosts file.
+#### Remote execution from the Satellite
+We need to populate the Satellite's public key in each of the HANA hosts
+
+Both can be achieved with this shell script run from the provisioner workshop directory created by the provisioner, note that you will need to edit in the FQDN of your Satellite.
+
+```bash
+#!/bin/bash
+#interim shell script to enable Insights remediation via Satellite in SAP HANA Workshop
+
+# determine workshop name from directory name
+project=$(pwd|awk -F "/" '{print $NF}')
+
+# create entries to append to /etc/hosts on the Satellite
+awk -v project=$project '/^student/ && /hana/ {split($1,host,"-");split($2,extip,"=");printf("%s %s.%s-%s\n",extip[2],host[2],project,host[1])}' instructor_inventory.txt > hosts.$project
+
+# iterate through the host list and add the Satellite's public key to each of the HANA VMs
+# note, if you edit this for a different Satellite you must use the FQDN, the IP address will not
+# coincide with the certificate
+for x in $(awk '{print $1}' hosts.$project)
+do
+    ssh -i $project-private.pem ec2-user@$x "curl https://<Satellite FQDN>:9090/ssh/pubkey >> /home/ec2-user/.ssh/authorized_keys"
+done
+
+echo "manually append hosts.$project to the /etc/hosts file on the Satellite and prune it back out when you are done"
+```
