@@ -3,6 +3,7 @@
 role_action: register
 
 rhn_force_register: yes
+rhn_auto_attach: yes
 
 rhn_offline: no
 

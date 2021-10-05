@@ -11,10 +11,10 @@
   check_mode: true
   register: package_state
 
-- name: fail if previous check has changed
-  assert:
-    that:
-      - package_state.changed | bool
+#- name: fail if previous check has changed
+#  assert:
+#    that:
+#      - package_state.changed | bool
 
 - name: required roles
   shell: "ansible-galaxy install {{item}} -f --force-with-deps -p ./roles/"

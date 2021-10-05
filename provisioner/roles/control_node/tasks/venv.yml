@@ -28,7 +28,8 @@
 - name: install ansible development branch to venv
   pip:
     name:
-      - git+https://github.com/ansible/ansible.git@devel
+      #- git+https://github.com/ansible/ansible.git@devel
+      - ansible==2.9
       - psutil
       - paramiko
       - ncclient

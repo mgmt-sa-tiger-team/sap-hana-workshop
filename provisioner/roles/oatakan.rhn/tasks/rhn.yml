@@ -1,12 +1,18 @@
 ---
 
+- name: enable built-in redhat repos
+  command: subscription-manager config --rhsm.manage_repos=1
+  changed_when: True
+  ignore_errors: yes
+
 - block:
     - name: register with rhn
       redhat_subscription:
         state: present
         username: "{{ rhn_username }}"
         password: "{{ rhn_password }}"
-        pool: "{{ rhn_subscription }}"
+        auto_attach: "{{ rhn_auto_attach }}"
+        pool: "{{ rhn_pool }}"
         force_register: "{{ rhn_force_register }}"
       register: register_rhn
       until: register_rhn is success
@@ -15,7 +21,7 @@
       when:
         - rhn_username is defined
         - rhn_password is defined
-        - rhn_subscription is defined
+        - rhn_subscription is defined or (rhn_subscription is undefined and rhn_auto_attach|bool)
 
   rescue:
     - name: clean rhn registration if available
@@ -30,29 +36,38 @@
         - rhn_username is defined
         - rhn_password is defined
 
-    - name: get pool id
-      shell: subscription-manager list --all --available --matches "{{ rhn_subscription }}" --pool-only | head -1
-      register: pool_id
-      until: pool_id is success
-      retries: 5
-      delay: 10
-      ignore_errors: yes
-      when: rhn_subscription is defined
+    - name: auto attach subscription
+      command: subscription-manager attach --auto
+      ignore_errors: true
+      when: rhn_auto_attach|bool
 
-    - debug: msg="{{ pool_id.stdout }}"
-      when: rhn_subscription is defined
+    - block:
+        - name: get pool id
+          shell: >
+            subscription-manager list
+            --all --available --matches "{{ rhn_subscription }}"
+            --pool-only | {{ rhn_pool_order }}
+          register: pool_id
+          until: pool_id is success
+          retries: 5
+          delay: 10
+          ignore_errors: yes
 
-    - name: add pool
-      command: subscription-manager attach --pool={{ pool_id.stdout }}
-      register: add_pool
-      until: add_pool is success
-      retries: 5
-      delay: 10
-      ignore_errors: yes
+        - debug: msg="{{ pool_id.stdout }}"
+
+        - name: add pool
+          command: subscription-manager attach --pool={{ pool_id.stdout }}
+          register: add_pool
+          until: add_pool is success
+          retries: 5
+          delay: 10
+          ignore_errors: yes
+          when:
+            - pool_id is succeeded
+            - pool_id.stdout | length > 0
       when:
+        - not rhn_auto_attach|bool
         - rhn_subscription is defined
-        - pool_id is succeeded
-        - pool_id.stdout | length > 0
 
 - block:
     - name: enable repositories

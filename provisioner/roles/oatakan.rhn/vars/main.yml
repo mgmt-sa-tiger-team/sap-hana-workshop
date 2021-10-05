@@ -1,3 +1,8 @@
 ---
 
 repo_channels: "{{ rhel_8_repo_channels if (ansible_distribution_major_version|int == 8) else rhel_7_repo_channels }}"
+
+rhn_pool: "{{ omit if (rhn_auto_attach|bool) else rhn_subscription }}"
+
+# physical is listed as the first item in the list and virtual is the 2nd item
+rhn_pool_order: "{{ 'tail -1' if ((ansible_virtualization_role | default('guest')) == 'guest') else 'head -1' }}"

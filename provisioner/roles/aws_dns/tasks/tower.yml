@@ -17,6 +17,12 @@
     state: present
     disable_gpg_check: true
 
+- name: install prereq packages
+  pip:
+    name:
+      - requests==2.14.2
+    state: latest
+
 # https://docs.ansible.com/ansible-tower/latest/html/administration/init_script.html
 - name: turn off Ansible Tower
   shell: ansible-tower-service stop

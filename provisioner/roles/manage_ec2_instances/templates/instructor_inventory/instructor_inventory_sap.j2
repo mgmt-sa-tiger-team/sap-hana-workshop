@@ -1,6 +1,7 @@
 [all:vars]
 {% if ssh_port is defined %}
 ansible_port={{ ssh_port }}
+ansible_ssh_private_key_file={{ ec2_name_prefix }}-private.pem
 {% endif %}
 
 {% for number in range(1,student_total + 1) %}
@@ -18,6 +19,11 @@ ansible_port={{ ssh_port }}
 {% for host in hana2_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
 {{host.tags.Student}}-hana2 ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} private_ip={{ hostvars[host.tags.Name]['private_ip'] }}
+{% endif %}
+{% endfor %}
+{% for host in s4app_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-s4app ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} private_ip={{ hostvars[host.tags.Name]['private_ip'] }}
 {% endif %}
 {% endfor %}
 {% for host in windows_node_facts.instances %}
